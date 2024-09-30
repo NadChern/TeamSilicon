@@ -11,6 +11,10 @@ namespace ContosoCrafts.WebSite.Pages
     /// <summary>
     /// Nadezhda Chernova
     /// </summary>
+    
+    /// <summary>
+    /// Dat Nguyen
+    /// </summary>
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
