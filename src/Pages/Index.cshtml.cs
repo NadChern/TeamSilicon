@@ -11,9 +11,13 @@ namespace ContosoCrafts.WebSite.Pages
     /// <summary>
     /// Nadezhda Chernova
     /// </summary>
-    
+
     /// <summary>
     /// Dat Nguyen
+    /// </summary>
+
+    /// <summary>
+    /// Ai Sun
     /// </summary>
     public class IndexModel : PageModel
     {
