@@ -1,0 +1,74 @@
+@using ContosoCrafts.WebSite.Models
+@using ContosoCrafts.WebSite.Services
+@using Microsoft.AspNetCore.Components.Web
+@inject JsonFileFlashcardService FlashcardService
+
+<style>
+  .category {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .categoryItem {
+    background: rgb(72, 73, 78);
+    border: 1px solid rgb(138, 117, 117);
+    padding: 1px 5px;
+    border-radius: 5px;
+    color: white;
+  }
+
+  .cardBody {
+    min-height: 200px;
+    height: fit-content;
+  }
+</style>
+
+
+<div class="card-columns">
+    @foreach (var flashcard in FlashcardService.GetAllData())
+    {
+
+        <div class="card" data-id="@flashcard.Id" @onclick="@(_ => ToggleCard(flashcard.Id))">
+            <div class="card-header category">
+                <span><strong>Category: </strong></span>
+                <span class="categoryItem">@flashcard.CategoryId</span>
+            </div>
+            <div class="card-body cardBody">
+
+                @if (selectedCardId == flashcard.Id && showAnswer)
+                {
+                    // back side (answer) when clicked on the card
+                    <p class="card-text">@flashcard.Answer</p>
+
+                }
+                else
+                {
+                    // front side (question)
+                    <p class="card-text text-center">@flashcard.Question</p>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    FlashcardModel selectedFlashcard;
+    private string? selectedCardId;
+    private bool showAnswer;
+
+
+    private void ToggleCard(string cardId)
+    {
+        System.Console.WriteLine($"clicked card {cardId}");
+        if (selectedCardId == cardId)
+        {
+            showAnswer = !showAnswer;
+        }
+        else
+        {
+            selectedCardId = cardId;
+            showAnswer = true;
+        }
+    }
+}
