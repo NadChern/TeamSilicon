@@ -25,6 +25,7 @@ namespace ContosoCrafts.WebSite
             services.AddHttpClient();
             services.AddControllers();
             services.AddTransient<JsonFileProductService>();
+            services.AddTransient<JsonFileFlashcardService>(); // register flashcard service
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
