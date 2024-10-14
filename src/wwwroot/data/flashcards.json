@@ -1,0 +1,20 @@
+[
+  {
+    "Id": "1",
+    "CategoryId": "OOP",
+    "Question": "What are the four pillars of OOP?",
+    "Answer": "Encapsulation, inheritance, polymorphism, and abstraction."
+  },
+  {
+    "Id": "2",
+    "CategoryId": "OOP",
+    "Question": "What is polymorphism and how is it implemented in OOP?",
+    "Answer": "Polymorphism allows objects of different types to be treated as a common type. It's implemented through method overriding and interfaces, enabling methods to behave differently based on the object."
+  },
+  {
+    "Id": "3",
+    "CategoryId": "OOP",
+    "Question": "What is encapsulation and why is it important?",
+    "Answer": "Encapsulation is the bundling of data (attributes) and methods (functions) into a single unit or class, restricting access to certain components. It protects object integrity and promotes modular, maintainable code."
+  }
+]
