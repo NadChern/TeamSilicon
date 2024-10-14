@@ -1,0 +1,9 @@
+@page
+@using ContosoCrafts.WebSite.Components
+@model ContosoCrafts.WebSite.Pages.Flashcards.FlashcardsModel
+@{
+    ViewData["Title"] = "Flashcards";
+}
+
+@(await Html.RenderComponentAsync<Flashcard>(RenderMode.ServerPrerendered))
+
