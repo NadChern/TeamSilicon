@@ -13,6 +13,8 @@ namespace ContosoCrafts.WebSite.Models
         
         [JsonPropertyName("Difficulty")]
         public string DifficultyLevel { get; set; }
+        
+        public string Url { get; set; }
         public override string ToString() => JsonSerializer.Serialize<FlashcardModel>(this);
     }
 }
