@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 
 namespace ContosoCrafts.WebSite.Models
@@ -9,6 +10,9 @@ namespace ContosoCrafts.WebSite.Models
         public string CategoryId { get; set; }
         public string Question { get; set; }
         public string Answer { get; set; }
+        
+        [JsonPropertyName("Difficulty")]
+        public string DifficultyLevel { get; set; }
         public override string ToString() => JsonSerializer.Serialize<FlashcardModel>(this);
     }
 }
