@@ -3,20 +3,51 @@
 @using Microsoft.AspNetCore.Components.Web
 @inject JsonFileProductService ProductService
 
-<div class="card-columns">
+<style>
+    .masonry-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+
+        .masonry-grid .card {
+            break-inside: avoid;
+        }
+
+    .card-img {
+        aspect-ratio: 1 / 1; 
+        background-size: cover;
+        background-position: center;
+        width: 100%; 
+    }
+    .card-body {
+        display: grid;
+        place-items: center; 
+        text-align: center; 
+    }
+    .card-footer {
+        display: flex;
+        justify-content: center;
+        align-items: center; 
+        height: 100%; 
+        text-align: center; 
+    }
+
+
+
+</style>
+
+<div class="masonry-grid">
     @foreach (var product in ProductService.GetAllData())
     {
         <div class="card">
-            <div class="card-img" style="background-image: url('@product.Image');">
-            </div>
+            <div class="card-img" style="background-image: url('@product.Image');"></div>
             <div class="card-body">
                 <h5 class="card-title">@product.Title</h5>
             </div>
             <div class="card-footer">
                 <small class="text-muted">
-                    @*<button @onclick="(e => SelectProduct(product.Id))"
-                  data-toggle="modal" data-target="#productModal" class="btn btn-primary"> *@
-                    <button>
+                    <button class="btn btn-primary">
                         View Cards
                     </button>
                 </small>
@@ -24,6 +55,7 @@
         </div>
     }
 </div>
+
 
 @if (selectedProduct != null)
 {
