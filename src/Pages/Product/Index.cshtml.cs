@@ -16,17 +16,17 @@ namespace ContosoCrafts.WebSite.Pages.Product
         /// <summary>
         /// Default Constructor
         /// </summary>
-        /// <param name="productService"></param>
-        public IndexModel(JsonFileProductService productService)
+        /// <param name="flashcardService"></param>
+        public IndexModel(JsonFileFlashcardService flashcardService)
         {
-            ProductService = productService;
+            FlashcardService = flashcardService;
         }
 
         // Data Service
-        public JsonFileProductService ProductService { get; }
+        public JsonFileFlashcardService FlashcardService { get; }
 
         // Collection of the Data
-        public IEnumerable<ProductModel> Products { get; private set; }
+        public IEnumerable<FlashcardModel> Flashcards { get; private set; }
 
         /// <summary>
         /// REST OnGet
@@ -34,7 +34,7 @@ namespace ContosoCrafts.WebSite.Pages.Product
         /// </summary>
         public void OnGet()
         {
-            Products = ProductService.GetAllData();
+            Flashcards = FlashcardService.GetAllData();
         }
     }
 }
