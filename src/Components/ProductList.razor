@@ -49,7 +49,8 @@
 <div class="masonry-grid">
     @foreach (var product in ProductService.GetAllData())
     {
-        <div class="card" @onclick="() => SelectProduct(product.Id)">
+        @*<div class="card" @onclick="() => SelectProduct(product.Id)">*@
+        <div class="card">
             <div class="card-img" style="background-image: url('@product.Image');"></div>
             <div class="card-body">
                 <h5 class="card-title">@product.Title</h5>
