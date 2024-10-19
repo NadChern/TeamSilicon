@@ -13,10 +13,10 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var product in Model.Products)
+            @foreach (var card in Model.Flashcards)
             {
                 <tr>
-                    <td>@product.Title</td>
+                    <td>@card.Question</td>
                     @*<td><a asp-page="Read" asp-route-id="@product.Id">Read</a></td>*@
                 </tr>
             }
