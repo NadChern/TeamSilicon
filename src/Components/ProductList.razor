@@ -12,66 +12,66 @@
 
         .masonry-grid .card {
             break-inside: avoid;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 50px; /* Rounded corners for the card */
+            overflow: hidden; /* Ensures image fits within rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow */
         }
 
+            .masonry-grid .card:hover {
+                transform: scale(1.05); /* Scale effect on hover */
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+            }
+
     .card-img {
-        aspect-ratio: 1 / 1; 
+        aspect-ratio: 1 / 1;
         background-size: cover;
         background-position: center;
-        width: 100%; 
+        width: 100%;
     }
+
     .card-body {
         display: grid;
-        place-items: center; 
-        text-align: center; 
+        place-items: center;
+        text-align: center;
     }
+
     .card-footer {
         display: flex;
         justify-content: center;
-        align-items: center; 
-        height: 100%; 
-        text-align: center; 
+        align-items: center;
+        height: 100%;
+        text-align: center;
     }
-
-
-
 </style>
 
 <div class="masonry-grid">
     @foreach (var product in ProductService.GetAllData())
     {
-        <div class="card">
+        <div class="card" @onclick="() => SelectProduct(product.Id)">
             <div class="card-img" style="background-image: url('@product.Image');"></div>
             <div class="card-body">
                 <h5 class="card-title">@product.Title</h5>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">
-                    <button class="btn btn-primary">
-                        View Cards
-                    </button>
-                </small>
             </div>
         </div>
     }
 </div>
 
-
 @if (selectedProduct != null)
 {
-    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productTitle" aria-hidden="true">
+    <div class="modal fade show" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productTitle" aria-hidden="true" style="display: block;">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="productTitle">@selectedProduct.Title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" @onclick="() => selectedProduct = null">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="card">
-                        <div class="card-img" style="background-image: url('@selectedProduct.Image');">
-                        </div>
+                        <div class="card-img" style="background-image: url('@selectedProduct.Image');"></div>
                         <div class="card-body">
                             <p class="card-text">@selectedProduct.Description</p>
                         </div>
@@ -106,8 +106,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-@code
-{
+@code {
     ProductModel selectedProduct;
     string selectedProductId;
 
