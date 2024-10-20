@@ -22,5 +22,29 @@
     "Answer": "Encapsulation is the bundling of data (attributes) and methods (functions) into a single unit or class, restricting access to certain components. It protects object integrity and promotes modular, maintainable code.",
     "Difficulty": "Easy",
     "Url": ""
+  },
+  {
+    "Id": "4",
+    "CategoryId": "Python",
+    "Question": "What is a Python dictionary and how do you access its elements?",
+    "Answer": "Dictionary is a collection of key-value pairs, defined with curly braces { }. Elements are accessed by their key, e.g., my_dict[\"key\"].",
+    "Difficulty": "Easy",
+    "Url": ""
+  },
+  {
+    "Id": "5",
+    "CategoryId": "Python",
+    "Question": "How do you handle exceptions in Python?",
+    "Answer": "Exceptions in Python are handled using the try, except, and optionally finally blocks.",
+    "Difficulty": "Easy",
+    "Url": ""
+  },
+  {
+    "Id": "6",
+    "CategoryId": "Python",
+    "Question": "What is the difference between a list and a tuple in Python?",
+    "Answer": "A List is Mutable (can be modified after creation) and defined with square brackets [ ]. A tuple is Immutable (cannot be modified after creation) and defined with parentheses ( ).",
+    "Difficulty": "Easy",
+    "Url": ""
   }
 ]
