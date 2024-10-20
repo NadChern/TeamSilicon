@@ -3,6 +3,7 @@ using System.IO;
 using System.Text.Json;
 using ContosoCrafts.WebSite.Models;
 using Microsoft.AspNetCore.Hosting;
+using System.Linq;
 
 namespace ContosoCrafts.WebSite.Services
 {
@@ -28,5 +29,10 @@ namespace ContosoCrafts.WebSite.Services
                     });
             }
         }
+        public FlashcardModel GetById(string id)
+        {
+            return GetAllData().First(x => x.Id == id);
+        }
+
     }
 }
