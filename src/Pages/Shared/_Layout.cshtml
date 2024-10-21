@@ -1,16 +1,16 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - Flash Cards</title>
-    <base href="/" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <base href="/"/>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="~/css/site.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Londrina+Sketch&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"/>
 
     <style>
         .navbar-brand {
@@ -40,55 +40,55 @@
     </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-navbar border-bottom box-shadow mb-3">
-            <div class="container">
-                <!-- Navbar Brand -->
-                <a class="navbar-brand" asp-area="" asp-page="/Index">
-                    <div class="title-row">
-                        <span class="material-symbols-outlined">style</span>
-                        Flash Cards
-                    </div>
-                    <span class="watermark">Presented by: team silicon</span>
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">About Us</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/CardIndex/Index">Cards Index</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Flashcards/Flashcards">Flashcards</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted bg-footer">
+<header>
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-navbar border-bottom box-shadow mb-3">
         <div class="container">
-            &copy; 2024 - TeamSilicon.Website - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            <!-- Navbar Brand -->
+            <a class="navbar-brand" asp-area="" asp-page="/Index">
+                <div class="title-row">
+                    <span class="material-symbols-outlined">style</span>
+                    Flash Cards
+                </div>
+                <span class="watermark">Presented by: team silicon</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-page="/CardIndex/Index">Cards Index</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/Flashcards">Flashcards</a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </footer>
+    </nav>
+</header>
 
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/_framework/blazor.server.js"></script>
+<div class="container">
+    <main role="main" class="pb-3">
+        @RenderBody()
+    </main>
+</div>
 
-    @RenderSection("Scripts", required: false)
+<footer class="border-top footer text-muted bg-footer">
+    <div class="container">
+        &copy; 2024 - TeamSilicon.Website - <a asp-area="" asp-page="/Privacy">Privacy</a>
+    </div>
+</footer>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/_framework/blazor.server.js"></script>
+
+@RenderSection("Scripts", required: false)
 </body>
 </html>
