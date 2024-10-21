@@ -46,5 +46,37 @@
     "Answer": "A List is Mutable (can be modified after creation) and defined with square brackets [ ]. A tuple is Immutable (cannot be modified after creation) and defined with parentheses ( ).",
     "Difficulty": "Easy",
     "Url": ""
+  },
+  {
+    "Id": "7",
+    "CategoryId": "C#",
+    "Question": "What is a nullable type in C# and how is it used?",
+    "Answer": "A nullable type allows value types to hold null values. It's used with '?' (e.g., int? x = null) to represent an undefined or absent value.",
+    "Difficulty": "Medium",
+    "Url": ""
+  },
+  {
+    "Id": "8",
+    "CategoryId": "C++",
+    "Question": "What is the difference between a pointer and a reference in C++?",
+    "Answer": "A pointer stores the memory address of a variable, while a reference is an alias to an existing variable. Pointers can be reassigned, but references cannot.",
+    "Difficulty": "Hard",
+    "Url": ""
+  },
+  {
+    "Id": "9",
+    "CategoryId": "Mobile",
+    "Question": "What is the difference between native, hybrid, and web mobile apps?",
+    "Answer": "Native apps are built for specific platforms (e.g., iOS or Android), hybrid apps are developed using web technologies and run inside a native container, and web apps run in mobile browsers without installation.",
+    "Difficulty": "Easy",
+    "Url": ""
+  },
+  {
+    "Id": "10",
+    "CategoryId": "DS",
+    "Question": "What is a distributed system?",
+    "Answer": "A distributed system is a collection of independent computers that appear to users as a single coherent system. These systems share resources and coordinate tasks to achieve common goals.",
+    "Difficulty": "Medium",
+    "Url": ""
   }
 ]
