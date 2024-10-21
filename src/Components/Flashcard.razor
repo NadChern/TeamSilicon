@@ -24,6 +24,17 @@
     min-height: 200px;
     height: fit-content;
   }
+  
+  .svg {
+      width: 18px;
+      height: 18px;
+  }
+  
+  .text-second {
+      font-size: 14px;
+      margin-right: 5px;
+  }
+  
 </style>
 
 
@@ -38,10 +49,39 @@
         {
             <div class="card" data-id="@flashcard.Id" @onclick="() => ToggleCard(flashcard.Id)">
                 <div class="card-header category">
-                    <span>
-                        <strong>Category: </strong>
-                    </span>
-                    <span class="categoryItem">@flashcard.CategoryId</span>
+                    <div>
+                        <span class="categoryItem">@flashcard.CategoryId</span>
+                    </div>
+                    <div>
+                        <span class="text-second">Level: </span>
+                        @if (flashcard.DifficultyLevel == "Easy")
+                        {
+                            <span>
+                                <img src="icons/dog-paw.svg" alt="Logo" class="svg"/>
+                            </span>
+                        }
+                        else if (flashcard.DifficultyLevel == "Medium")
+                        {
+                            <span>
+                                <img src="icons/dog-paw.svg" alt="Logo" class="svg"/>
+                            </span>
+                            <span>
+                                <img src="icons/dog-paw.svg" alt="Logo" class="svg"/>
+                            </span>
+                        }
+                        else if (flashcard.DifficultyLevel == "Hard")
+                        {
+                            <span>
+                                <img src="icons/dog-paw.svg" alt="Logo" class="svg"/>
+                            </span>
+                            <span>
+                                <img src="icons/dog-paw.svg" alt="Logo" class="svg"/>
+                            </span>
+                            <span>
+                                <img src="icons/dog-paw.svg" alt="Logo" class="svg"/>
+                            </span>
+                        }
+                    </div>
                 </div>
                 <div class="card-body cardBody">
 
@@ -110,5 +150,4 @@
             showAnswer = true;
         }
     }
-
 }
