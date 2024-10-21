@@ -1,7 +1,9 @@
 @using ContosoCrafts.WebSite.Models
 @using ContosoCrafts.WebSite.Services
+@inject JsonFileFlashcardService FlashcardService 
 @using Microsoft.AspNetCore.Components.Web
-@inject JsonFileFlashcardService FlashcardService
+@inject NavigationManager MyNavigationManager
+
 
 <style>
   .category {
@@ -25,42 +27,79 @@
 </style>
 
 
-<div class="card-columns">
-    @foreach (var flashcard in FlashcardService.GetAllData())
-    {
+<div>
+    <p>Category ID: @(string.IsNullOrEmpty(categoryId) ? "All Categories" : categoryId)</p>
+    <div class="card-columns">
+        @if (GetFilteredFlashcards().Count() == 0) // check if flashcards exist
+        {
+            <p>No flashcards found with selected Category</p>
+        }
+        @foreach (var flashcard in GetFilteredFlashcards())
+        {
+            <div class="card" data-id="@flashcard.Id" @onclick="() => ToggleCard(flashcard.Id)">
+                <div class="card-header category">
+                    <span>
+                        <strong>Category: </strong>
+                    </span>
+                    <span class="categoryItem">@flashcard.CategoryId</span>
+                </div>
+                <div class="card-body cardBody">
 
-        <div class="card" data-id="@flashcard.Id" @onclick="@(_ => ToggleCard(flashcard.Id))">
-            <div class="card-header category">
-                <span><strong>Category: </strong></span>
-                <span class="categoryItem">@flashcard.CategoryId</span>
+                    @if (selectedCardId == flashcard.Id && showAnswer)
+                    {
+                        // back side (answer) when clicked on the card
+                        <p class="card-text">@flashcard.Answer</p>
+                    }
+                    else
+                    {
+                        // front side (question)
+                        <p class="card-text text-center">@flashcard.Question</p>
+                    }
+                </div>
             </div>
-            <div class="card-body cardBody">
-
-                @if (selectedCardId == flashcard.Id && showAnswer)
-                {
-                    // back side (answer) when clicked on the card
-                    <p class="card-text">@flashcard.Answer</p>
-
-                }
-                else
-                {
-                    // front side (question)
-                    <p class="card-text text-center">@flashcard.Question</p>
-                }
-            </div>
-        </div>
-    }
+        }
+    </div>
 </div>
 
+
 @code {
-    FlashcardModel selectedFlashcard;
-    private string? selectedCardId;
-    private bool showAnswer;
+    FlashcardModel selectedFlashcard; // selected flashcard
+    private string selectedCardId; // Id of the selected card to manage state
+    private bool showAnswer; // track whether answer side is displayed
+    private string categoryId; // category Id obtained from URL to filter cards
 
+    // Fetches and filters flashcards based on the selected category ID
+    private IEnumerable<FlashcardModel> GetFilteredFlashcards()
+    {
+        var allFlashcards = FlashcardService.GetAllData();
+        if (!string.IsNullOrEmpty(categoryId))
+        {
+            return allFlashcards.Where(f => f.CategoryId.ToLower() == categoryId.ToLower());
+        }
 
+        return allFlashcards;
+    }
+
+    // Called whenever parameters of the component change, such as a new URL
+    // This method extracts the category ID from the URL path
+    protected override void OnParametersSet()
+    {
+        var urlPath = MyNavigationManager.ToBaseRelativePath(MyNavigationManager.Uri);
+        // If the path contains a category ID, extract it;
+        // otherwise, set categoryId to null
+        if (urlPath.Split('/').Count() > 1)
+        {
+            categoryId = urlPath.Split('/').LastOrDefault();
+        }
+        else
+        {
+            categoryId = null; // No specific category, show all
+        }
+    }
+
+    // Toggles the selected flashcard between the question and answer side
     private void ToggleCard(string cardId)
     {
-        System.Console.WriteLine($"clicked card {cardId}");
         if (selectedCardId == cardId)
         {
             showAnswer = !showAnswer;
@@ -71,4 +110,5 @@
             showAnswer = true;
         }
     }
+
 }
