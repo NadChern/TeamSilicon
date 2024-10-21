@@ -30,4 +30,8 @@
   <ItemGroup>
     <None Remove="Pages\Deck\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\icons\" />
+  </ItemGroup>
 </Project>
