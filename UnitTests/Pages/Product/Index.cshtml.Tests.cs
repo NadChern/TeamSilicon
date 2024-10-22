@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,10 +15,10 @@ using Moq;
 
 using NUnit.Framework;
 
-using ContosoCrafts.WebSite.Pages.Product;
+using ContosoCrafts.WebSite.Pages;
 using ContosoCrafts.WebSite.Services;
 
-namespace UnitTests.Pages.Product.Index
+namespace UnitTests.Pages.Product
 {
     public class IndexTests
     {
@@ -37,9 +38,11 @@ namespace UnitTests.Pages.Product.Index
         [SetUp]
         public void TestInitialize()
         {
+            var serviceProviderMock = new Mock<IServiceProvider>();
+            
             httpContextDefault = new DefaultHttpContext()
             {
-                //RequestServices = serviceProviderMock.Object,
+                RequestServices = serviceProviderMock.Object,
             };
 
             modelState = new ModelStateDictionary();
@@ -57,7 +60,7 @@ namespace UnitTests.Pages.Product.Index
 
             var mockWebHostEnvironment = new Mock<IWebHostEnvironment>();
             mockWebHostEnvironment.Setup(m => m.EnvironmentName).Returns("Hosting:UnitTestEnvironment");
-            mockWebHostEnvironment.Setup(m => m.WebRootPath).Returns("../../../../src/bin/Debug/net6.0/wwwroot");
+            mockWebHostEnvironment.Setup(m => m.WebRootPath).Returns("../../../../src/bin/Debug/net7.0/wwwroot");
             mockWebHostEnvironment.Setup(m => m.ContentRootPath).Returns("./data/");
 
             var MockLoggerDirect = Mock.Of<ILogger<IndexModel>>();
@@ -65,9 +68,9 @@ namespace UnitTests.Pages.Product.Index
 
             productService = new JsonFileProductService(mockWebHostEnvironment.Object);
 
-            //pageModel = new IndexModel(productService)
-            //{
-            //};
+            pageModel = new IndexModel(MockLoggerDirect,productService)
+            {
+            };
         }
 
         #endregion TestSetup
@@ -82,8 +85,8 @@ namespace UnitTests.Pages.Product.Index
             pageModel.OnGet();
 
             // Assert
-            Assert.That(pageModel.ModelState.IsValid, Is.EqualTo(true));
-           // Assert.That(pageModel.Products.ToList().Count, Is.EqualTo(15));
+          
+           Assert.That(pageModel.Products.ToList().Count, Is.EqualTo(6));
         }
         #endregion OnGet
     }
