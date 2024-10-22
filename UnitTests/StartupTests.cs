@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 
 using NUnit.Framework;
 
-namespace UnitTests.Pages.Startup
+namespace UnitTests
 {
     public class StartupTests
     {
