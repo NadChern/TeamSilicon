@@ -26,7 +26,7 @@ namespace UnitTests
 
 
 
-            var DataWebPath = "../../../../src/bin/Debug/net6.0/wwwroot/data";
+            var DataWebPath = "../../../../src/bin/Debug/net7.0/wwwroot/data";
             var DataUTDirectory = "wwwroot";
             var DataUTPath = DataUTDirectory + "/data";
 
