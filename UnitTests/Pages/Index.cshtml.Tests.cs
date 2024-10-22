@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 using ContosoCrafts.WebSite.Pages;
 
-namespace UnitTests.Pages.Index
+namespace UnitTests.Pages
 {
     public class IndexTests
     {
