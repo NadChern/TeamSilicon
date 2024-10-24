@@ -5,7 +5,7 @@
     "Question": "What are the four pillars of OOP?",
     "Answer": "Encapsulation, inheritance, polymorphism, and abstraction.",
     "Difficulty": "Easy",
-    "Url": ""
+    "Url": "https://www.freecodecamp.org/news/object-oriented-programming-concepts-21bb035f7260/"
   },
   {
     "Id": "2",
@@ -13,7 +13,7 @@
     "Question": "What is polymorphism and how is it implemented in OOP?",
     "Answer": "Polymorphism allows objects of different types to be treated as a common type. It's implemented through method overriding and interfaces, enabling methods to behave differently based on the object.",
     "Difficulty": "Medium",
-    "Url": ""
+    "Url": "https://www.geeksforgeeks.org/polymorphism-in-java/"
   },
   {
     "Id": "3",
@@ -21,7 +21,7 @@
     "Question": "What is encapsulation and why is it important?",
     "Answer": "Encapsulation is the bundling of data (attributes) and methods (functions) into a single unit or class, restricting access to certain components. It protects object integrity and promotes modular, maintainable code.",
     "Difficulty": "Easy",
-    "Url": ""
+    "Url": "https://www.geeksforgeeks.org/encapsulation-in-java/"
   },
   {
     "Id": "4",
@@ -29,7 +29,7 @@
     "Question": "What is a Python dictionary and how do you access its elements?",
     "Answer": "Dictionary is a collection of key-value pairs, defined with curly braces { }. Elements are accessed by their key, e.g., my_dict[\"key\"].",
     "Difficulty": "Easy",
-    "Url": ""
+    "Url": "https://www.w3schools.com/python/python_dictionaries.asp"
   },
   {
     "Id": "5",
