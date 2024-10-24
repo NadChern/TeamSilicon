@@ -33,6 +33,13 @@ namespace ContosoCrafts.WebSite.Services
             }
         }
 
+        public string GetCategoryColorById(string id)
+        {
+            var products = GetAllData();
+            var product = products.FirstOrDefault(x => x.Id.Equals(id));
+            return product.CategoryColor;
+        }
+
 
         /// <summary>
         /// Find the data record
