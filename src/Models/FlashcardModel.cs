@@ -8,7 +8,7 @@ namespace ContosoCrafts.WebSite.Models
     /// </summary>
     public class FlashcardModel
     {
-        // Primary key Id
+        // Primary key Id for flashcard
         public string Id { get; set; }
 
         // Id of the category the card belong to
@@ -17,16 +17,19 @@ namespace ContosoCrafts.WebSite.Models
         // Question on the flashcard
         public string Question { get; set; }
 
-        // Answer on the flashcard
+        // Answer for the question on the flashcard
         public string Answer { get; set; }
 
-        // Difficulty level of the question
+        // Difficulty level of the question (Easy, Medium, Hard)
         [JsonPropertyName("Difficulty")] public string DifficultyLevel { get; set; }
 
         // Link to additional resources related to the flashcard (optional)
         public string Url { get; set; }
 
-        // Returns the string representation of the flashcard
+        /// <summary>
+        /// Converts current FlashcardModel object into JSON string representation
+        /// </summary>
+        /// <returns>Json string representation of FlashcardModel object</returns>
         public override string ToString() => JsonSerializer.Serialize<FlashcardModel>(this);
     }
 }
