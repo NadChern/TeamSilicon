@@ -2,31 +2,37 @@
   {
     "Id": "OOP",
     "img": "https://i.pinimg.com/736x/16/af/a4/16afa45648e18e3dfeefa7998b1205f5.jpg",
-    "Title": "Object-oriented programming"
+    "Title": "Object-oriented programming",
+    "CategoryColor": "#003366"
   },
   {
     "Id": "DS",
     "img": "https://i.pinimg.com/736x/ee/f7/71/eef7715a0f272e53b966b63f457d902c.jpg",
-    "Title": "Distributed Systems"
+    "Title": "Distributed Systems",
+    "CategoryColor": "#4A90E2"
   },
   {
     "Id": "Python",
     "img": "https://i.pinimg.com/736x/7c/cb/d8/7ccbd8ad3068fd3b3cc83caba5857148.jpg",
-    "Title": "Python"
+    "Title": "Python",
+    "CategoryColor": "#D269E7"
   },
   {
     "Id": "C#",
     "img": "https://i.pinimg.com/736x/7e/14/ef/7e14ef1149cf21cc28d72b4d0e7f1172.jpg",
-    "Title": "C#"
+    "Title": "C#",
+    "CategoryColor": "#FF69B4"
   },
   {
     "Id": "C++",
     "img": "https://i.pinimg.com/736x/37/58/f7/3758f771580c6e5e3f48939d942ef681.jpg",
-    "Title": "C++"
+    "Title": "C++",
+    "CategoryColor": "#FFA07A"
   },
   {
     "Id": "Mobile",
     "img": "https://i.pinimg.com/736x/55/4b/24/554b2454a40375419d76a40f18c6226a.jpg",
-    "Title": "Mobile APP development"
+    "Title": "Mobile APP development",
+    "CategoryColor": "#F3BA25"
   }
 ]
