@@ -6,6 +6,28 @@
 
 
 <style>
+
+.masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .masonry-grid .card {
+    break-inside: avoid;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .masonry-grid .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background-color: aliceblue;
+  }
+
   .category {
     display: flex;
     align-items: center;
@@ -40,7 +62,7 @@
 
 <div>
     <p>Category ID: @(string.IsNullOrEmpty(categoryId) ? "All Categories" : categoryId)</p>
-    <div class="card-columns">
+    <div class="masonry-grid">
         @if (GetFilteredFlashcards().Count() == 0) // check if flashcards exist
         {
             <p>No flashcards found with selected Category</p>
