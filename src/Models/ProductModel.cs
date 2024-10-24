@@ -16,6 +16,7 @@ namespace ContosoCrafts.WebSite.Models
             "The Title should have a length of more than {2} and less than {1}")]
         public string Title { get; set; }
 
+        public string CategoryColor { get; set; }
         public override string ToString() => JsonSerializer.Serialize<ProductModel>(this);
 
     }
