@@ -1,7 +1,7 @@
 @using ContosoCrafts.WebSite.Models
 @using ContosoCrafts.WebSite.Services
 @using Microsoft.AspNetCore.Components.Web
-@inject JsonFileProductService ProductService
+@inject JsonFileCategoryService CategoryService
 @inject NavigationManager NavigationManager
 
 
@@ -49,12 +49,12 @@
 </style>
 
 <div class="masonry-grid">
-    @foreach (var product in ProductService.GetAllData())
+    @foreach (var category in CategoryService.GetAllData())
     {
-        <div @onclick="() => NavigateToCategory(product.Id)" class="card">
-            <div class="card-img" style="background-image: url('@product.Image');"></div>
+        <div @onclick="() => NavigateToCategory(category.Id)" class="card">
+            <div class="card-img" style="background-image: url('@category.Image');"></div>
             <div class="card-body">
-                <h5 class="card-title">@product.Title</h5>
+                <h5 class="card-title">@category.Title</h5>
             </div>
         </div>
     }
@@ -62,7 +62,7 @@
 
 
 @code {
-    ProductModel SelectedProductModel; // holds currently selected product 
+    CategoryModel _selectedCategoryModel; // holds currently selected product 
 
     // Navigates to flashcards page for the specified category ID.
     void NavigateToCategory(string categoryId)
