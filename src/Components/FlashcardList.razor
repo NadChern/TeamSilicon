@@ -1,7 +1,7 @@
 @using ContosoCrafts.WebSite.Models
 @using ContosoCrafts.WebSite.Services
 @inject JsonFileFlashcardService FlashcardService
-@inject JsonFileProductService ProductService
+@inject JsonFileCategoryService CategoryService
 @using Microsoft.AspNetCore.Components.Web
 @inject NavigationManager MyNavigationManager
 
@@ -160,7 +160,7 @@
 
   private string GetCategoryColor(string topicId)
   {
-    var categoryColor = ProductService.GetCategoryColorById(topicId);
+    var categoryColor = CategoryService.GetCategoryColorById(topicId);
     return categoryColor;
   }
   
