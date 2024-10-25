@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace ContosoCrafts.WebSite.Services
 {
-    public class JsonFileProductService
+    public class JsonFileCategoryService
     {
-        public JsonFileProductService(IWebHostEnvironment webHostEnvironment)
+        public JsonFileCategoryService(IWebHostEnvironment webHostEnvironment)
         {
             WebHostEnvironment = webHostEnvironment;
         }
@@ -21,11 +21,11 @@ namespace ContosoCrafts.WebSite.Services
             get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "products.json"); }
         }
 
-        public IEnumerable<ProductModel> GetAllData()
+        public IEnumerable<CategoryModel> GetAllData()
         {
             using (var jsonFileReader = File.OpenText(JsonFileName))
             {
-                return JsonSerializer.Deserialize<ProductModel[]>(jsonFileReader.ReadToEnd(),
+                return JsonSerializer.Deserialize<CategoryModel[]>(jsonFileReader.ReadToEnd(),
                     new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true
@@ -47,7 +47,7 @@ namespace ContosoCrafts.WebSite.Services
         /// Save to the data store
         /// </summary>
         /// <param name="data"></param>
-        public ProductModel UpdateData(ProductModel data)
+        public CategoryModel UpdateData(CategoryModel data)
         {
             var products = GetAllData();
             var productData = products.FirstOrDefault(x => x.Id.Equals(data.Id));
@@ -68,11 +68,11 @@ namespace ContosoCrafts.WebSite.Services
         /// <summary>
         /// Save All products data to storage
         /// </summary>
-        private void SaveData(IEnumerable<ProductModel> products)
+        private void SaveData(IEnumerable<CategoryModel> products)
         {
             using (var outputStream = File.Create(JsonFileName))
             {
-                JsonSerializer.Serialize<IEnumerable<ProductModel>>(
+                JsonSerializer.Serialize<IEnumerable<CategoryModel>>(
                     new Utf8JsonWriter(outputStream, new JsonWriterOptions
                     {
                         SkipValidation = true,
@@ -88,9 +88,9 @@ namespace ContosoCrafts.WebSite.Services
         /// After create the user can update to set values
         /// </summary>
         /// <returns></returns>
-        public ProductModel CreateData()
+        public CategoryModel CreateData()
         {
-            var data = new ProductModel()
+            var data = new CategoryModel()
             {
                 Id = System.Guid.NewGuid().ToString(),
                 Title = "Enter Title",
@@ -110,7 +110,7 @@ namespace ContosoCrafts.WebSite.Services
         /// Remove the item from the system
         /// </summary>
         /// <returns></returns>
-        public ProductModel DeleteData(string id)
+        public CategoryModel DeleteData(string id)
         {
             // Get the current set, and append the new record to it
             var dataSet = GetAllData();
