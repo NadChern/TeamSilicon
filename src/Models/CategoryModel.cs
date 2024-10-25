@@ -9,7 +9,7 @@ namespace ContosoCrafts.WebSite.Models
     /// CategoryModel represents a single category of the flashcards 
     /// with its properties
     /// </summary>
-    public class ProductModel
+    public class CategoryModel
     {
         // Primary key Id for the category
         public string Id { get; set; }
@@ -30,7 +30,7 @@ namespace ContosoCrafts.WebSite.Models
         /// Converts current CategoryModel object into JSON string representation
         /// </summary>
         /// <returns>Json string representation of CategoryModel object</returns>
-        public override string ToString() => JsonSerializer.Serialize<ProductModel>(this);
+        public override string ToString() => JsonSerializer.Serialize<CategoryModel>(this);
 
     }
 }
