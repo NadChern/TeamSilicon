@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Services;
 
-namespace ContosoCrafts.WebSite.Pages.Product
+namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
 {
     /// <summary>
     /// Index Page will return all the data to show the user
