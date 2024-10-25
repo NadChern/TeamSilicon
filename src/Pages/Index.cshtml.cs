@@ -8,34 +8,24 @@ using ContosoCrafts.WebSite.Services;
 
 namespace ContosoCrafts.WebSite.Pages
 {
-    /// <summary>
-    /// Nadezhda Chernova
-    /// </summary>
-
-    /// <summary>
-    /// Dat Nguyen
-    /// </summary>
-
-    /// <summary>
-    /// Ai Sun
-    /// </summary>
+    
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(ILogger<IndexModel> logger,
-            JsonFileProductService productService)
+            JsonFileCategoryService categoryService)
         {
             _logger = logger;
-            ProductService = productService;
+            CategoryService = categoryService;
         }
 
-        public JsonFileProductService ProductService { get; }
-        public IEnumerable<ProductModel> Products { get; private set; }
+        public JsonFileCategoryService CategoryService { get; }
+        public IEnumerable<CategoryModel> Products { get; private set; }
 
         public void OnGet()
         {
-            Products = ProductService.GetAllData();
+            Products = CategoryService.GetAllData();
         }
     }
 }
