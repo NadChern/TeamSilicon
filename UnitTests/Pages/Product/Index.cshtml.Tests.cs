@@ -64,11 +64,11 @@ namespace UnitTests.Pages.Product
             mockWebHostEnvironment.Setup(m => m.ContentRootPath).Returns("./data/");
 
             var MockLoggerDirect = Mock.Of<ILogger<IndexModel>>();
-            JsonFileProductService productService;
+            JsonFileCategoryService categoryService;
 
-            productService = new JsonFileProductService(mockWebHostEnvironment.Object);
+            categoryService = new JsonFileCategoryService(mockWebHostEnvironment.Object);
 
-            pageModel = new IndexModel(MockLoggerDirect,productService)
+            pageModel = new IndexModel(MockLoggerDirect,categoryService)
             {
             };
         }
