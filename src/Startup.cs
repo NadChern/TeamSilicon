@@ -24,7 +24,7 @@ namespace ContosoCrafts.WebSite
             services.AddServerSideBlazor();
             services.AddHttpClient();
             services.AddControllers();
-            services.AddTransient<JsonFileProductService>();
+            services.AddTransient<JsonFileCategoryService>();
             services.AddTransient<JsonFileFlashcardService>(); // register flashcard service
         }
 
