@@ -8,7 +8,7 @@ using ContosoCrafts.WebSite.Models;
 
 namespace UnitTests.Pages.Product.AddRating
 {
-    public class JsonFileProductServiceTests
+    public class JsonFileCategoryServiceTests
     {
         #region TestSetup
 
