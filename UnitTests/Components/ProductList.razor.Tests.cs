@@ -10,7 +10,7 @@ using ContosoCrafts.WebSite.Services;
 
 namespace UnitTests.Components
 {
-    public class ProductListTests : BunitTestContext
+    public class CategoryListTests : BunitTestContext
     {
         #region TestSetup
 
@@ -25,10 +25,10 @@ namespace UnitTests.Components
         public void ProductList_Valid_Default_Should_Return_Content()
         {
             // Arrange
-            Services.AddSingleton<JsonFileProductService>(TestHelper.ProductService);
+            Services.AddSingleton<JsonFileCategoryService>(TestHelper.CategoryService);
 
             // Act
-            var page = RenderComponent<ProductList>();
+            var page = RenderComponent<CategoryList>();
 
             // Get the Cards retrned
             var result = page.Markup;
