@@ -5,6 +5,28 @@
     ViewData["Title"] = "Read Flashcard";
 }
 
+<style>
+    .update-btn {
+        display: block;
+        width: 150px; /* Fixed width to center the button */
+        padding: 8px 20px;
+        font-size: 16px;
+        font-weight: 600;
+        color: white;
+        background-color: #4682b4;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-align: center;
+        margin: 0 auto; /* Center the button */
+    }
+
+        .update-btn:hover {
+            background-color: #1e90ff;
+        }
+</style>
+
 <div>
     <h2>Flashcard Details</h2>
     <h3>Question</h3>
@@ -18,5 +40,7 @@
 
     <h3>Difficulty Level</h3>
     <p>@Model.Flashcard.DifficultyLevel</p>
+
+    <a asp-page="/FlashcardAdmin/Update" asp-route-id="@Model.Flashcard.Id" class="btn update-btn">Update</a>
 </div>
 
