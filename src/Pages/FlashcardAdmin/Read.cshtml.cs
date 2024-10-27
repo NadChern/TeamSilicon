@@ -4,13 +4,13 @@ using ContosoCrafts.WebSite.Services;
 
 namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
 {
-    public class DetailsModel : PageModel
+    public class ReadModel : PageModel
     {
         public JsonFileFlashcardService FlashcardService { get; }
 
         public FlashcardModel Flashcard { get; private set; }
 
-        public DetailsModel(JsonFileFlashcardService flashcardService)
+        public ReadModel(JsonFileFlashcardService flashcardService)
         {
             FlashcardService = flashcardService;
         }
