@@ -1,21 +1,18 @@
 ﻿@page "{id}"
-@model DetailsModel
+@model ContosoCrafts.WebSite.Pages.FlashcardAdmin.ReadModel
 
-<h2>Flashcard Details</h2>
+<div>
+    <h2>Flashcard Details</h2>
+    <h3>Question</h3>
+    <p>@Model.Flashcard.Question</p>
 
-@if (Model.Flashcard != null)
-{    
-    <div>
-        <h3>Question</h3>
-        <p>@Model.Flashcard.Question</p>
+    <h3>Answer</h3>
+    <p>@Model.Flashcard.Answer</p>
 
-        <h3>Answer</h3>
-        <p>@Model.Flashcard.Answer</p>
+    <h3>Category</h3>
+    <p>@Model.Flashcard.CategoryId</p>
 
-        <h3>Category</h3>
-        <p>@Model.Flashcard.CategoryId</p>
+    <h3>Difficulty Level</h3>
+    <p>@Model.Flashcard.DifficultyLevel</p>
+</div>
 
-        <h3>Difficulty Level</h3>
-        <p>@Model.Flashcard.DifficultyLevel</p>
-    </div>
-}
