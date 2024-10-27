@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -15,6 +16,7 @@ namespace ContosoCrafts.WebSite.Models
         public string CategoryId { get; set; }
 
         // Question on the flashcard
+        [Required(ErrorMessage = "*Required")]
         public string Question { get; set; }
 
         // Answer for the question on the flashcard
@@ -31,5 +33,7 @@ namespace ContosoCrafts.WebSite.Models
         /// </summary>
         /// <returns>Json string representation of FlashcardModel object</returns>
         public override string ToString() => JsonSerializer.Serialize<FlashcardModel>(this);
+        
+
     }
 }
