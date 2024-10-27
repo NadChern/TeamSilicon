@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Services;
 
-namespace ContosoCrafts.WebSite.Pages.Read
+namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
 {
     public class DetailsModel : PageModel
     {
