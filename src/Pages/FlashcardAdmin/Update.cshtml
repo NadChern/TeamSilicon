@@ -1,4 +1,128 @@
 ﻿@page "{id}"
 @model ContosoCrafts.WebSite.Pages.FlashcardAdmin.UpdateModel
 @{
+    ViewData["Title"] = "Update Flashcard";
 }
+
+<!-- Styling -->
+<style>
+    body {
+        background-color: #f0f8ff;
+        margin: 0;
+        padding: 0;
+        overflow: auto;
+    }
+
+    .form-container {
+        margin-top: 20px;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        background: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+    }
+
+    label {
+        font-size: 16px;
+        font-weight: bold;
+        color: #1a1a2e;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"], textarea, select {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #d0e7f9;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+    }
+
+    textarea {
+        resize: vertical;
+        height: 100px;
+    }
+
+    .dropdown-spacing {
+        width: 150px;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #d0e7f9;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        box-sizing: border-box;
+    }
+
+    .submit-btn {
+        display: block;
+        width: 150px;
+        padding: 8px 20px;
+        font-size: 16px;
+        font-weight: 600;
+        color: white;
+        background-color: #4682b4;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+        .submit-btn:hover {
+            background-color: #1e90ff;
+        }
+</style>
+
+<h1>Update Flashcard</h1>
+
+<!-- Form Structure -->
+<div class="form-container">
+    <form method="post">
+
+        <input type="hidden" name="Flashcard.Id" value="@Model.Flashcard.Id" />
+
+        <!-- Question, cannot be empty -->
+        <div>
+            <label for="Question">Question</label>
+            <span asp-validation-for="Flashcard.Question" class="text-danger font-weight-bold"></span> <!-- Shows *Required if empty -->
+            <input type="text" id="Question" name="Flashcard.Question" value="@Model.Flashcard.Question" />
+        </div>
+
+        <!-- Answer -->
+        <div>
+            <label for="Answer">Answer</label>
+            <textarea id="Answer" name="Flashcard.Answer">@Model.Flashcard.Answer</textarea>
+        </div>
+
+        <!-- Category -->
+        <div>
+            <label for="CategoryId">Category</label>
+            <select id="CategoryId" name="Flashcard.CategoryId">
+                <option value="OOP" selected="@(Model.IsOOPSelected ? "selected" : null)">OOP</option>
+                <option value="Python" selected="@(Model.IsPythonSelected ? "selected" : null)">Python</option>
+                <option value="C#" selected="@(Model.IsCSharpSelected ? "selected" : null)">C#</option>
+                <option value="C++" selected="@(Model.IsCPlusPlusSelected ? "selected" : null)">C++</option>
+                <option value="Mobile" selected="@(Model.IsMobileSelected ? "selected" : null)">Mobile</option>
+                <option value="DS" selected="@(Model.IsDSSelected ? "selected" : null)">DS</option>
+            </select>
+        </div>
+
+        <!-- Difficulty Level w/ Dropdown Box-->
+        <div>
+            <label for="DifficultyLevel">Difficulty Level</label>
+            <select id="DifficultyLevel" name="Flashcard.DifficultyLevel">
+                <option value="Easy" selected="@(Model.IsEasySelected ? "selected" : null)">Easy</option>
+                <option value="Medium" selected="@(Model.IsMediumSelected ? "selected" : null)">Medium</option>
+                <option value="Hard" selected="@(Model.IsHardSelected ? "selected" : null)">Hard</option>
+            </select>
+        </div>
+
+        <!-- Save Changes Button -->
+        <input type="submit" value="Save Changes" class="submit-btn" />
+    </form>
+</div>
