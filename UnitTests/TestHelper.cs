@@ -38,6 +38,7 @@ namespace UnitTests
         public static TempDataDictionary TempData;
         public static PageContext PageContext;
         public static JsonFileCategoryService CategoryService;
+        public static JsonFileFlashcardService FlashcardService;
 
         /// <summary>
         /// Default Constructor
@@ -74,6 +75,9 @@ namespace UnitTests
             JsonFileCategoryService categoryService;
 
             categoryService = new JsonFileCategoryService(TestHelper.MockWebHostEnvironment.Object);
+
+            // Initialize FlashcardService
+            FlashcardService = new JsonFileFlashcardService(MockWebHostEnvironment.Object);
         }
     }
 }
