@@ -1,99 +1,184 @@
-@using ContosoCrafts.WebSite.Models
+@using ContosoCrafts.WebSite.Models 
 @using ContosoCrafts.WebSite.Services
-@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Web 
+
 @inject JsonFileCategoryService CategoryService
 @inject JsonFileFlashcardService FlashcardService
 @inject NavigationManager NavigationManager
+
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Cute+Font&family=Londrina+Sketch&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-      integrity="sha384-XxXxX" crossorigin="anonymous">
-<!-- Font Awesome -->>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"
-      integrity="sha512-Fo3rlrZj/kTc9q6M2C2fmx4H6LlgVqCjUqHE5x15sZ5H1p5ZGZHh2RM5oGQ+ZhEef6QH9mDdAJ5Jb1Dz7jwJdA=="
-      crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <style>
+    /* Define the masonry grid layout */
     .masonry-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1rem;
+        grid-template-columns: repeat(3, 1fr); /* Three columns */
+        gap: 1rem; /* Space between cards */
     }
 
+        /* Styling for each card in the grid */
         .masonry-grid .card {
-            break-inside: avoid;
+            break-inside: avoid; /* Avoid breaking cards across columns */
             width: 300px;
             height: 372px;
             cursor: pointer;
             border-radius: 50px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* Hide overflow content */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
             position: relative;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
         }
 
+            /* Scale card on hover */
             .masonry-grid .card:hover {
                 transform: scale(1.05);
-                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
             }
 
+    /* Image styling inside the card */
     .image {
         width: 100%;
         height: 300px;
         background-size: cover;
         background-position: center;
-        border-radius: 50px 50px 0 0;
+        border-radius: 50px 50px 0 0; /* Rounded top corners */
     }
 
+    /* Styling the card's footer with count and heart icon */
     .card-count {
         position: absolute;
-        bottom: 10px; /* Positioned at the bottom */
-        left: 50%; /* Center horizontally */
-        transform: translateX(-50%); /* Center using transform */
-        width: 80%; /* Adjust width to fit text comfortably */
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
         height: 48px;
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
         color: #49454F;
         font-size: 25px;
         text-align: center;
     }
 
+    /* Default heart icon styling */
+    .heart-icon {
+        cursor: pointer;
+        font-size: 24px;
+        color: gray;
+        transition: transform 0.2s ease-in-out, color 0.3s ease; /* Smooth transition */
+    }
+
+        /* Styling for active heart (pink) */
+        .heart-icon.active {
+            color: pink;
+        }
+
+        /* Scaling the heart icon when growing */
+        .heart-icon.grow {
+            transform: scale(1.5); /* Grow effect */
+        }
+
+    /* Additional fonts for the card */
     .cute-font-regular {
         font-family: "Cute Font", sans-serif;
-        font-weight: 400;
-        font-style: normal;
     }
 
     .londrina-sketch-regular {
         font-family: "Londrina Sketch", serif;
-        font-weight: 400;
-        font-style: normal;
+    }
+
+    /* Font settings for material icons */
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 100, 'wght' 400, 'GRAD' 0, 'opsz' 24;
     }
 </style>
 
+<!-- Masonry grid to display category cards -->
 <div class="masonry-grid">
-    @foreach (var category in CategoryService.GetAllData())
+    @foreach (var category in CategoryService.GetAllData()) // Loop through all categories
     {
         <div class="card" style="background-color: @category.CategoryColor;">
             <div @onclick="() => NavigateToCategory(category.Id)"
                  class="image" style="background-image: url('@category.Image');">
             </div>
             <div class="card-count cute-font-regular">
-                @($"Contain card (s): {FlashcardService.GetCountByCategoryId(category.Id)}")
+                @($"Contain card(s): {FlashcardService.GetCountByCategoryId(category.Id)}")
+                <!-- Heart icon with dynamic classes and click event -->
+                <span class="material-symbols-outlined heart-icon @GetHeartClass(category.Id) @GetGrowClass(category.Id)"
+                      @onclick="() => ToggleHeart(category.Id)">
+                    favorite
+                </span>
             </div>
         </div>
     }
 </div>
 
 @code {
-    // Holds currently selected product
-    CategoryModel _selectedCategoryModel;
+    /// <summary>
+    /// Set to track which hearts are active (pink).
+    /// </summary>
+    private HashSet<string> activeHearts = new HashSet<string>();
 
-    // Navigates to flashcards page for the specified category ID
-    void NavigateToCategory(string categoryId)
+    /// <summary>
+    /// Set to track which hearts are growing (animated).
+    /// </summary>
+    private HashSet<string> growingHearts = new HashSet<string>();
+
+    /// <summary>
+    /// Toggle the heart icon's active state and trigger grow animation.
+    /// </summary>
+    /// <param name="categoryId">The ID of the category being toggled.</param>
+    void ToggleHeart(string categoryId)
     {
-        NavigationManager.NavigateTo($"/Flashcards/{categoryId}", forceLoad: true);
+        // Use switch statement to manage heart state
+        switch (activeHearts.Contains(categoryId))
+        {
+            case true: // If heart is active, remove it from the set
+                activeHearts.Remove(categoryId);
+                Console.WriteLine($"Heart removed for category: {categoryId}");
+                break;
+            case false: // If heart is inactive, add it to the set
+                activeHearts.Add(categoryId);
+                Console.WriteLine($"Heart added for category: {categoryId}");
+                break;
+        }
+
+        // Trigger grow animation
+        growingHearts.Add(categoryId);
+        InvokeAsync(StateHasChanged); // Ensure the UI updates
+
+        // Remove grow class after 200ms to allow animation reset
+        Task.Delay(200).ContinueWith(_ =>
+        {
+            growingHearts.Remove(categoryId);
+            InvokeAsync(StateHasChanged); // Update UI again
+        });
+
+        // Log the current state of active hearts
+        Console.WriteLine("Current active hearts: " + string.Join(", ", activeHearts));
     }
+
+    /// <summary>
+    /// Get the CSS class for the heart icon based on its state.
+    /// </summary>
+    /// <param name="categoryId">The ID of the category.</param>
+    /// <returns>Returns "active" if the heart is active.</returns>
+    string GetHeartClass(string categoryId) =>
+        activeHearts.Contains(categoryId) ? "active" : string.Empty;
+
+    /// <summary>
+    /// Get the CSS class to trigger the grow animation.
+    /// </summary>
+    /// <param name="categoryId">The ID of the category.</param>
+    /// <returns>Returns "grow" if the heart is growing.</returns>
+    string GetGrowClass(string categoryId) =>
+        growingHearts.Contains(categoryId) ? "grow" : string.Empty;
+
+    /// <summary>
+    /// Navigate to the flashcards page for a specific category.
+    /// </summary>
+    /// <param name="categoryId">The ID of the category.</param>
+    void NavigateToCategory(string categoryId) =>
+        NavigationManager.NavigateTo($"/Flashcards/{categoryId}", forceLoad: true);
 }
