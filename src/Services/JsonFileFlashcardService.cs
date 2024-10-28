@@ -30,9 +30,21 @@ namespace ContosoCrafts.WebSite.Services
                     });
             }
         }
+
         public FlashcardModel GetById(string id)
         {
             return GetAllData().FirstOrDefault(x => x.Id == id);
+        }
+
+        /// <summary>
+        /// Get the number of flashcards for a specific category.
+        /// </summary>
+        /// <param name="categoryId">The ID of the category.</param>
+        /// <returns>The number of flashcards in the given category.</returns>
+        public int GetFlashcardCountByCategoryId(string categoryId)
+        {
+            return GetAllData().Count(f => f.CategoryId == categoryId);
+
         }
 
         public bool UpdateFlashcard(FlashcardModel updatedFlashcard)
@@ -51,6 +63,16 @@ namespace ContosoCrafts.WebSite.Services
             return true; // Update successful
         }
 
+        private void SaveData(IEnumerable<FlashcardModel> flashcards)
+        {
+            var jsonData = JsonSerializer.Serialize(flashcards, new JsonSerializerOptions
+            {
+                WriteIndented = true
+            });
+
+            File.WriteAllText(JsonFileName, jsonData);
+        }
+
         public void UpdateFrom(FlashcardModel existingFlashcard, FlashcardModel updatedFlashcard)
         {
             existingFlashcard.CategoryId = updatedFlashcard.CategoryId;
@@ -58,16 +80,5 @@ namespace ContosoCrafts.WebSite.Services
             existingFlashcard.Answer = updatedFlashcard.Answer;
             existingFlashcard.DifficultyLevel = updatedFlashcard.DifficultyLevel;
         }
-
-        private void SaveData(IEnumerable<FlashcardModel> flashcards)
-        {
-            var jsonData = JsonSerializer.Serialize(flashcards, new JsonSerializerOptions
-            {
-                WriteIndented = true // This ensures the JSON is pretty-printed
-            });
-
-            File.WriteAllText(JsonFileName, jsonData);
-        }
-
     }
 }
