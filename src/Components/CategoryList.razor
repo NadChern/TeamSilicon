@@ -2,8 +2,11 @@
 @using ContosoCrafts.WebSite.Services
 @using Microsoft.AspNetCore.Components.Web
 @inject JsonFileCategoryService CategoryService
+@inject JsonFileFlashcardService FlashcardService
 @inject NavigationManager NavigationManager
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" 
+      integrity="sha384-XxXxX" crossorigin="anonymous">
 
 <style>
     .masonry-grid {
@@ -12,38 +15,44 @@
         gap: 1rem;
     }
 
-        .masonry-grid .card {
-            break-inside: avoid;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-radius: 50px; /* Rounded corners for the card */
-            overflow: hidden; /* Ensures image fits within rounded corners */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow */
-        }
+    .masonry-grid .card {
+        break-inside: avoid;
+        width: 300px;
+        height: 372px;
+        background: #D9D9D9;
+        cursor: pointer;
+        border-radius: 50px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
 
-            .masonry-grid .card:hover {
-                transform: scale(1.05); /* Scale effect on hover */
-                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Shadow on hover */
-            }
+    .masonry-grid .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
 
-    .card-img {
-        aspect-ratio: 1 / 1;
+    .image {
+        width: 100%;
+        height: 300px;
         background-size: cover;
         background-position: center;
-        width: 100%;
+        border-radius: 50px 50px 0 0;
     }
 
-    .card-body {
-        display: grid;
-        place-items: center;
-        text-align: center;
-    }
-
-    .card-footer {
+    .card-count {
+        position: absolute;
+        top: 310px;
+        left: 10px;
+        width: 153px;
+        height: 48px;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100%;
+        color: #49454F;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 500;
+        font-size: 14px;
         text-align: center;
     }
 </style>
@@ -51,10 +60,11 @@
 <div class="masonry-grid">
     @foreach (var category in CategoryService.GetAllData())
     {
-        <div @onclick="() => NavigateToCategory(category.Id)" class="card">
-            <div class="card-img" style="background-image: url('@category.Image');"></div>
-            <div class="card-body">
-                <h5 class="card-title">@category.Title</h5>
+        <div class="card">
+            <div @onclick="() => NavigateToCategory(category.Id)" class="image" style="background-image: url('@category.Image');">
+            </div>
+            <div class="card-count">
+                @($"CONTAIN CARD: {FlashcardService.GetCountByCategoryId(category.Id)}")
             </div>
         </div>
     }
