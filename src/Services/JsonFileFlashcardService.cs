@@ -37,8 +37,6 @@ namespace ContosoCrafts.WebSite.Services
 
         public bool UpdateFlashcard(FlashcardModel updatedFlashcard)
         {
-            Console.WriteLine("UpdateFlashcard called with ID: " + updatedFlashcard?.Id);
-
             var flashcards = GetAllData();
             var existingFlashcard = flashcards.FirstOrDefault(f => f.Id == updatedFlashcard.Id);
 
@@ -47,7 +45,6 @@ namespace ContosoCrafts.WebSite.Services
                 return false; // Flashcard not found
             }
 
-            Console.WriteLine("Updating flashcard properties.");
             UpdateFrom(existingFlashcard, updatedFlashcard);
             SaveData(flashcards);
 
@@ -56,7 +53,6 @@ namespace ContosoCrafts.WebSite.Services
 
         public void UpdateFrom(FlashcardModel existingFlashcard, FlashcardModel updatedFlashcard)
         {
-            Console.WriteLine("Updating properties for flashcard ID: " + existingFlashcard.Id);
             existingFlashcard.CategoryId = updatedFlashcard.CategoryId;
             existingFlashcard.Question = updatedFlashcard.Question;
             existingFlashcard.Answer = updatedFlashcard.Answer;
@@ -72,9 +68,6 @@ namespace ContosoCrafts.WebSite.Services
 
             File.WriteAllText(JsonFileName, jsonData);
         }
-
-
-
 
     }
 }
