@@ -32,10 +32,10 @@ namespace ContosoCrafts.WebSite.Services
         }
         public FlashcardModel GetById(string id)
         {
-            return GetAllData().First(x => x.Id == id);
+            return GetAllData().FirstOrDefault(x => x.Id == id);
         }
 
-        public void UpdateFlashcard(FlashcardModel updatedFlashcard)
+        public bool UpdateFlashcard(FlashcardModel updatedFlashcard)
         {
             Console.WriteLine("UpdateFlashcard called with ID: " + updatedFlashcard?.Id);
 
@@ -44,13 +44,14 @@ namespace ContosoCrafts.WebSite.Services
 
             if (existingFlashcard == null)
             {
-                Console.WriteLine("Flashcard with ID " + updatedFlashcard.Id + " not found.");
-                return;
+                return false; // Flashcard not found
             }
 
             Console.WriteLine("Updating flashcard properties.");
             UpdateFrom(existingFlashcard, updatedFlashcard);
             SaveData(flashcards);
+
+            return true; // Update successful
         }
 
         public void UpdateFrom(FlashcardModel existingFlashcard, FlashcardModel updatedFlashcard)
