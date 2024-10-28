@@ -41,7 +41,7 @@ namespace ContosoCrafts.WebSite.Services
         /// </summary>
         /// <param name="categoryId">The ID of the category.</param>
         /// <returns>The number of flashcards in the given category.</returns>
-        public int GetFlashcardCountByCategoryId(string categoryId)
+        public int GetCountByCategoryId(string categoryId)
         {
             return GetAllData().Count(f => f.CategoryId == categoryId);
 
