@@ -2,19 +2,29 @@ using System.Linq;
 using NUnit.Framework;
 using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Services;
+using NUnit.Framework.Legacy;
 
 namespace UnitTests.Services
 {
+    /// <summary>
+    /// Unit Tests for JsonFileCategoryService class.
+    /// </summary>
     public class JsonFileCategoryServiceTests
     {
+        /// <summary>
+        /// The service instance under test, set up in each test.
+        /// </summary>
         private JsonFileCategoryService _categoryService;
 
         #region TestSetup
 
+        /// <summary>
+        /// Sets up the service instance using the TestHelper.
+        /// </summary>
         [SetUp]
         public void TestInitialize()
         {
-            // Use the CategoryService initialized through TestHelper
+            // Arrange: Initialize the service instance
             _categoryService = TestHelper.CategoryService;
         }
 
@@ -22,53 +32,65 @@ namespace UnitTests.Services
 
         #region GetAllData Tests
 
+        /// <summary>
+        /// Ensures GetAllData returns a non-empty list.
+        /// </summary>
         [Test]
-        public void GetAllData_ShouldReturnNonEmptyList()
+        public void GetAllData_Should_Return_NonEmpty_List()
         {
-            // Act
+            // Act: Call GetAllData
             var result = _categoryService.GetAllData();
 
-            // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.Any(), Is.True);
+            // Assert: Validate the list is not null and not empty
+            ClassicAssert.AreEqual(true, result != null);
+            ClassicAssert.AreEqual(true, result.Any());
         }
 
         #endregion GetAllData Tests
 
         #region GetCategoryColorById Tests
 
+        /// <summary>
+        /// Validates GetCategoryColorById returns the correct color for a valid ID.
+        /// </summary>
         [Test]
-        public void GetCategoryColorById_ValidId_ShouldReturnCorrectColor()
+        public void GetCategoryColorById_ValidId_Should_Return_Correct_Color()
         {
-            // Arrange
+            // Arrange: Get the first category
             var firstCategory = _categoryService.GetAllData().First();
             var validId = firstCategory.Id;
 
-            // Act
+            // Act: Call GetCategoryColorById with valid ID
             var color = _categoryService.GetCategoryColorById(validId);
 
-            // Assert
-            Assert.That(color, Is.EqualTo(firstCategory.CategoryColor));
+            // Assert: Validate the returned color
+            ClassicAssert.AreEqual(firstCategory.CategoryColor, color);
         }
 
+        ///// <summary>
+        ///// Ensures GetCategoryColorById returns null for an invalid ID.
+        ///// </summary>
         //[Test]
-        //public void GetCategoryColorById_InvalidId_ShouldReturnNull()
+        //public void GetCategoryColorById_InvalidId_Should_Return_Null()
         //{
-        //    // Act
-        //    var color = _categoryService.GetCategoryColorById("non-existent-id");
+        //    // Act: Call GetCategoryColorById with an invalid ID
+        //    var color = _categoryService.GetCategoryColorById("invalid-id");
 
-        //    // Assert
-        //    Assert.That(color, Is.Null);
+        //    // Assert: Validate the color is null
+        //    ClassicAssert.AreEqual(true, color == null);
         //}
 
         #endregion GetCategoryColorById Tests
 
         #region UpdateData Tests
 
+        /// <summary>
+        /// Validates UpdateData updates the category data correctly.
+        /// </summary>
         [Test]
-        public void UpdateData_ValidData_ShouldUpdateAndReturnData()
+        public void UpdateData_ValidData_Should_Update_And_Return_Data()
         {
-            // Arrange
+            // Arrange: Prepare existing category and new data
             var category = _categoryService.GetAllData().First();
             var updatedData = new CategoryModel
             {
@@ -77,75 +99,86 @@ namespace UnitTests.Services
                 Image = "updated-image.png"
             };
 
-            // Act
+            // Act: Update the category with new data
             var result = _categoryService.UpdateData(updatedData);
 
-            // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.Title, Is.EqualTo("Updated Title"));
-            Assert.That(result.Image, Is.EqualTo("updated-image.png"));
+            // Assert: Validate the data was updated
+            ClassicAssert.AreEqual(true, result != null);
+            ClassicAssert.AreEqual("Updated Title", result.Title);
+            ClassicAssert.AreEqual("updated-image.png", result.Image);
         }
 
+        /// <summary>
+        /// Ensures UpdateData returns null for a non-existent category.
+        /// </summary>
         [Test]
-        public void UpdateData_InvalidId_ShouldReturnNull()
+        public void UpdateData_InvalidId_Should_Return_Null()
         {
-            // Arrange
+            // Arrange: Create data with a non-existent ID
             var invalidData = new CategoryModel
             {
                 Id = "non-existent-id",
-                Title = "New Title",
-                Image = "new-image.png"
+                Title = "Title",
+                Image = "image.png"
             };
 
-            // Act
+            // Act: Attempt to update the non-existent category
             var result = _categoryService.UpdateData(invalidData);
 
-            // Assert
-            Assert.That(result, Is.Null);
+            // Assert: Validate the result is null
+            ClassicAssert.AreEqual(true, result == null);
         }
 
         #endregion UpdateData Tests
 
         #region CreateData Tests
 
+        /// <summary>
+        /// Validates CreateData creates and returns a new category.
+        /// </summary>
         [Test]
-        public void CreateData_ShouldCreateAndReturnNewCategory()
+        public void CreateData_Should_Create_And_Return_New_Category()
         {
-            // Act
+            // Act: Create a new category
             var newCategory = _categoryService.CreateData();
 
-            // Assert
-            Assert.That(newCategory, Is.Not.Null);
-            Assert.That(newCategory.Title, Is.EqualTo("Enter Title"));
-            Assert.That(newCategory.Image, Is.EqualTo(""));
+            // Assert: Validate the category data
+            ClassicAssert.AreEqual(true, newCategory != null);
+            ClassicAssert.AreEqual("Enter Title", newCategory.Title);
+            ClassicAssert.AreEqual("", newCategory.Image);
         }
 
         #endregion CreateData Tests
 
         #region DeleteData Tests
 
+        /// <summary>
+        /// Validates DeleteData removes and returns the category for a valid ID.
+        /// </summary>
         [Test]
-        public void DeleteData_ValidId_ShouldRemoveAndReturnCategory()
+        public void DeleteData_ValidId_Should_Remove_And_Return_Category()
         {
-            // Arrange
+            // Arrange: Create a new category to delete
             var category = _categoryService.CreateData();
 
-            // Act
+            // Act: Delete the category
             var result = _categoryService.DeleteData(category.Id);
 
-            // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.Id, Is.EqualTo(category.Id));
+            // Assert: Validate the category was removed
+            ClassicAssert.AreEqual(category.Id, result.Id);
         }
 
+        /// <summary>
+        /// Ensures DeleteData returns null for an invalid ID.
+        /// </summary>
         [Test]
-        public void DeleteData_InvalidId_ShouldReturnNull()
+        public void DeleteData_InvalidId_Should_Return_Null()
         {
-            // Act
-            var result = _categoryService.DeleteData("non-existent-id");
+            // Act: Attempt to delete a non-existent category
+            var result = _categoryService.DeleteData("invalid-id");
 
-            // Assert
-            Assert.That(result, Is.Null);
+            // Assert: Validate the result is null
+            ClassicAssert.AreEqual(true, result == null);
         }
 
         #endregion DeleteData Tests
