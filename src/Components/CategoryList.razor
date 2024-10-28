@@ -4,9 +4,14 @@
 @inject JsonFileCategoryService CategoryService
 @inject JsonFileFlashcardService FlashcardService
 @inject NavigationManager NavigationManager
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" 
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Cute+Font&family=Londrina+Sketch&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
       integrity="sha384-XxXxX" crossorigin="anonymous">
+<!-- Font Awesome -->>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"
+      integrity="sha512-Fo3rlrZj/kTc9q6M2C2fmx4H6LlgVqCjUqHE5x15sZ5H1p5ZGZHh2RM5oGQ+ZhEef6QH9mDdAJ5Jb1Dz7jwJdA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <style>
     .masonry-grid {
@@ -15,22 +20,22 @@
         gap: 1rem;
     }
 
-    .masonry-grid .card {
-        break-inside: avoid;
-        width: 300px;
-        height: 372px;
-        background: #D9D9D9;
-        cursor: pointer;
-        border-radius: 50px;
-        overflow: hidden;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        position: relative;
-    }
+        .masonry-grid .card {
+            break-inside: avoid;
+            width: 300px;
+            height: 372px;
+            cursor: pointer;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-    .masonry-grid .card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    }
+            .masonry-grid .card:hover {
+                transform: scale(1.05);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            }
 
     .image {
         width: 100%;
@@ -42,44 +47,53 @@
 
     .card-count {
         position: absolute;
-        top: 310px;
-        left: 10px;
-        width: 153px;
+        bottom: 10px; /* Positioned at the bottom */
+        left: 50%; /* Center horizontally */
+        transform: translateX(-50%); /* Center using transform */
+        width: 80%; /* Adjust width to fit text comfortably */
         height: 48px;
         display: flex;
         justify-content: center;
         align-items: center;
         color: #49454F;
-        font-family: 'Roboto', sans-serif;
-        font-weight: 500;
-        font-size: 14px;
+        font-size: 25px;
         text-align: center;
+    }
+
+    .cute-font-regular {
+        font-family: "Cute Font", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    .londrina-sketch-regular {
+        font-family: "Londrina Sketch", serif;
+        font-weight: 400;
+        font-style: normal;
     }
 </style>
 
 <div class="masonry-grid">
     @foreach (var category in CategoryService.GetAllData())
     {
-        <div class="card">
-            <div @onclick="() => NavigateToCategory(category.Id)" class="image" style="background-image: url('@category.Image');">
+        <div class="card" style="background-color: @category.CategoryColor;">
+            <div @onclick="() => NavigateToCategory(category.Id)"
+                 class="image" style="background-image: url('@category.Image');">
             </div>
-            <div class="card-count">
-                @($"CONTAIN CARD: {FlashcardService.GetCountByCategoryId(category.Id)}")
+            <div class="card-count cute-font-regular">
+                @($"Contain card (s): {FlashcardService.GetCountByCategoryId(category.Id)}")
             </div>
         </div>
     }
 </div>
 
-
 @code {
-    CategoryModel _selectedCategoryModel; // holds currently selected product 
+    // Holds currently selected product
+    CategoryModel _selectedCategoryModel;
 
-    // Navigates to flashcards page for the specified category ID.
+    // Navigates to flashcards page for the specified category ID
     void NavigateToCategory(string categoryId)
     {
         NavigationManager.NavigateTo($"/Flashcards/{categoryId}", forceLoad: true);
     }
 }
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
