@@ -6,7 +6,7 @@ using NUnit.Framework.Legacy;
 using ContosoCrafts.WebSite.Pages.FlashcardAdmin;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace UnitTests.Services
+namespace UnitTests.Pages.FlashcardAdmin
 {
     /// <summary>
     /// Unit Tests for JsonFlascardService class.
