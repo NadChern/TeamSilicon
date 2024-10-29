@@ -18,6 +18,9 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
         public bool IsFlashcardLoaded { get; set; } // For testing purposes
 
         public void OnGet(string id)
+        /// <summary>
+        /// OnGet gets the flashcard based on id
+        /// </summary>
         {
             Flashcard = FlashcardService.GetById(id);
             if (Flashcard == null)
