@@ -35,6 +35,9 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
         public bool IsFlashcardUpdated { get; set; } // For testing purposes
 
         public void OnGet(string id)
+        /// <summary>
+        /// OnGet gets the flashcard based on id
+        /// </summary>
         {
             Flashcard = FlashcardService.GetById(id);
             if (Flashcard == null)
@@ -45,8 +48,14 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
             IsFlashcardLoaded = true;
         }
 
+
         public IActionResult OnPost()
-        {       
+        /// <summary>
+        /// OnPost updates the flashcard
+        /// redirects to Read page
+        /// if invalid flashcard, display error on Update page
+        /// </summary>
+        {
             if (ModelState.IsValid)
             {
                 FlashcardService.UpdateFlashcard(Flashcard);
