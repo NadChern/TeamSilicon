@@ -16,6 +16,9 @@ namespace UnitTests.Services
         private ReadModel readModel;
 
         #region OnGet
+        /// <summary>
+        /// Ensures OnGet returns false for an invalid ID.
+        /// </summary>
         [Test]
         public void OnGet_Invalid_Id_Should_Return_False()
         {
@@ -32,6 +35,9 @@ namespace UnitTests.Services
             ClassicAssert.AreEqual(false, result);
         }
 
+        /// <summary>
+        /// OnGet should return true for valid ID
+        /// </summary>
         [Test]
         public void OnGet_Valid_Id_Should_Return_True()
         {
