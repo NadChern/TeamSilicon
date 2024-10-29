@@ -15,10 +15,17 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
             FlashcardService = flashcardService;
         }
 
+        public bool IsFlashcardLoaded { get; set; } // For testing purposes
+
         public void OnGet(string id)
         {
             Flashcard = FlashcardService.GetById(id);
-
+            if (Flashcard == null)
+            {
+                IsFlashcardLoaded = false;
+                return;
+            }
+            IsFlashcardLoaded = true;
         }
     }
 }
