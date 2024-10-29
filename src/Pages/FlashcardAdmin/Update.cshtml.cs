@@ -31,22 +31,31 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
         public bool IsMediumSelected => Flashcard?.DifficultyLevel == "Medium";
         public bool IsHardSelected => Flashcard?.DifficultyLevel == "Hard";
 
+        public bool IsFlashcardLoaded { get; set; } // For testing purposes
+        public bool IsFlashcardUpdated { get; set; } // For testing purposes
 
         public void OnGet(string id)
         {
             Flashcard = FlashcardService.GetById(id);
+            if (Flashcard == null)
+            {
+                IsFlashcardLoaded = false;
+                return;
+            }
+            IsFlashcardLoaded = true;
         }
 
-
         public IActionResult OnPost()
-        {
-            if (!ModelState.IsValid)
+        {       
+            if (ModelState.IsValid)
             {
-                return Page(); // Redisplay with errors
+                FlashcardService.UpdateFlashcard(Flashcard);
+                IsFlashcardUpdated = true;
+                return RedirectToPage("/FlashcardAdmin/Read", new { id = Flashcard.Id }); // Redirect details page
             }
-
-            FlashcardService.UpdateFlashcard(Flashcard);
-            return RedirectToPage("/FlashcardAdmin/Read", new { id = Flashcard.Id }); // Redirect to a confirmation or details page
+            IsFlashcardUpdated = false;
+            return Page(); // Redisplay with errors
+         
         }
     }
 }
