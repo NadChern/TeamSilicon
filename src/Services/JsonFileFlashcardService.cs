@@ -32,6 +32,9 @@ namespace ContosoCrafts.WebSite.Services
         }
 
         public FlashcardModel GetById(string id)
+        /// <summary>
+        /// GetById gets Flashcard based on id
+        /// </summary>
         {
             return GetAllData().FirstOrDefault(x => x.Id == id);
         }
@@ -48,6 +51,9 @@ namespace ContosoCrafts.WebSite.Services
         }
 
         public bool UpdateFlashcard(FlashcardModel updatedFlashcard)
+        /// <summary>
+        /// Updates Flashcard
+        /// </summary>
         {
             var flashcards = GetAllData();
             var existingFlashcard = flashcards.FirstOrDefault(f => f.Id == updatedFlashcard.Id);
@@ -64,6 +70,9 @@ namespace ContosoCrafts.WebSite.Services
         }
 
         private void SaveData(IEnumerable<FlashcardModel> flashcards)
+        /// <summary>
+        /// Saves flashcard to flashcards.json
+        /// </summary>
         {
             var jsonData = JsonSerializer.Serialize(flashcards, new JsonSerializerOptions
             {
@@ -74,6 +83,9 @@ namespace ContosoCrafts.WebSite.Services
         }
 
         public void UpdateFrom(FlashcardModel existingFlashcard, FlashcardModel updatedFlashcard)
+        /// <summary>
+        /// Updates each attribute
+        /// </summary>
         {
             existingFlashcard.CategoryId = updatedFlashcard.CategoryId;
             existingFlashcard.Question = updatedFlashcard.Question;
