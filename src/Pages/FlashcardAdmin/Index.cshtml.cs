@@ -18,23 +18,29 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
         /// <param name="flashcardService"></param>
         public IndexModel(JsonFileFlashcardService flashcardService)
         {
+            // Ensure the service is not null, otherwise throw an exception.
             FlashcardService = flashcardService ?? 
                                throw new ArgumentNullException(nameof(flashcardService), 
                                    "Flashcard service cannot be null.");
         }
         
-        // Data Service
+       /// <summary>
+       /// Gets data service
+       /// </summary>
         public JsonFileFlashcardService FlashcardService { get; }
 
-        // Collection of the Data
+        /// <summary>
+        /// Gets collection of data
+        /// </summary>
         public IEnumerable<FlashcardModel> Flashcards { get; private set; }
 
         /// <summary>
-        /// REST OnGet
-        /// Return all the data
+        /// Handles HTTP GET requests to retrieve all flashcards and assigns them
+        /// to Flashcards property
         /// </summary>
         public void OnGet()
         {
+            // Fetch all flashcards from service, store them in Flashcards property
             Flashcards = FlashcardService.GetAllData();
         }
     }
