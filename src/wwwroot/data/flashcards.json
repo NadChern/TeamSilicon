@@ -78,5 +78,29 @@
     "Answer": "A distributed system is a collection of independent computers that appear to users as a single coherent system. These systems share resources and coordinate tasks to achieve common goals.",
     "Difficulty": "Medium",
     "Url": ""
+  },
+  {
+    "Id": "11",
+    "CategoryId": "DS",
+    "Question": "What is a distributed system?",
+    "Answer": "A distributed system is a collection of independent computers that appear to users as a single coherent system. These systems share resources and coordinate tasks to achieve common goals.",
+    "Difficulty": "Medium",
+    "Url": ""
+  },
+  {
+    "Id": "12",
+    "CategoryId": "DS",
+    "Question": "What are the main challenges in distributed systems?",
+    "Answer": "Key challenges include latency, fault tolerance, data consistency, and scalability.",
+    "Difficulty": "Medium",
+    "Url": ""
+  },
+  {
+    "Id": "13",
+    "CategoryId": "DS",
+    "Question": "What is the CAP theorem?",
+    "Answer": "The CAP theorem states that in a distributed data store, it is impossible to simultaneously guarantee consistency, availability, and partition tolerance.",
+    "Difficulty": "Hard",
+    "Url": ""
   }
 ]
