@@ -11,7 +11,7 @@
     "Id": "2",
     "CategoryId": "OOP",
     "Question": "What is polymorphism and how is it implemented in OOP?",
-    "Answer": "Polymorphism allows objects of different types to be treated as a common type. It's implemented through method overriding and interfaces, enabling methods to behave differently based on the object.",
+    "Answer": "Polymorphism allows objects of different types to be treated as a common type. It\u0027s implemented through method overriding and interfaces, enabling methods to behave differently based on the object.",
     "Difficulty": "Medium",
     "Url": "https://www.geeksforgeeks.org/polymorphism-in-java/"
   },
@@ -27,7 +27,7 @@
     "Id": "4",
     "CategoryId": "Python",
     "Question": "What is a Python dictionary and how do you access its elements?",
-    "Answer": "Dictionary is a collection of key-value pairs, defined with curly braces { }. Elements are accessed by their key, e.g., my_dict[\"key\"].",
+    "Answer": "Dictionary is a collection of key-value pairs, defined with curly braces { }. Elements are accessed by their key, e.g., my_dict[\u0022key\u0022].",
     "Difficulty": "Easy",
     "Url": "https://www.w3schools.com/python/python_dictionaries.asp"
   },
@@ -51,14 +51,14 @@
     "Id": "7",
     "CategoryId": "C#",
     "Question": "What is a nullable type in C# and how is it used?",
-    "Answer": "A nullable type allows value types to hold null values. It's used with '?' (e.g., int? x = null) to represent an undefined or absent value.",
+    "Answer": "A nullable type allows value types to hold null values. It\u0027s used with \u0027?\u0027 (e.g., int? x = null) to represent an undefined or absent value.",
     "Difficulty": "Medium",
     "Url": ""
   },
   {
     "Id": "8",
-    "CategoryId": "C++",
-    "Question": "What is the difference between a pointer and a reference in C++?",
+    "CategoryId": "C\u002B\u002B",
+    "Question": "What is the difference between a pointer and a reference in C\u002B\u002B?",
     "Answer": "A pointer stores the memory address of a variable, while a reference is an alias to an existing variable. Pointers can be reassigned, but references cannot.",
     "Difficulty": "Hard",
     "Url": ""
@@ -102,5 +102,29 @@
     "Answer": "The CAP theorem states that in a distributed data store, it is impossible to simultaneously guarantee consistency, availability, and partition tolerance.",
     "Difficulty": "Hard",
     "Url": ""
+  },
+  {
+    "Id": "14",
+    "CategoryId": "C#",
+    "Question": "What is the difference between an interface and an abstract class in C#?",
+    "Answer": "An interface defines a contract with no implementation, while an abstract class can contain both abstract and concrete methods. A class can implement multiple interfaces, but it can only inherit from a single abstract class.",
+    "Difficulty": "Medium",
+    "Url": "https://www.geeksforgeeks.org/difference-between-abstract-class-and-interface-in-c-sharp/"
+  },
+  {
+    "Id": "15",
+    "CategoryId": "C#",
+    "Question": "What is the purpose of the 'using' statement in C#?",
+    "Answer": "The 'using' statement ensures that unmanaged resources, like file handles or database connections, are properly disposed of when no longer needed. It simplifies resource management by automatically calling Dispose.",
+    "Difficulty": "Medium",
+    "Url": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-statement"
+  },
+  {
+    "Id": "16",
+    "CategoryId": "C#",
+    "Question": "How does async/await work in C#?",
+    "Answer": "The async/await keywords are used to write asynchronous code more easily. 'async' marks a method as asynchronous, and 'await' pauses the execution until the awaited task completes, without blocking the thread.",
+    "Difficulty": "Hard",
+    "Url": "https://www.geeksforgeeks.org/async-and-await-in-c-sharp/"
   }
 ]
