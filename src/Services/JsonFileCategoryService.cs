@@ -7,20 +7,38 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace ContosoCrafts.WebSite.Services
 {
+    /// <summary>
+    /// Service class to manage category data stored in a JSON file
+    /// </summary>
     public class JsonFileCategoryService
     {
+        /// <summary>
+        /// Initializes a new instance of JsonFileCategoryService class
+        /// </summary>
+        /// <param name="webHostEnvironment">
+        /// Provides information about the web hosting environment, including the web root path</param>
         public JsonFileCategoryService(IWebHostEnvironment webHostEnvironment)
         {
             WebHostEnvironment = webHostEnvironment;
         }
 
+        /// <summary>
+        /// Gets the web hosting environment, used to access the web root path.
+        /// </summary>
         public IWebHostEnvironment WebHostEnvironment { get; }
 
+        /// <summary>
+        /// Gets the full path to the JSON file containing the category data.
+        /// </summary>
         private string JsonFileName
         {
             get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "products.json"); }
         }
 
+        /// <summary>
+        /// Retrieves all category data from the JSON file.
+        /// </summary>
+        /// <returns>A collection of CategoryModel objects.</returns>
         public IEnumerable<CategoryModel> GetAllData()
         {
             using (var jsonFileReader = File.OpenText(JsonFileName))
@@ -33,13 +51,17 @@ namespace ContosoCrafts.WebSite.Services
             }
         }
 
+        /// <summary>
+        /// Retrieves the color associated with a specific category by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the category.</param>
+        /// <returns>The color of the specified category.</returns>
         public string GetCategoryColorById(string id)
         {
             var products = GetAllData();
             var product = products.FirstOrDefault(x => x.Id.Equals(id));
             return product.CategoryColor;
         }
-
 
         /// <summary>
         /// Find the data record
@@ -59,9 +81,7 @@ namespace ContosoCrafts.WebSite.Services
             // Update the data to the new passed in values
             productData.Title = data.Title;
             productData.Image = data.Image;
-
             SaveData(products);
-
             return productData;
         }
 
@@ -100,9 +120,7 @@ namespace ContosoCrafts.WebSite.Services
             // Get the current set, and append the new record to it because IEnumerable does not have Add
             var dataSet = GetAllData();
             dataSet = dataSet.Append(data);
-
             SaveData(dataSet);
-
             return data;
         }
 
@@ -115,11 +133,8 @@ namespace ContosoCrafts.WebSite.Services
             // Get the current set, and append the new record to it
             var dataSet = GetAllData();
             var data = dataSet.FirstOrDefault(m => m.Id.Equals(id));
-
             var newDataSet = GetAllData().Where(m => m.Id.Equals(id) == false);
-
             SaveData(newDataSet);
-
             return data;
         }
     }
