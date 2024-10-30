@@ -22,20 +22,28 @@ namespace ContosoCrafts.WebSite.Pages.Flashcards
             FlashcardService = flashcardService;
         }
 
-        // Fetches flashcard data from JSON file
+        /// <summary>
+        /// Fetches flashcard data from JSON file
+        /// </summary>
         public JsonFileFlashcardService FlashcardService { get; }
 
-        // A collection of flashcards to display, filtered by category if specified.
-        // Defaults to an empty collection if no flashcards are available.
+        /// <summary>
+        /// A collection of flashcards to display, filtered by category if specified.
+        /// Defaults to an empty collection if no flashcards are available.
+        /// </summary>
         public IEnumerable<FlashcardModel> Flashcards { get; private set; } =
             Enumerable.Empty<FlashcardModel>();
 
-        // Captures CategoryId from query string
-        [BindProperty(SupportsGet = true)] 
+        /// <summary>
+        /// Captures CategoryId from query string
+        /// </summary>
+        [BindProperty(SupportsGet = true)]
         public string? CategoryId { get; set; }
 
-
-        // Fetches and displays flashcards
+        /// <summary>
+        /// Fetches and displays flashcards
+        /// </summary>
+        /// <param name="categoryId"></param>
         public void OnGet(string? categoryId)
         {
             // Assign categoryId from query string to the property
