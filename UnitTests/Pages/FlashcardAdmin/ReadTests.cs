@@ -25,7 +25,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             // Arrange
             flashcardService = TestHelper.FlashcardService;
             readModel = new ReadModel(flashcardService);
-            var invalidId = "9999";
+            var invalidId = 9999;
 
             // Act
             readModel.OnGet(invalidId);
@@ -44,7 +44,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             // Arrange
             flashcardService = TestHelper.FlashcardService;
             readModel = new ReadModel(flashcardService);
-            var validId = "1";
+            var validId = 1;
 
             // Act
             readModel.OnGet(validId);
@@ -54,7 +54,6 @@ namespace UnitTests.Pages.FlashcardAdmin
             ClassicAssert.AreEqual(true, result);
         }
         #endregion OnGet
-
     }
 
 }
