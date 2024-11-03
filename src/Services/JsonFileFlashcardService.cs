@@ -54,7 +54,7 @@ namespace ContosoCrafts.WebSite.Services
         /// </summary>
         /// <param name="id">The ID of the flashcard to retrieve.</param>
         /// <returns>The FlashcardModel object with the specified ID, or null if not found.</returns>
-        public FlashcardModel GetById(string id)
+        public FlashcardModel GetById(int id)
         {
             return GetAllData().FirstOrDefault(x => x.Id == id);
         }
@@ -113,6 +113,8 @@ namespace ContosoCrafts.WebSite.Services
             existingFlashcard.Question = updatedFlashcard.Question;
             existingFlashcard.Answer = updatedFlashcard.Answer;
             existingFlashcard.DifficultyLevel = updatedFlashcard.DifficultyLevel;
+            existingFlashcard.OpenCount = updatedFlashcard.OpenCount;
+            existingFlashcard.Url = updatedFlashcard.Url; 
         }
     }
 }
