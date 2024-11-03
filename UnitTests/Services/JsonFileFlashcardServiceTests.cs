@@ -46,7 +46,7 @@ namespace UnitTests.Services
         {
             // Arrange
             flashcardService = TestHelper.FlashcardService;
-            var validId = "1"; // Set valid flashcard ID
+            var validId = 1; // Set valid flashcard ID
 
             // Act
             var result = flashcardService.GetById(validId);
@@ -66,7 +66,7 @@ namespace UnitTests.Services
         {
             // Arrange
             flashcardService = TestHelper.FlashcardService;
-            var invalidId = "9999"; // Non-existing flashcard ID
+            var invalidId = 9999; // Non-existing flashcard ID
 
             // Act
             var result = flashcardService.GetById(invalidId);
@@ -87,7 +87,7 @@ namespace UnitTests.Services
             flashcardService = TestHelper.FlashcardService;
             var nonExistentFlashcard = new FlashcardModel
             {
-                Id = "invalid_id",
+                Id = -1,
                 Question = "Question",
                 Answer = "Answer",
                 CategoryId = "Python",
@@ -111,7 +111,7 @@ namespace UnitTests.Services
             flashcardService = TestHelper.FlashcardService;
             var validFlashcard = new FlashcardModel
             {
-                Id = "1", // valid flashcard ID
+                Id = 1, // valid flashcard ID
                 Question = "Updated Question",
                 Answer = "Updated Answer",
                 CategoryId = "Python",
