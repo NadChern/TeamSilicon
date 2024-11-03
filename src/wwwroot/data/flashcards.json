@@ -1,130 +1,146 @@
 [
   {
-    "Id": "1",
+    "Id": 1,
     "CategoryId": "OOP",
     "Question": "What are the four pillars of OOP?",
     "Answer": "Encapsulation, inheritance, polymorphism, and abstraction.",
     "Difficulty": "Easy",
-    "Url": "https://www.freecodecamp.org/news/object-oriented-programming-concepts-21bb035f7260/"
+    "Url": "https://www.freecodecamp.org/news/object-oriented-programming-concepts-21bb035f7260/",
+    "OpenCount": 0
   },
   {
-    "Id": "2",
+    "Id": 2,
     "CategoryId": "OOP",
     "Question": "What is polymorphism and how is it implemented in OOP?",
     "Answer": "Polymorphism allows objects of different types to be treated as a common type. It\u0027s implemented through method overriding and interfaces, enabling methods to behave differently based on the object.",
     "Difficulty": "Medium",
-    "Url": "https://www.geeksforgeeks.org/polymorphism-in-java/"
+    "Url": null,
+    "OpenCount": 0
   },
   {
-    "Id": "3",
+    "Id": 3,
     "CategoryId": "OOP",
     "Question": "What is encapsulation and why is it important?",
     "Answer": "Encapsulation is the bundling of data (attributes) and methods (functions) into a single unit or class, restricting access to certain components. It protects object integrity and promotes modular, maintainable code.",
     "Difficulty": "Easy",
-    "Url": "https://www.geeksforgeeks.org/encapsulation-in-java/"
+    "Url": "https://www.geeksforgeeks.org/encapsulation-in-java/",
+    "OpenCount": 0
   },
   {
-    "Id": "4",
+    "Id": 4,
     "CategoryId": "Python",
     "Question": "What is a Python dictionary and how do you access its elements?",
-    "Answer": "Dictionary is a collection of key-value pairs, defined with curly braces { }. Elements are accessed by their key, e.g., my_dict[\u0022key\u0022].",
+    "Answer": "Dictionary is a collection of key-value pairs, defined with curly braces { }. Elements are accessed by their key, e.g., my_dict[\u0027key\u0027].",
     "Difficulty": "Easy",
-    "Url": "https://www.w3schools.com/python/python_dictionaries.asp"
+    "Url": "https://www.w3schools.com/python/python_dictionaries.asp",
+    "OpenCount": 0
   },
   {
-    "Id": "5",
+    "Id": 5,
     "CategoryId": "Python",
     "Question": "How do you handle exceptions in Python?",
     "Answer": "Exceptions in Python are handled using the try, except, and optionally finally blocks.",
     "Difficulty": "Easy",
-    "Url": ""
+    "Url": "",
+    "OpenCount": 0
   },
   {
-    "Id": "6",
+    "Id": 6,
     "CategoryId": "Python",
     "Question": "What is the difference between a list and a tuple in Python?",
-    "Answer": "A List is Mutable (can be modified after creation) and defined with square brackets [ ]. A tuple is Immutable (cannot be modified after creation) and defined with parentheses ( ).",
+    "Answer": "A List is Mutable (can be modified after creation) and defined with square brackets []. A tuple is Immutable (cannot be modified after creation) and defined with parentheses ().",
     "Difficulty": "Easy",
-    "Url": ""
+    "Url": "",
+    "OpenCount": 0
   },
   {
-    "Id": "7",
+    "Id": 7,
     "CategoryId": "C#",
     "Question": "What is a nullable type in C# and how is it used?",
     "Answer": "A nullable type allows value types to hold null values. It\u0027s used with \u0027?\u0027 (e.g., int? x = null) to represent an undefined or absent value.",
     "Difficulty": "Medium",
-    "Url": ""
+    "Url": "",
+    "OpenCount": 0
   },
   {
-    "Id": "8",
+    "Id": 8,
     "CategoryId": "C\u002B\u002B",
     "Question": "What is the difference between a pointer and a reference in C\u002B\u002B?",
     "Answer": "A pointer stores the memory address of a variable, while a reference is an alias to an existing variable. Pointers can be reassigned, but references cannot.",
     "Difficulty": "Hard",
-    "Url": ""
+    "Url": "",
+    "OpenCount": 0
   },
   {
-    "Id": "9",
+    "Id": 9,
     "CategoryId": "Mobile",
     "Question": "What is the difference between native, hybrid, and web mobile apps?",
     "Answer": "Native apps are built for specific platforms (e.g., iOS or Android), hybrid apps are developed using web technologies and run inside a native container, and web apps run in mobile browsers without installation.",
     "Difficulty": "Easy",
-    "Url": ""
+    "Url": "",
+    "OpenCount": 0
   },
   {
-    "Id": "10",
+    "Id": 10,
     "CategoryId": "DS",
     "Question": "What is a distributed system?",
     "Answer": "A distributed system is a collection of independent computers that appear to users as a single coherent system. These systems share resources and coordinate tasks to achieve common goals.",
     "Difficulty": "Medium",
-    "Url": ""
+    "Url": "",
+    "OpenCount": 0
   },
   {
-    "Id": "11",
+    "Id": 11,
     "CategoryId": "DS",
     "Question": "What is a distributed system?",
     "Answer": "A distributed system is a collection of independent computers that appear to users as a single coherent system. These systems share resources and coordinate tasks to achieve common goals.",
     "Difficulty": "Medium",
-    "Url": ""
+    "Url": "",
+    "OpenCount": 0
   },
   {
-    "Id": "12",
+    "Id": 12,
     "CategoryId": "DS",
     "Question": "What are the main challenges in distributed systems?",
     "Answer": "Key challenges include latency, fault tolerance, data consistency, and scalability.",
     "Difficulty": "Medium",
-    "Url": ""
+    "Url": "",
+    "OpenCount": 0
   },
   {
-    "Id": "13",
+    "Id": 13,
     "CategoryId": "DS",
     "Question": "What is the CAP theorem?",
     "Answer": "The CAP theorem states that in a distributed data store, it is impossible to simultaneously guarantee consistency, availability, and partition tolerance.",
     "Difficulty": "Hard",
-    "Url": ""
+    "Url": "",
+    "OpenCount": 0
   },
   {
-    "Id": "14",
+    "Id": 14,
     "CategoryId": "C#",
     "Question": "What is the difference between an interface and an abstract class in C#?",
     "Answer": "An interface defines a contract with no implementation, while an abstract class can contain both abstract and concrete methods. A class can implement multiple interfaces, but it can only inherit from a single abstract class.",
     "Difficulty": "Medium",
-    "Url": "https://www.geeksforgeeks.org/difference-between-abstract-class-and-interface-in-c-sharp/"
+    "Url": "https://www.geeksforgeeks.org/difference-between-abstract-class-and-interface-in-c-sharp/",
+    "OpenCount": 0
   },
   {
-    "Id": "15",
+    "Id": 15,
     "CategoryId": "C#",
-    "Question": "What is the purpose of the 'using' statement in C#?",
-    "Answer": "The 'using' statement ensures that unmanaged resources, like file handles or database connections, are properly disposed of when no longer needed. It simplifies resource management by automatically calling Dispose.",
+    "Question": "What is the purpose of the \u0027using\u0027 statement in C#?",
+    "Answer": "The \u0027using\u0027 statement ensures that unmanaged resources, like file handles or database connections, are properly disposed of when no longer needed. It simplifies resource management by automatically calling Dispose.",
     "Difficulty": "Medium",
-    "Url": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-statement"
+    "Url": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-statement",
+    "OpenCount": 0
   },
   {
-    "Id": "16",
+    "Id": 16,
     "CategoryId": "C#",
     "Question": "How does async/await work in C#?",
-    "Answer": "The async/await keywords are used to write asynchronous code more easily. 'async' marks a method as asynchronous, and 'await' pauses the execution until the awaited task completes, without blocking the thread.",
+    "Answer": "The async/await keywords are used to write asynchronous code more easily. \u0027async\u0027 marks a method as asynchronous, and \u0027await\u0027 pauses the execution until the awaited task completes, without blocking the thread.",
     "Difficulty": "Hard",
-    "Url": "https://www.geeksforgeeks.org/async-and-await-in-c-sharp/"
+    "Url": "https://www.geeksforgeeks.org/async-and-await-in-c-sharp/",
+    "OpenCount": 0
   }
 ]
