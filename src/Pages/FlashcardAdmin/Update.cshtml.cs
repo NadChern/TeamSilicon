@@ -96,7 +96,7 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
         /// Handles HTTP GET requests to retrieve a specific flashcard by ID
         /// </summary>
         /// <param name="id">ID of the flashcard to be retrieved.</param>
-        public void OnGet(string id)
+        public void OnGet(int id)
         {
             // Retrieve the flashcard using the provided ID.
             Flashcard = FlashcardService.GetById(id);
