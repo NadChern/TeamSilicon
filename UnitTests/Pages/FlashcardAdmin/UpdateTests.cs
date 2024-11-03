@@ -26,7 +26,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             // Arrange
             flashcardService = TestHelper.FlashcardService;
             updateModel = new UpdateModel(flashcardService);
-            var invalidId = "9999";
+            var invalidId = 9999;
 
             // Act
             updateModel.OnGet(invalidId);
@@ -45,7 +45,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             // Arrange
             flashcardService = TestHelper.FlashcardService;
             updateModel = new UpdateModel(flashcardService);
-            var validId = "1";
+            var validId = 1;
 
             // Act
             updateModel.OnGet(validId);
@@ -69,7 +69,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = "1",
+                    Id = 1,
                     Question = "", // Invalid model
                     Answer = "Sample Answer",
                     CategoryId = "OOP",
@@ -103,7 +103,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = "1",
+                    Id = 1,
                     Question = "Sample Question", // Valid model
                     Answer = "Sample Answer",
                     CategoryId = "OOP",
@@ -153,7 +153,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = "1",
+                    Id = 1,
                     Question = "Sample Question",
                     Answer = "Sample Answer",
                     CategoryId = "OOP",
@@ -180,7 +180,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = "1",
+                    Id = 1,
                     Question = "Sample Question",
                     Answer = "Sample Answer",
                     CategoryId = "OOP",
@@ -228,7 +228,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = "1",
+                    Id = 1,
                     Question = "Sample Question",
                     Answer = "Sample Answer",
                     CategoryId = "OOP",
@@ -255,7 +255,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = "1",
+                    Id = 1,
                     Question = "Sample Question",
                     Answer = "Sample Answer",
                     CategoryId = "OOP",
@@ -303,7 +303,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = "1",
+                    Id = 1,
                     Question = "Sample Question",
                     Answer = "Sample Answer",
                     CategoryId = "OOP",
@@ -330,7 +330,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = "1",
+                    Id = 1,
                     Question = "Sample Question",
                     Answer = "Sample Answer",
                     CategoryId = "OOP",
@@ -380,7 +380,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = "1",
+                    Id = 1,
                     Question = "Sample Question",
                     Answer = "Sample Answer",
                     CategoryId = "Python",
@@ -407,7 +407,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = "1",
+                    Id = 1,
                     Question = "Sample Question",
                     Answer = "Sample Answer",
                     CategoryId = "OOP",
@@ -455,7 +455,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = "1",
+                    Id = 1,
                     Question = "Sample Question",
                     Answer = "Sample Answer",
                     CategoryId = "OOP",
@@ -482,7 +482,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = "1",
+                    Id = 1,
                     Question = "Sample Question",
                     Answer = "Sample Answer",
                     CategoryId = "Python",
@@ -530,7 +530,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = "1",
+                    Id = 1,
                     Question = "Sample Question",
                     Answer = "Sample Answer",
                     CategoryId = "OOP",
@@ -557,7 +557,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = "1",
+                    Id = 1,
                     Question = "Sample Question",
                     Answer = "Sample Answer",
                     CategoryId = "C#",
@@ -605,7 +605,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = "1",
+                    Id = 1,
                     Question = "Sample Question",
                     Answer = "Sample Answer",
                     CategoryId = "OOP",
@@ -632,7 +632,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = "1",
+                    Id = 1,
                     Question = "Sample Question",
                     Answer = "Sample Answer",
                     CategoryId = "C++",
@@ -680,7 +680,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = "1",
+                    Id = 1,
                     Question = "Sample Question",
                     Answer = "Sample Answer",
                     CategoryId = "OOP",
@@ -707,7 +707,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = "1",
+                    Id = 1,
                     Question = "Sample Question",
                     Answer = "Sample Answer",
                     CategoryId = "Mobile",
@@ -755,7 +755,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = "1",
+                    Id = 1,
                     Question = "Sample Question",
                     Answer = "Sample Answer",
                     CategoryId = "OOP",
@@ -782,7 +782,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = "1",
+                    Id = 1,
                     Question = "Sample Question",
                     Answer = "Sample Answer",
                     CategoryId = "DS",
