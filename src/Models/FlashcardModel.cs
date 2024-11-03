@@ -10,7 +10,7 @@ namespace ContosoCrafts.WebSite.Models
     public class FlashcardModel
     {
         // Primary key Id for flashcard
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         // Id of the category the card belong to
         public string CategoryId { get; set; }
@@ -27,6 +27,9 @@ namespace ContosoCrafts.WebSite.Models
 
         // Link to additional resources related to the flashcard (optional)
         public string Url { get; set; }
+        
+        // Number of times flashcard has been opened (flipped)
+        public int OpenCount { get; set; } = 0;
 
         /// <summary>
         /// Converts current FlashcardModel object into JSON string representation
@@ -34,6 +37,5 @@ namespace ContosoCrafts.WebSite.Models
         /// <returns>Json string representation of FlashcardModel object</returns>
         public override string ToString() => JsonSerializer.Serialize<FlashcardModel>(this);
         
-
     }
 }
