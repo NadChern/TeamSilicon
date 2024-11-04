@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace UnitTests.Pages.FlashcardAdmin
 {
     /// <summary>
-    /// Unit Tests for JsonFlascardService class.
+    /// Unit Tests for UpdateModel class.
     /// </summary>
     public class UpdateTests
     {
