@@ -4,4 +4,175 @@
     ViewData["Title"] = "Create Flashcard";
 }
 
+<!-- Styling -->
+<style>
+    body {
+        background-color: #f0f8ff;
+    }
+
+    .form-container {
+        margin-top: 20px;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        background: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+    }
+
+    label {
+        font-size: 16px;
+        font-weight: bold;
+        color: #1a1a2e;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"], textarea, select {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #d0e7f9;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+    }
+
+    textarea {
+        resize: vertical;
+        height: 100px;
+    }
+
+    .readonly-input {
+        background-color: #e5eaed;
+    }
+        
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+    }
+    
+    .submit-btn {
+        display: inline-block;
+        padding: 8px 20px;
+        font-size: 16px;
+        font-weight: 600;
+        color: white;
+        background-color: #4682b4;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-align: center;
+    }
+
+        .submit-btn:hover {
+            background-color: #1e90ff;
+        }
+
+    .cancel-btn {
+        display: inline-block;
+        padding: 8px 20px;
+        font-size: 16px;
+        font-weight: 600;
+        color: white;
+        background-color: #6c757d;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-align: center;
+    }
+
+        .close-btn:hover {
+            background-color: #5a6268;
+        }
+
+</style>
+
 <h1>Create Flashcard</h1>
+<!-- Form Structure -->
+<div class="form-container">
+    <form method="post">
+
+        <!-- ID (read-only) -->
+        <div>
+            <label for="Id">Id</label>
+            <input type="text" id="Id" name="Flashcard.Id" value="@Model.Flashcard.Id" readonly class="readonly-input" />
+        </div>
+
+        <!-- Category Dropdown -->
+        <div>
+            <label asp-for="Flashcard.CategoryId">Category</label>
+            <select asp-for="Flashcard.CategoryId" class="form-control">
+                @foreach (var category in Model.Categories)
+                {
+                    if (category == Model.Flashcard.CategoryId)
+                    {
+                        <option value="@category" selected>@category</option>
+                    }
+                    else
+                    {
+                        <option value="@category">@category</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <!-- Question, cannot be empty -->
+        <div>
+            <label asp-for="Flashcard.Question">Question</label>
+            <small>Max 100 characters</small>
+            <span asp-validation-for="Flashcard.Question" class="text-danger font-weight-bold"></span>
+            <input type="text" asp-for="Flashcard.Question" maxlength="100" placeholder="Type a concise, specific question" />
+        </div>
+
+        <!-- Answer, cannot be empty -->
+        <div>
+            <label asp-for="Flashcard.Answer">Answer</label>
+            <small>Max 250 characters</small>
+            <span asp-validation-for="Flashcard.Answer" class="text-danger font-weight-bold"></span>
+            <textarea asp-for="Flashcard.Answer" rows="3" style="resize: none;" maxlength="250" placeholder="Keep your answer brief and to the point"></textarea>
+        </div>
+
+        <!-- Difficulty Level w/ Dropdown Box-->
+        <div>
+            <label asp-for="Flashcard.DifficultyLevel">Difficulty Level</label>
+            <select asp-for="Flashcard.DifficultyLevel" class="form-control">
+                @foreach (var level in Model.DifficultyLevels)
+                {
+                    if (level == Model.Flashcard.DifficultyLevel)
+                    {
+                        <option value="@level" selected>@level</option>
+                    }
+                    else
+                    {
+                        <option value="@level">@level</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <!-- Additional Resources Url -->
+        <div>
+            <label asp-for="Flashcard.Url">Additional Resources (URL)</label>
+            <input type="text" asp-for="Flashcard.Url" placeholder="Enter a helpful link, e.g., https://example.com" />
+        </div>
+
+        <!-- Open Count (readonly, preset to 0) -->
+        <div>
+            <label asp-for="Flashcard.OpenCount">Open Count</label>
+            <input type="text" asp-for="Flashcard.OpenCount" readonly class="readonly-input" />
+        </div>
+
+        <div class="button-container"> 
+        <!-- Cancel Button -->
+        <a asp-page="/FlashcardAdmin/Index" asp-route-id="@Model.Flashcard.Id" class="cancel-btn">Cancel</a>
+
+        <!-- Create Button -->
+        <input type="submit" value="Create" class="submit-btn" />
+        </div>
+    </form>
+</div>
