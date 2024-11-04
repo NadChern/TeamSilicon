@@ -8,7 +8,7 @@ using ContosoCrafts.WebSite.Pages.FlashcardAdmin;
 namespace UnitTests.Pages.FlashcardAdmin
 {
     /// <summary>
-    /// Unit Tests for JsonFlascardService class.
+    /// Unit Tests for ReadModel class.
     /// </summary>
     public class ReadTests
     {
