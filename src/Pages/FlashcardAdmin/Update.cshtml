@@ -128,17 +128,17 @@
         <!-- Question, cannot be empty -->
         <div>
             <label for="Question">Question</label>
-            <small>Max 250 characters.</small>
+            <small>Max 100 characters</small>
             <span asp-validation-for="Flashcard.Question" class="text-danger font-weight-bold"></span> <!-- Shows *Required if empty -->
-            <input type="text" id="Question" name="Flashcard.Question" value="@Model.Flashcard.Question" maxlength="250" placeholder="Enter your question here" />
+            <input type="text" id="Question" name="Flashcard.Question" value="@Model.Flashcard.Question" maxlength="100" placeholder="Enter your question here" />
         </div>
 
         <!-- Answer, cannot be empty -->
         <div>
             <label for="Answer">Answer</label>
-            <small>Max 500 characters.</small>
+            <small>Max 250 characters</small>
             <span asp-validation-for="Flashcard.Answer" class="text-danger font-weight-bold"></span> <!-- Shows *Required if empty -->
-            <textarea id="Answer" name="Flashcard.Answer" rows="3" style="resize: none;" maxlength="500">@Model.Flashcard.Answer placeholder="Enter your answer here"</textarea>
+            <textarea id="Answer" name="Flashcard.Answer" rows="3" style="resize: none;" maxlength="250">@Model.Flashcard.Answer placeholder="Enter your answer here"</textarea>
         </div>
 
         <!-- Difficulty Level w/ Dropdown Box-->
