@@ -20,6 +20,7 @@ namespace ContosoCrafts.WebSite.Models
         public string Question { get; set; }
 
         // Answer for the question on the flashcard
+        [Required(ErrorMessage = "*Required")]
         public string Answer { get; set; }
 
         // Difficulty level of the question (Easy, Medium, Hard)
