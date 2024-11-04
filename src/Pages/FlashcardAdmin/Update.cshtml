@@ -133,10 +133,12 @@
             <input type="text" id="Question" name="Flashcard.Question" value="@Model.Flashcard.Question" />
         </div>
 
-        <!-- Answer -->
+        <!-- Answer, cannot be empty -->
         <div>
             <label for="Answer">Answer</label>
-            <textarea id="Answer" name="Flashcard.Answer">@Model.Flashcard.Answer</textarea>
+            <small>Max 500 characters.</small>
+            <span asp-validation-for="Flashcard.Answer" class="text-danger font-weight-bold"></span> <!-- Shows *Required if empty -->
+            <textarea id="Answer" name="Flashcard.Answer" rows="3" style="resize: none;" maxlength="500">@Model.Flashcard.Answer</textarea>
         </div>
 
         <!-- Difficulty Level w/ Dropdown Box-->
