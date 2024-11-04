@@ -107,17 +107,10 @@
 
         <input type="hidden" name="Flashcard.Id" value="@Model.Flashcard.Id" />
 
-        <!-- Question, cannot be empty -->
+        <!-- ID (read-only) -->
         <div>
-            <label for="Question">Question</label>
-            <span asp-validation-for="Flashcard.Question" class="text-danger font-weight-bold"></span> <!-- Shows *Required if empty -->
-            <input type="text" id="Question" name="Flashcard.Question" value="@Model.Flashcard.Question" />
-        </div>
-
-        <!-- Answer -->
-        <div>
-            <label for="Answer">Answer</label>
-            <textarea id="Answer" name="Flashcard.Answer">@Model.Flashcard.Answer</textarea>
+            <label for="Id">Id</label>
+            <input type="text" id="Id" name="Flashcard.Id" value="@Model.Flashcard.Id" readonly class="readonly-input" />
         </div>
 
         <!-- Category -->
@@ -133,6 +126,19 @@
             </select>
         </div>
 
+        <!-- Question, cannot be empty -->
+        <div>
+            <label for="Question">Question</label>
+            <span asp-validation-for="Flashcard.Question" class="text-danger font-weight-bold"></span> <!-- Shows *Required if empty -->
+            <input type="text" id="Question" name="Flashcard.Question" value="@Model.Flashcard.Question" />
+        </div>
+
+        <!-- Answer -->
+        <div>
+            <label for="Answer">Answer</label>
+            <textarea id="Answer" name="Flashcard.Answer">@Model.Flashcard.Answer</textarea>
+        </div>
+
         <!-- Difficulty Level w/ Dropdown Box-->
         <div>
             <label for="DifficultyLevel">Difficulty Level</label>
@@ -142,6 +148,22 @@
                 <option value="Hard" selected="@(Model.IsHardSelected ? "selected" : null)">Hard</option>
             </select>
         </div>
+
+        <!-- Additional Resources Url -->
+        <div>
+            <label for="Url">Additional Resources (URL)</label>
+            <input type="text" id="Url" name="Flashcard.Url" value="@Model.Flashcard.Url" />
+        </div>
+
+        <!-- Open Count with Dropdown (Current count and Reset option) -->
+        <div>
+            <label for="OpenCount">Open Count</label>
+            <select id="OpenCount" name="Flashcard.OpenCount">
+                <option value="@Model.Flashcard.OpenCount" selected>@Model.Flashcard.OpenCount</option>
+                <option value="0">Reset to 0</option>
+            </select>
+        </div>
+
 
         <!-- Close Button -->
         <a asp-page="/FlashcardAdmin/Read" asp-route-id="@Model.Flashcard.Id" class="close-btn">Close</a>
