@@ -43,6 +43,9 @@
         margin-bottom: 20px;
     }
 
+    .update-btn 
+    {
+        display: inline-block;
         width: 150px; /* Fixed width to center the button */
         padding: 8px 20px;
         font-size: 16px;
@@ -54,7 +57,9 @@
         cursor: pointer;
         transition: background-color 0.3s ease;
         text-align: center;
-        margin: 0 auto; /* Center the button */
+        margin-left: 250px;
+    }
+
     .delete-btn 
     {
         display: inline-block;
@@ -76,8 +81,12 @@
     {
         background-color: #c0392b; /* Darker red on hover */
     }
+
+    .update-btn:hover 
+    {
             background-color: #1e90ff;
         }
+
 </style>
 
 <div>
@@ -100,3 +109,6 @@
     <!-- Delete Button -->
     <a asp-page="" asp-route-id="@Model.Flashcard.Id" class="delete-btn">Delete</a>
 
+    <!-- Update Button -->
+    <a asp-page="/FlashcardAdmin/Update" asp-route-id="@Model.Flashcard.Id" class="update-btn">Update</a>
+</div>
