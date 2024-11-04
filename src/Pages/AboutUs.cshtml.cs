@@ -23,10 +23,16 @@ namespace ContosoCrafts.WebSite.Pages
         }
 
         /// <summary>
+        /// A flag indicates that OnGet was successful
+        /// </summary>
+        public bool IsLoaded { get; set; }
+
+        /// <summary>
         /// Handles the HTTP GET request for the About Us page.
         /// </summary>
         public void OnGet()
         {
+            IsLoaded = true;
         }
     }
 }
