@@ -30,7 +30,7 @@
   }
 
   .flipped {
-    background-color: #b0e0e6 !important;
+    text-align: end;
   }
 
   .category {
@@ -58,7 +58,7 @@
   }
 
 .custom-badge {
-    background-color: #adb5bd; /* Bright green */
+    background-color: #828588; /* Bright green */
     color: #ffffff; /* White text for contrast */
     padding: 0.5em 1em; /* Adjust padding for a rounded, pill-like shape */
     font-size: 14px;
@@ -111,10 +111,13 @@
                             @(isFlipped ? flashcard.Answer : flashcard.Question)
                         </p>
                     </div>
-                    <div class="card-footer d-flex justify-content-between align-items-center" style="background-color: white; min-height: 48px;">
-                        @if (!isFlipped)
-                        {
-                            <span class="badge rounded-pill custom-badge ms-auto">Flipped +@flashcard.OpenCount</span>
+                    <div class="card-footer" style="background-color: white; min-height: 48px;">
+                        @if (!isFlipped && @flashcard.OpenCount > 0)
+                        {   
+                            <div class="flipped"> 
+                            <span>Flipped</span>
+                            <span class="badge rounded-pill custom-badge ms-auto">@flashcard.OpenCount</span>
+                            </div>
                         }
                         @if (isFlipped && !string.IsNullOrEmpty(flashcard.Url))
                         {
