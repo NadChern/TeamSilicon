@@ -10,7 +10,7 @@ namespace ContosoCrafts.WebSite.Models
     public class FlashcardModel
     {
         // Primary key Id for flashcard
-        public int Id { get; set; }
+        public int Id { get; set; } = 0;
 
         // Id of the category the card belong to
         public string CategoryId { get; set; }
