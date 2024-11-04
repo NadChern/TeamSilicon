@@ -58,7 +58,7 @@
     }
 
     .submit-btn {
-        display: block;
+        display: inline-block;
         width: 150px;
         padding: 8px 20px;
         font-size: 16px;
@@ -70,12 +70,33 @@
         cursor: pointer;
         transition: background-color 0.3s ease;
         text-align: center;
-        margin: 0 auto;
+        margin-left: 250px;
     }
 
         .submit-btn:hover {
             background-color: #1e90ff;
         }
+
+    .close-btn {
+        display: inline-block;
+        width: 150px; /* Fixed width to center the button */
+        padding: 8px 20px;
+        font-size: 16px;
+        font-weight: 600;
+        color: white;
+        background-color: #6c757d;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-align: center;
+        margin-left: 250px;
+    }
+
+        .close-btn:hover {
+            background-color: #5a6268;
+        }
+
 </style>
 
 <h1>Update Flashcard</h1>
@@ -121,6 +142,9 @@
                 <option value="Hard" selected="@(Model.IsHardSelected ? "selected" : null)">Hard</option>
             </select>
         </div>
+
+        <!-- Close Button -->
+        <a asp-page="/FlashcardAdmin/Read" asp-route-id="@Model.Flashcard.Id" class="close-btn">Close</a>
 
         <!-- Save Changes Button -->
         <input type="submit" value="Save Changes" class="submit-btn" />
