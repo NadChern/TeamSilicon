@@ -130,7 +130,7 @@
             <label for="Question">Question</label>
             <small>Max 250 characters.</small>
             <span asp-validation-for="Flashcard.Question" class="text-danger font-weight-bold"></span> <!-- Shows *Required if empty -->
-            <input type="text" id="Question" name="Flashcard.Question" value="@Model.Flashcard.Question" maxlength="250"/>
+            <input type="text" id="Question" name="Flashcard.Question" value="@Model.Flashcard.Question" maxlength="250" placeholder="Enter your question here" />
         </div>
 
         <!-- Answer, cannot be empty -->
@@ -138,7 +138,7 @@
             <label for="Answer">Answer</label>
             <small>Max 500 characters.</small>
             <span asp-validation-for="Flashcard.Answer" class="text-danger font-weight-bold"></span> <!-- Shows *Required if empty -->
-            <textarea id="Answer" name="Flashcard.Answer" rows="3" style="resize: none;" maxlength="500">@Model.Flashcard.Answer</textarea>
+            <textarea id="Answer" name="Flashcard.Answer" rows="3" style="resize: none;" maxlength="500">@Model.Flashcard.Answer placeholder="Enter your answer here"</textarea>
         </div>
 
         <!-- Difficulty Level w/ Dropdown Box-->
@@ -154,7 +154,7 @@
         <!-- Additional Resources Url -->
         <div>
             <label for="Url">Additional Resources (URL)</label>
-            <input type="text" id="Url" name="Flashcard.Url" value="@Model.Flashcard.Url" />
+            <input type="text" id="Url" name="Flashcard.Url" value="@Model.Flashcard.Url" placeholder="https://www.example.com" />
         </div>
 
         <!-- Open Count with Dropdown (Current count and Reset option) -->
@@ -168,7 +168,7 @@
 
         <div class="button-container"> 
         <!-- Close Button -->
-        <a asp-page="/FlashcardAdmin/Read" asp-route-id="@Model.Flashcard.Id" class="close-btn">Close</a>
+        <a asp-page="/FlashcardAdmin/Index" asp-route-id="@Model.Flashcard.Id" class="close-btn">Close</a>
 
         <!-- Save Changes Button -->
         <input type="submit" value="Save" class="submit-btn" />
