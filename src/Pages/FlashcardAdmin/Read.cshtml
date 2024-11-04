@@ -84,27 +84,49 @@
 
     .update-btn:hover 
     {
-            background-color: #1e90ff;
-        }
+        background-color: #1e90ff;
+    }
 
 </style>
 
-<div>
-    <h2>Flashcard Details</h2>
-    <h3>Question</h3>
-    <p>@Model.Flashcard.Question</p>
+<h1>Flashcard Details</h1>
 
-    <h3>Answer</h3>
-    <p>@Model.Flashcard.Answer</p>
+<!-- Flashcard Details Section -->
+<div class="form-container">
+    <div>
+        <label>Id</label>
+        <p>@Model.Flashcard.Id</p>
+    </div>
 
-    <h3>Category</h3>
-    <p>@Model.Flashcard.CategoryId</p>
+    <div>
+        <label>Category</label>
+        <p>@Model.Flashcard.CategoryId</p>
+    </div>
 
-    <h3>Difficulty Level</h3>
-    <p>@Model.Flashcard.DifficultyLevel</p>
+    <div>
+        <label>Question</label>
+        <p>@Model.Flashcard.Question</p>
+    </div>
 
-    <a asp-page="/FlashcardAdmin/Update" asp-route-id="@Model.Flashcard.Id" class="btn update-btn">Update</a>
-</div>
+    <div>
+        <label>Answer</label>
+        <p>@Model.Flashcard.Answer</p>
+    </div>
+
+    <div>
+        <label>Difficulty Level</label>
+        <p>@Model.Flashcard.DifficultyLevel</p>
+    </div>
+
+    <div>
+        <label>Additional Resources</label>
+        <p><a href="@Model.Flashcard.Url" target="_blank">@Model.Flashcard.Url</a></p>
+    </div>
+
+    <div>
+        <label>Open Count</label>
+        <p>@Model.Flashcard.OpenCount</p>
+    </div>
 
     <!-- Delete Button -->
     <a asp-page="" asp-route-id="@Model.Flashcard.Id" class="delete-btn">Delete</a>
