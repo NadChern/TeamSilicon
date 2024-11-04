@@ -8,9 +8,6 @@
 <style>
     body {
         background-color: #f0f8ff;
-        margin: 0;
-        padding: 0;
-        overflow: auto;
     }
 
     .form-container {
@@ -57,9 +54,14 @@
         box-sizing: border-box;
     }
 
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+    }
+    
     .submit-btn {
         display: inline-block;
-        width: 150px;
         padding: 8px 20px;
         font-size: 16px;
         font-weight: 600;
@@ -70,7 +72,6 @@
         cursor: pointer;
         transition: background-color 0.3s ease;
         text-align: center;
-        margin-left: 250px;
     }
 
         .submit-btn:hover {
@@ -79,7 +80,6 @@
 
     .close-btn {
         display: inline-block;
-        width: 150px; /* Fixed width to center the button */
         padding: 8px 20px;
         font-size: 16px;
         font-weight: 600;
@@ -90,7 +90,6 @@
         cursor: pointer;
         transition: background-color 0.3s ease;
         text-align: center;
-        margin-left: 250px;
     }
 
         .close-btn:hover {
@@ -167,11 +166,12 @@
             </select>
         </div>
 
-
+        <div class="button-container"> 
         <!-- Close Button -->
         <a asp-page="/FlashcardAdmin/Read" asp-route-id="@Model.Flashcard.Id" class="close-btn">Close</a>
 
         <!-- Save Changes Button -->
-        <input type="submit" value="Save Changes" class="submit-btn" />
+        <input type="submit" value="Save" class="submit-btn" />
+        </div>
     </form>
 </div>
