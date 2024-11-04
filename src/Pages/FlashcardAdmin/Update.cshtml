@@ -129,8 +129,9 @@
         <!-- Question, cannot be empty -->
         <div>
             <label for="Question">Question</label>
+            <small>Max 250 characters.</small>
             <span asp-validation-for="Flashcard.Question" class="text-danger font-weight-bold"></span> <!-- Shows *Required if empty -->
-            <input type="text" id="Question" name="Flashcard.Question" value="@Model.Flashcard.Question" />
+            <input type="text" id="Question" name="Flashcard.Question" value="@Model.Flashcard.Question" maxlength="250"/>
         </div>
 
         <!-- Answer, cannot be empty -->
