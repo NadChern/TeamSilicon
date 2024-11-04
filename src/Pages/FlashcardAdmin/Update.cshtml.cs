@@ -122,7 +122,7 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
             {
                 FlashcardService.UpdateFlashcard(Flashcard);
                 IsFlashcardUpdated = true;
-                return RedirectToPage("/FlashcardAdmin/Read",
+                return RedirectToPage("/FlashcardAdmin/Index",
                     new { id = Flashcard.Id }); // Redirect details page
             }
 
