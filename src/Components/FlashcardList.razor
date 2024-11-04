@@ -46,6 +46,7 @@
   }
 
   .cardBody {
+    position: relative;
     min-height: 200px;
     height: fit-content;
     text-align: center;
@@ -55,6 +56,16 @@
     font-size: 18px;
     font-weight: 500;
   }
+
+.custom-badge {
+    background-color: #adb5bd; /* Bright green */
+    color: #ffffff; /* White text for contrast */
+    padding: 0.5em 1em; /* Adjust padding for a rounded, pill-like shape */
+    font-size: 14px;
+    border-radius: 50px; /* Makes the badge a pill shape */
+    font-weight: 500; /* Slightly bolder text */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Optional: subtle shadow for depth */
+}
 
   .svg {
     width: 20px;
@@ -100,8 +111,11 @@
                             @(isFlipped ? flashcard.Answer : flashcard.Question)
                         </p>
                     </div>
-
-                    <div class="card-footer" style="background-color: white; min-height: 48px;">
+                    <div class="card-footer d-flex justify-content-between align-items-center" style="background-color: white; min-height: 48px;">
+                        @if (!isFlipped)
+                        {
+                            <span class="badge rounded-pill custom-badge ms-auto">Flipped +@flashcard.OpenCount</span>
+                        }
                         @if (isFlipped && !string.IsNullOrEmpty(flashcard.Url))
                         {
                             <a href="@flashcard.Url" target="_blank">More info</a>
@@ -151,8 +165,22 @@
     // Toggles the selected flashcard between the question and answer side
     private void ToggleCard(int cardId)
     {
+        // Check if the user is flipping to show the answer
+        bool isFlippingToAnswer = selectedCardId != cardId || !showAnswer;
+
+        // Toggle the display of the answer
         showAnswer = selectedCardId == cardId ? !showAnswer : true;
         selectedCardId = cardId;
+
+        // Find the selected flashcard
+        var flashcard = GetFilteredFlashcards().FirstOrDefault(f => f.Id == cardId);
+
+        if (flashcard != null && isFlippingToAnswer)
+        {
+            // Increment OpenCount and update the flashcard data
+            flashcard.OpenCount++;
+            FlashcardService.UpdateFlashcard(flashcard); // Save the updated OpenCount
+        }
     }
 
     // Helper method to render difficulty level as paw icons
