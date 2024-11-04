@@ -73,35 +73,44 @@
         .read-btn:hover {
             background-color: #1e90ff; /* Dodger blue on hover */
         }
+        
+        .create-btn {
+        padding: 0 0 10px 0;
+        }
 </style>
 
 <!-- HTML Content -->
 <div class="stylebox">
+    <div class="create-btn"> 
+    <a asp-page="/FlashcardAdmin/Create" class="read-btn">
+        Create card
+    </a>
+    </div>
     <table class="table">
         <thead>
-            <tr>
-                <th>Question List</th>
-                <th>Action</th>
-            </tr>
+        <tr>
+            <th>Question List</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
-            @foreach (var card in Model.Flashcards)
-            {
-                <tr>
-                    <td>@card.Question</td>
-                    <td>
-                        <a asp-page="/FlashcardAdmin/Read" asp-route-id="@card.Id" class="read-btn">
-                            Read
-                        </a>
-                        <a asp-page="/FlashcardAdmin/Update" asp-route-id="@card.Id" class="read-btn">
-                            Update
-                        </a>
-                        <a asp-page="" asp-route-id="@card.Id" class="read-btn">
-                            Delete
-                        </a>
-                    </td>
-                </tr>
-            }
+        @foreach (var card in Model.Flashcards)
+        {
+            <tr>
+                <td>@card.Question</td>
+                <td>
+                    <a asp-page="/FlashcardAdmin/Read" asp-route-id="@card.Id" class="read-btn">
+                        Read
+                    </a>
+                    <a asp-page="/FlashcardAdmin/Update" asp-route-id="@card.Id" class="read-btn">
+                        Update
+                    </a>
+                    <a asp-page="" asp-route-id="@card.Id" class="read-btn">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
         </tbody>
     </table>
 </div>
