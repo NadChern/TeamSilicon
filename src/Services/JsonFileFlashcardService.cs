@@ -76,7 +76,10 @@ namespace ContosoCrafts.WebSite.Services
         /// <returns>True if the update was successful; otherwise, false.</returns>
         public bool UpdateFlashcard(FlashcardModel updatedFlashcard)
         {
+            // Retrieve all flashcards from JSON file, convert to list 
             var flashcards = GetAllData();
+
+            // Find the flashcard with the specified ID
             var existingFlashcard = flashcards.FirstOrDefault(f => f.Id == updatedFlashcard.Id);
             if (existingFlashcard == null)
             {
@@ -114,7 +117,7 @@ namespace ContosoCrafts.WebSite.Services
             existingFlashcard.Answer = updatedFlashcard.Answer;
             existingFlashcard.DifficultyLevel = updatedFlashcard.DifficultyLevel;
             existingFlashcard.OpenCount = updatedFlashcard.OpenCount;
-            existingFlashcard.Url = updatedFlashcard.Url; 
+            existingFlashcard.Url = updatedFlashcard.Url;
         }
     }
 }
