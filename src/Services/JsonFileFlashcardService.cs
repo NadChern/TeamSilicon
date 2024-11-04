@@ -60,6 +60,52 @@ namespace ContosoCrafts.WebSite.Services
         }
 
         /// <summary>
+        /// Creates a new flashcard entry with a unique ID and initializes OpenCount to 0.
+        /// </summary>
+        /// <param name="flashcard">The flashcard model containing the data to be added.</param>
+        /// <returns>The newly created flashcard model with an assigned ID and OpenCount set to 0.</returns>
+        public FlashcardModel CreateData(FlashcardModel flashcard)
+        {
+            // generate a unique ID for the new flashcard
+            flashcard.Id = GenerateCardId();
+            flashcard.OpenCount = 0;
+            
+            // retrieve the existing dataset and add the new flashcard
+            var dataset = GetAllData();
+            var newDataset = dataset.Append(flashcard);
+            
+            // save the updated dataset
+            SaveData(newDataset);
+            return flashcard;
+        }
+
+        /// <summary>
+        /// Generates a unique ID for a flashcard by finding the first available gap in the sequence of existing IDs.
+        /// </summary>
+        /// <returns>The next available ID as an integer.</returns>
+        public int GenerateCardId()
+        {
+            // get and sort existing Ids
+            var dataset = GetAllData().Select(f => f.Id).OrderBy(id => id).ToList();
+            
+            // check gaps in sequence of IDs
+            // start checking from 1
+            var expectedId = 1;
+            foreach (var id in dataset)
+            {
+                // found gap, so return missing expected ID
+                if (id > expectedId)
+                {
+                    return expectedId;
+                }
+                // move to the next expected ID in sequence
+                expectedId++;
+            }
+            // if no gaps were found, return next highest ID
+            return expectedId;
+        } 
+        
+        /// <summary>
         /// Get the number of flashcards for a specific category.
         /// </summary>
         /// <param name="categoryId">The ID of the category.</param>
