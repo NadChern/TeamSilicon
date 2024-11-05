@@ -36,7 +36,7 @@ namespace ContosoCrafts.WebSite.Models
         /// Converts current FlashcardModel object into JSON string representation
         /// </summary>
         /// <returns>Json string representation of FlashcardModel object</returns>
-        public override string ToString() => JsonSerializer.Serialize<FlashcardModel>(this);
-        
+        //public override string ToString() => JsonSerializer.Serialize<FlashcardModel>(this);
+
     }
 }
