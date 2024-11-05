@@ -161,5 +161,56 @@ namespace UnitTests.Services
             ClassicAssert.AreEqual(true, result == 0);
         }
         #endregion GetCountByCategoryId
+
+        #region RemoveFlashcard
+        /// <summary>
+        /// Test to verify that RemoveFlashcard removes the flashcard for a valid ID and returns true.
+        /// </summary>
+        [Test]
+        public void RemoveFlashcard_Valid_Id_Should_Return_True()
+        {
+            // Arrange
+            flashcardService = TestHelper.FlashcardService;
+            var validFlashcard = new FlashcardModel
+            {
+                Id = 2, // Assume this is a valid flashcard ID that exists in the dataset
+                Question = "Sample Question",
+                Answer = "Sample Answer",
+                CategoryId = "SampleCategory",
+                DifficultyLevel = "Easy"
+            };
+
+            // Adding the flashcard first to ensure it exists before testing removal
+            flashcardService.CreateData(validFlashcard);
+
+            // Act
+            var result = flashcardService.RemoveFlashcard(validFlashcard.Id);
+
+            // Assert - Verify that removal was successful
+            ClassicAssert.AreEqual(true, result);
+
+            // Verify that the flashcard no longer exists in the dataset
+            var flashcardAfterRemoval = flashcardService.GetById(validFlashcard.Id);
+            ClassicAssert.AreEqual(true, flashcardAfterRemoval == null);
+        }
+
+        /// <summary>
+        /// Test to verify that RemoveFlashcard returns false for an invalid ID.
+        /// </summary>
+        [Test]
+        public void RemoveFlashcard_Invalid_Id_Should_Return_False()
+        {
+            // Arrange
+            flashcardService = TestHelper.FlashcardService;
+            var invalidId = 9999; // Non-existing flashcard ID
+
+            // Act
+            var result = flashcardService.RemoveFlashcard(invalidId);
+
+            // Assert - Verify that removal attempt fails for non-existent ID
+            ClassicAssert.AreEqual(false, result);
+        }
+        #endregion RemoveFlashcard
+
     }
 }
