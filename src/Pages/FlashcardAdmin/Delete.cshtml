@@ -1,0 +1,138 @@
+﻿@page "{id}"
+@model ContosoCrafts.WebSite.Pages.FlashcardAdmin.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete Flashcard";
+}
+
+<!-- Styling -->
+<style>
+    body 
+    {
+        background-color: #f0f8ff;
+        margin: 0;
+        padding: 0;
+        overflow: auto;
+    }
+
+    .form-container 
+    {
+        margin-top: 20px;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        background: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+    }
+
+    label 
+    {
+        font-size: 16px;
+        font-weight: bold;
+        color: #1a1a2e;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    p 
+    {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .confirm-btn {
+        display: inline-block;
+        padding: 8px 20px;
+        font-size: 16px;
+        font-weight: 600;
+        color: white;
+        background-color: #4682b4;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-align: center;
+    }
+
+        .confirm-btn:hover {
+            background-color: #1e90ff;
+        }
+
+    .cancel-btn {
+        display: inline-block;
+        padding: 8px 20px;
+        font-size: 16px;
+        font-weight: 600;
+        color: white;
+        background-color: #6c757d;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-align: center;
+    }
+
+        .cancel-btn:hover {
+            background-color: #5a6268;
+        }
+</style>
+
+<h1>Delete Flashcard</h1>
+
+<!-- Flashcard Details Section -->
+<div class="form-container">
+    <div>
+        <label>Id</label>
+        <p>@Model.Flashcard.Id</p>
+    </div>
+
+    <div>
+        <label>Category</label>
+        <p>@Model.Flashcard.CategoryId</p>
+    </div>
+
+    <div>
+        <label>Question</label>
+        <p>@Model.Flashcard.Question</p>
+    </div>
+
+    <div>
+        <label>Answer</label>
+        <p>@Model.Flashcard.Answer</p>
+    </div>
+
+    <div>
+        <label>Difficulty Level</label>
+        <p>@Model.Flashcard.DifficultyLevel</p>
+    </div>
+
+    <div>
+        <label>Additional Resources</label>
+        <p><a href="@Model.Flashcard.Url" target="_blank">@Model.Flashcard.Url</a></p>
+    </div>
+
+    <div>
+        <label>Open Count</label>
+        <p>@Model.Flashcard.OpenCount</p>
+    </div>
+
+    <p>Are you sure you want to delete this flashcard?</p>
+
+    <div class="button-container">
+        <!-- Confirm Button -->
+        <form method="post">
+            <button type="submit" class="confirm-btn">Confirm</button>
+        </form>
+
+        <!-- Cancel Button -->
+        <a asp-page="/FlashcardAdmin/Index" class="cancel-btn">Cancel</a>
+    </div>
+</div>
