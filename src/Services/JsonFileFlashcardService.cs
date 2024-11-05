@@ -109,10 +109,10 @@ namespace ContosoCrafts.WebSite.Services
         /// Generates a unique ID for a flashcard by finding the first available gap in the sequence of existing IDs.
         /// </summary>
         /// <returns>The next available ID as an integer.</returns>
-        public int GenerateCardId()
+        public int GenerateCardId(IEnumerable<FlashcardModel> flashcards = null)
         {
             // get and sort existing Ids
-            var dataset = GetAllData().Select(f => f.Id).OrderBy(id => id).ToList();
+            var dataset = (flashcards ?? GetAllData()).Select(f => f.Id).OrderBy(id => id).ToList();
             
             // check gaps in sequence of IDs
             // start checking from 1
