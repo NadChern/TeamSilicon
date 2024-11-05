@@ -43,7 +43,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             // Arrange
             flashcardService = TestHelper.FlashcardService;
             updateModel = new UpdateModel(flashcardService);
-            var validId = 1;
+            var validId = 2;
 
             // Act
             updateModel.OnGet(validId);
