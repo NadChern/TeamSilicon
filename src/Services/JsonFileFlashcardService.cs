@@ -80,6 +80,32 @@ namespace ContosoCrafts.WebSite.Services
         }
 
         /// <summary>
+        /// Removes a flashcard with the specified ID from the dataset.
+        /// </summary>
+        /// <param name="id">The ID of the flashcard to remove.</param>
+        /// <returns>True if the flashcard was successfully removed; otherwise, false.</returns>
+        public bool RemoveFlashcard(int id)
+        {
+            // Retrieve all flashcards from JSON file, convert to list for manipulation
+            var flashcards = GetAllData().ToList();
+
+            // Find the flashcard with the specified ID
+            var flashcardToRemove = flashcards.FirstOrDefault(f => f.Id == id);
+            if (flashcardToRemove == null)
+            {
+                return false; // Flashcard not found
+            }
+
+            // Remove the flashcard from the list
+            flashcards.Remove(flashcardToRemove);
+
+            // Save the updated list back to the JSON file
+            SaveData(flashcards);
+            return true; // Removal successful
+        }
+
+
+        /// <summary>
         /// Generates a unique ID for a flashcard by finding the first available gap in the sequence of existing IDs.
         /// </summary>
         /// <returns>The next available ID as an integer.</returns>
