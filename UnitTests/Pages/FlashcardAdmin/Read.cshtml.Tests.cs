@@ -44,7 +44,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             // Arrange
             flashcardService = TestHelper.FlashcardService;
             readModel = new ReadModel(flashcardService);
-            var validId = 1;
+            var validId = 2;
 
             // Act
             readModel.OnGet(validId);
