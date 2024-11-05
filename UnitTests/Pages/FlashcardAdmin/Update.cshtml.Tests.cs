@@ -1,10 +1,8 @@
-﻿using System.Linq;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Services;
 using NUnit.Framework.Legacy;
 using ContosoCrafts.WebSite.Pages.FlashcardAdmin;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace UnitTests.Pages.FlashcardAdmin
 {
