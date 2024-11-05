@@ -138,7 +138,7 @@
             <label for="Answer">Answer</label>
             <small>Max 250 characters</small>
             <span asp-validation-for="Flashcard.Answer" class="text-danger font-weight-bold"></span> <!-- Shows *Required if empty -->
-            <textarea id="Answer" name="Flashcard.Answer" rows="3" style="resize: none;" maxlength="250">@Model.Flashcard.Answer placeholder="Enter your answer here"</textarea>
+            <textarea id="Answer" name="Flashcard.Answer" rows="3" style="resize: none;" maxlength="250" placeholder="Enter your answer here">@Model.Flashcard.Answer </textarea>
         </div>
 
         <!-- Difficulty Level w/ Dropdown Box-->
