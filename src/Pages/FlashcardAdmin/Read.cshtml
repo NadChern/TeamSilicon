@@ -129,7 +129,7 @@
     </div>
 
     <!-- Delete Button -->
-    <a asp-page="" asp-route-id="@Model.Flashcard.Id" class="delete-btn">Delete</a>
+    <a asp-page="/FlashcardAdmin/Delete" asp-route-id="@Model.Flashcard.Id" class="delete-btn">Delete</a>
 
     <!-- Update Button -->
     <a asp-page="/FlashcardAdmin/Update" asp-route-id="@Model.Flashcard.Id" class="update-btn">Update</a>
