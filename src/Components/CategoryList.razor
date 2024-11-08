@@ -1,11 +1,10 @@
-@using ContosoCrafts.WebSite.Models 
+@using ContosoCrafts.WebSite.Models
 @using ContosoCrafts.WebSite.Services
-@using Microsoft.AspNetCore.Components.Web 
+@using Microsoft.AspNetCore.Components.Web
 
 @inject JsonFileCategoryService CategoryService
 @inject JsonFileFlashcardService FlashcardService
 @inject NavigationManager NavigationManager
-
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Cute+Font&family=Londrina+Sketch&display=swap" rel="stylesheet">
 
@@ -13,28 +12,41 @@
     /* Define the masonry grid layout */
     .masonry-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr); /* Three columns */
-        gap: 1rem; /* Space between cards */
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
     }
 
-        /* Styling for each card in the grid */
-        .masonry-grid .card {
-            break-inside: avoid; /* Avoid breaking cards across columns */
-            width: 300px;
-            height: 365px;
-            cursor: pointer;
-            border-radius: 50px;
-            overflow: hidden; /* Hide overflow content */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-            position: relative;
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    @@media (max-width:1000px) and (min-width:700px) {
+        .masonry-grid {
+            grid-template-columns: repeat(2, 1fr);
         }
+    }
 
-            /* Scale card on hover */
-            .masonry-grid .card:hover {
-                transform: scale(1.05);
-                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
-            }
+    @@media (max-width:700px) {
+        .masonry-grid {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+
+    /* Styling for each card in the grid */
+    .masonry-grid .card {
+        break-inside: avoid; /* Avoid breaking cards across columns */
+        width: 300px;
+        height: 365px;
+        cursor: pointer;
+        border-radius: 50px;
+        overflow: hidden; /* Hide overflow content */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        position: relative;
+        margin: 0 auto 20px auto;
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+    }
+
+        /* Scale card on hover */
+        .masonry-grid .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+        }
 
     /* Image styling inside the card */
     .image {
@@ -44,7 +56,6 @@
         background-position: center;
         border-radius: 50px 50px 0 0; /* Rounded top corners */
     }
- 
 
     /* Styling the card's footer with count and heart icon */
     .card-count {
@@ -116,84 +127,85 @@
 </div>
 
 @code {
-        /// <summary>
-        /// Set to track which hearts are active (pink).
-        /// </summary>
-        private HashSet<string> activeHearts = new HashSet<string>();
+    /// <summary>
+    /// Set to track which hearts are active (pink).
+    /// </summary>
+    private HashSet<string> activeHearts = new HashSet<string>();
 
-        /// <summary>
-        /// Set to track which hearts are growing (animated).
-        /// </summary>
-        private HashSet<string> growingHearts = new HashSet<string>();
+    /// <summary>
+    /// Set to track which hearts are growing (animated).
+    /// </summary>
+    private HashSet<string> growingHearts = new HashSet<string>();
 
-        /// <summary>
-        /// Toggle the heart icon's active state and trigger grow animation.
-        /// </summary>
-        /// <param name="categoryId">The ID of the category being toggled.</param>
-        void ToggleHeart(string categoryId)
+    /// <summary>
+    /// Toggle the heart icon's active state and trigger grow animation.
+    /// </summary>
+    /// <param name="categoryId">The ID of the category being toggled.</param>
+    void ToggleHeart(string categoryId)
+    {
+        // Use switch statement to manage heart state
+        switch (activeHearts.Contains(categoryId))
         {
-            // Use switch statement to manage heart state
-            switch (activeHearts.Contains(categoryId))
-            {
-                case true: // If heart is active, remove it from the set
-                    activeHearts.Remove(categoryId);
-                    Console.WriteLine($"Heart removed for category: {categoryId}");
-                    break;
-                case false: // If heart is inactive, add it to the set
-                    activeHearts.Add(categoryId);
-                    Console.WriteLine($"Heart added for category: {categoryId}");
-                    break;
-            }
-
-            // Trigger grow animation
-            growingHearts.Add(categoryId);
-            InvokeAsync(StateHasChanged); // Ensure the UI updates
-
-            // Remove grow class after 200ms to allow animation reset
-            Task.Delay(200).ContinueWith(_ =>
-            {
-                growingHearts.Remove(categoryId);
-                InvokeAsync(StateHasChanged); // Update UI again
-            });
+            case true: // If heart is active, remove it from the set
+                activeHearts.Remove(categoryId);
+                Console.WriteLine($"Heart removed for category: {categoryId}");
+                break;
+            case false: // If heart is inactive, add it to the set
+                activeHearts.Add(categoryId);
+                Console.WriteLine($"Heart added for category: {categoryId}");
+                break;
         }
 
-        /// <summary>
-        /// Get the CSS class for the heart icon based on its state.
-        /// </summary>
-        /// <param name="categoryId">The ID of the category.</param>
-        /// <returns>Returns "active" if the heart is active.</returns>
-        string GetHeartClass(string categoryId) =>
-            activeHearts.Contains(categoryId) ? "active" : string.Empty;
+        // Trigger grow animation
+        growingHearts.Add(categoryId);
+        InvokeAsync(StateHasChanged); // Ensure the UI updates
 
-        /// <summary>
-        /// Get the CSS class to trigger the grow animation.
-        /// </summary>
-        /// <param name="categoryId">The ID of the category.</param>
-        /// <returns>Returns "grow" if the heart is growing.</returns>
-        string GetGrowClass(string categoryId) =>
-            growingHearts.Contains(categoryId) ? "grow" : string.Empty;
+        // Remove grow class after 200ms to allow animation reset
+        Task.Delay(200).ContinueWith(_ =>
+        {
+            growingHearts.Remove(categoryId);
+            InvokeAsync(StateHasChanged); // Update UI again
+        });
+    }
 
-        /// <summary>
-        /// Navigate to the flashcards page for a specific category.
-        /// </summary>
-        /// <param name="categoryId">The ID of the category.</param>
-        void NavigateToCategory(string categoryId) =>
-            NavigationManager.NavigateTo($"/Flashcards/{categoryId}", forceLoad: true);
+    /// <summary>
+    /// Get the CSS class for the heart icon based on its state.
+    /// </summary>
+    /// <param name="categoryId">The ID of the category.</param>
+    /// <returns>Returns "active" if the heart is active.</returns>
+    string GetHeartClass(string categoryId) =>
+        activeHearts.Contains(categoryId) ? "active" : string.Empty;
 
-        /// <summary>
-        /// Showing label of card counts on each category card.
-        /// </summary>
-        /// <param name="categoryId">The ID of the category.</param>
-        string ShowLabel(string categoryId) {
-            int count = FlashcardService.GetCountByCategoryId(categoryId);
-            switch (count)
-            {
-                case 0:
-                    return "Currently no card";
-                case 1:
-                    return "Contains 1 card";
-                default:
-                    return "Contains " + count + " cards";
-            }
+    /// <summary>
+    /// Get the CSS class to trigger the grow animation.
+    /// </summary>
+    /// <param name="categoryId">The ID of the category.</param>
+    /// <returns>Returns "grow" if the heart is growing.</returns>
+    string GetGrowClass(string categoryId) =>
+        growingHearts.Contains(categoryId) ? "grow" : string.Empty;
+
+    /// <summary>
+    /// Navigate to the flashcards page for a specific category.
+    /// </summary>
+    /// <param name="categoryId">The ID of the category.</param>
+    void NavigateToCategory(string categoryId) =>
+        NavigationManager.NavigateTo($"/Flashcards/{categoryId}", forceLoad: true);
+
+    /// <summary>
+    /// Showing label of card counts on each category card.
+    /// </summary>
+    /// <param name="categoryId">The ID of the category.</param>
+    string ShowLabel(string categoryId)
+    {
+        int count = FlashcardService.GetCountByCategoryId(categoryId);
+        switch (count)
+        {
+            case 0:
+                return "Currently no card";
+            case 1:
+                return "Contains 1 card";
+            default:
+                return "Contains " + count + " cards";
         }
     }
+}
