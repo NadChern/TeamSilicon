@@ -44,6 +44,7 @@
         background-position: center;
         border-radius: 50px 50px 0 0; /* Rounded top corners */
     }
+ 
 
     /* Styling the card's footer with count and heart icon */
     .card-count {
@@ -115,10 +116,10 @@
 </div>
 
 @code {
-            /// <summary>
-            /// Set to track which hearts are active (pink).
-            /// </summary>
-    private HashSet<string> activeHearts = new HashSet<string>();
+        /// <summary>
+        /// Set to track which hearts are active (pink).
+        /// </summary>
+        private HashSet<string> activeHearts = new HashSet<string>();
 
         /// <summary>
         /// Set to track which hearts are growing (animated).
