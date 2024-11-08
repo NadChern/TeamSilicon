@@ -10,14 +10,26 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace UnitTests.Pages.FlashcardAdmin
 {
     /// <summary>
-    /// Unit Tests for DeleteModel class.
+    /// Unit Tests for the DeleteModel class, which manages 
+    /// the deletion of flashcards in the FlashcardAdmin page.
     /// </summary>
     public class DeleteTests
     {
+        /// <summary>
+        /// Service for managing flashcards data.
+        /// </summary>
         private JsonFileFlashcardService flashcardService;
+
+        /// <summary>
+        /// The DeleteModel page model being tested.
+        /// </summary>
         private DeleteModel deleteModel;
 
         #region Setup
+        /// <summary>
+        /// Initializes necessary services and page model instances
+        /// before each test is executed.
+        /// </summary>
         [SetUp]
         public void Setup()
         {
@@ -28,7 +40,8 @@ namespace UnitTests.Pages.FlashcardAdmin
 
         #region OnGet
         /// <summary>
-        /// Ensures OnGet redirects to index for an invalid ID.
+        /// Verifies that calling OnGet with an invalid ID redirects to 
+        /// the index page, ensuring non-existent flashcards are handled appropriately.
         /// </summary>
         [Test]
         public void OnGet_Invalid_Id_Should_Redirect_To_Index()
@@ -45,7 +58,8 @@ namespace UnitTests.Pages.FlashcardAdmin
         }
 
         /// <summary>
-        /// Ensures OnGet loads the flashcard for a valid ID.
+        /// Verifies that calling OnGet with a valid ID successfully 
+        /// loads the flashcard data, ensuring correct flashcard retrieval.
         /// </summary>
         [Test]
         public void OnGet_Valid_Id_Should_Load_Flashcard()
@@ -64,7 +78,8 @@ namespace UnitTests.Pages.FlashcardAdmin
 
         #region OnPost
         /// <summary>
-        /// Ensures OnPost successfully deletes a flashcard with a valid ID and redirects to index.
+        /// Verifies that calling OnPost with a valid ID deletes the flashcard
+        /// and redirects to the index page, ensuring successful deletion.
         /// </summary>
         [Test]
         public void OnPost_Valid_Id_Should_Delete_Flashcard_And_Redirect_To_Index()
@@ -85,7 +100,8 @@ namespace UnitTests.Pages.FlashcardAdmin
         }
 
         /// <summary>
-        /// Ensures OnPost with an invalid ID does not delete and returns page with error.
+        /// Verifies that calling OnPost with an invalid ID does not delete 
+        /// any flashcard and returns the current page with an error message.
         /// </summary>
         [Test]
         public void OnPost_Invalid_Id_Should_Return_Page_With_Error()
