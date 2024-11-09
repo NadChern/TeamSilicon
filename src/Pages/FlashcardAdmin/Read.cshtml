@@ -43,49 +43,29 @@
         margin-bottom: 20px;
     }
 
-    .update-btn 
-    {
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .close-btn {
         display: inline-block;
-        width: 150px; /* Fixed width to center the button */
         padding: 8px 20px;
         font-size: 16px;
         font-weight: 600;
         color: white;
-        background-color: #4682b4;
+        background-color: #6c757d;
         border-radius: 8px;
         border: none;
         cursor: pointer;
         transition: background-color 0.3s ease;
         text-align: center;
-        margin-left: 250px;
     }
 
-    .delete-btn 
-    {
-        display: inline-block;
-        width: 150px;
-        padding: 8px 20px;
-        font-size: 16px;
-        font-weight: 600;
-        color: white;
-        background-color: #e74c3c;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        text-align: center;
-        margin-left: 250px;
-    }
-
-    .delete-btn:hover 
-    {
-        background-color: #c0392b; /* Darker red on hover */
-    }
-
-    .update-btn:hover 
-    {
-        background-color: #1e90ff;
-    }
+        .close-btn:hover {
+            background-color: #5a6268;
+        }
 
 </style>
 
@@ -128,9 +108,8 @@
         <p>@Model.Flashcard.OpenCount</p>
     </div>
 
-    <!-- Delete Button -->
-    <a asp-page="/FlashcardAdmin/Delete" asp-route-id="@Model.Flashcard.Id" class="delete-btn">Delete</a>
-
-    <!-- Update Button -->
-    <a asp-page="/FlashcardAdmin/Update" asp-route-id="@Model.Flashcard.Id" class="update-btn">Update</a>
+    <div class="button-container">
+        <!-- Close Button -->
+        <a asp-page="/FlashcardAdmin/Index" asp-route-id="@Model.Flashcard.Id" class="close-btn">Close</a>
+    </div>
 </div>
