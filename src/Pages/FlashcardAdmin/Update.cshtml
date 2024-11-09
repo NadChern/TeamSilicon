@@ -142,15 +142,25 @@
         </div>
 
         <!-- Difficulty Level w/ Dropdown Box-->
-        <div>
-            <label for="DifficultyLevel">Difficulty Level</label>
-            <select id="DifficultyLevel" name="Flashcard.DifficultyLevel">
-                <option value="Easy" selected="@(Model.IsEasySelected ? "selected" : null)">Easy</option>
-                <option value="Medium" selected="@(Model.IsMediumSelected ? "selected" : null)">Medium</option>
-                <option value="Hard" selected="@(Model.IsHardSelected ? "selected" : null)">Hard</option>
-            </select>
-        </div>
-
+        @* <div> *@
+        @*     <label for="DifficultyLevel">Difficulty Level</label> *@
+        @*     <select id="DifficultyLevel" name="Flashcard.DifficultyLevel"> *@
+        @*         <option value="Easy" selected="@(Model.IsEasySelected ? "selected" : null)">Easy</option> *@
+        @*         <option value="Medium" selected="@(Model.IsMediumSelected ? "selected" : null)">Medium</option> *@
+        @*         <option value="Hard" selected="@(Model.IsHardSelected ? "selected" : null)">Hard</option> *@
+        @*     </select> *@
+        @* </div> *@
+         <div>
+             <label asp-for="Flashcard.DifficultyLevel">Difficulty Level</label>
+             <small>Enter 1 for Easy, 2 for Medium, or 3 for Hard.</small>
+             <span asp-validation-for="Flashcard.DifficultyLevel" class="text-danger font-weight-bold"></span>
+             <input type="text" 
+                    name="Flashcard.DifficultyLevel"
+                    placeholder="Enter 1, 2, or 3"
+                    class="form-control" 
+                    value="" />
+         </div>
+                
         <!-- Additional Resources Url -->
         <div>
             <label for="Url">Additional Resources (URL)</label>
