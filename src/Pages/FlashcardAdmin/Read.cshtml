@@ -73,10 +73,6 @@
 
 <!-- Flashcard Details Section -->
 <div class="form-container">
-    <div>
-        <label>Id</label>
-        <p>@Model.Flashcard.Id</p>
-    </div>
 
     <div>
         <label>Category</label>
@@ -100,7 +96,9 @@
 
     <div>
         <label>Additional Resources</label>
-        <p><a href="@Model.Flashcard.Url" target="_blank">@Model.Flashcard.Url</a></p>
+        <p>
+            <a href="@Model.Flashcard.Url" target="_blank">@Model.Flashcard.Url</a>
+        </p>
     </div>
 
     <div>
