@@ -106,13 +106,7 @@
 
         <input type="hidden" name="Flashcard.Id" value="@Model.Flashcard.Id" />
 
-        <!-- ID (read-only) -->
-        <div>
-            <label for="Id">Id</label>
-            <input type="text" id="Id" name="Flashcard.Id" value="@Model.Flashcard.Id" readonly class="readonly-input" />
-        </div>
-
-        <!-- Category -->
+       <!-- Category -->
         <div>
             <label for="CategoryId">Category</label>
             <select id="CategoryId" name="Flashcard.CategoryId">
@@ -141,30 +135,24 @@
             <textarea id="Answer" name="Flashcard.Answer" rows="3" style="resize: none;" maxlength="250" placeholder="Enter your answer here">@Model.Flashcard.Answer </textarea>
         </div>
 
-        <!-- Difficulty Level w/ Dropdown Box-->
-        @* <div> *@
-        @*     <label for="DifficultyLevel">Difficulty Level</label> *@
-        @*     <select id="DifficultyLevel" name="Flashcard.DifficultyLevel"> *@
-        @*         <option value="Easy" selected="@(Model.IsEasySelected ? "selected" : null)">Easy</option> *@
-        @*         <option value="Medium" selected="@(Model.IsMediumSelected ? "selected" : null)">Medium</option> *@
-        @*         <option value="Hard" selected="@(Model.IsHardSelected ? "selected" : null)">Hard</option> *@
-        @*     </select> *@
-        @* </div> *@
-         <div>
-             <label asp-for="Flashcard.DifficultyLevel">Difficulty Level</label>
-             <small>Enter 1 for Easy, 2 for Medium, or 3 for Hard.</small>
-             <span asp-validation-for="Flashcard.DifficultyLevel" class="text-danger font-weight-bold"></span>
-             <input type="text" 
-                    name="Flashcard.DifficultyLevel"
-                    placeholder="Enter 1, 2, or 3"
-                    class="form-control" 
-                    value="" />
-         </div>
-                
-        <!-- Additional Resources Url -->
+        <!-- Difficulty Level Numeric Input-->
         <div>
-            <label for="Url">Additional Resources (URL)</label>
-            <input type="text" id="Url" name="Flashcard.Url" value="@Model.Flashcard.Url" placeholder="https://www.example.com" />
+            <label asp-for="Flashcard.DifficultyLevel">Difficulty Level</label>
+            <small>Enter 1 for Easy, 2 for Medium, or 3 for Hard.</small>
+            <span asp-validation-for="Flashcard.DifficultyLevel" class="text-danger font-weight-bold"></span>
+            <input type="number" 
+                   step="1" min="1" max="3"
+                   asp-for="Flashcard.DifficultyLevel"
+                   placeholder="Enter 1, 2, or 3"
+                   class="form-control" 
+                   value="" />
+       </div>
+                
+          <!-- Additional Resources Url -->
+        <div>
+            <label asp-for="Flashcard.Url">Additional Resources (URL)</label>
+            <span asp-validation-for="Flashcard.Url" class="text-danger font-weight-bold"></span>
+            <input type="text" asp-for="Flashcard.Url" placeholder="Enter a helpful link, e.g., https://example.com" />
         </div>
 
         <!-- Open Count with Dropdown (Current count and Reset option) -->
@@ -185,3 +173,7 @@
         </div>
     </form>
 </div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
