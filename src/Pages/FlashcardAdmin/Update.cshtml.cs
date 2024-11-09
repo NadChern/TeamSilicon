@@ -66,20 +66,20 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
 
         // Difficulty selection properties
 
-        /// <summary>
-        /// Gets a value indicating whether the "Easy" difficulty level is selected.
-        /// </summary>
-        public bool IsEasySelected => Flashcard?.DifficultyLevel == "Easy";
+        // /// <summary>
+        // /// Gets a value indicating whether the "Easy" difficulty level is selected.
+        // /// </summary>
+        // public bool IsEasySelected => Flashcard?.DifficultyLevel == "Easy";
 
-        /// <summary>
-        /// Gets a value indicating whether the "Medium" difficulty level is selected.
-        /// </summary>
-        public bool IsMediumSelected => Flashcard?.DifficultyLevel == "Medium";
+        // /// <summary>
+        // /// Gets a value indicating whether the "Medium" difficulty level is selected.
+        // /// </summary>
+        // public bool IsMediumSelected => Flashcard?.DifficultyLevel == "Medium";
 
-        /// <summary>
-        /// Gets a value indicating whether the "Hard" difficulty level is selected.
-        /// </summary>
-        public bool IsHardSelected => Flashcard?.DifficultyLevel == "Hard";
+        // /// <summary>
+        // /// Gets a value indicating whether the "Hard" difficulty level is selected.
+        // /// </summary>
+        // public bool IsHardSelected => Flashcard?.DifficultyLevel == "Hard";
 
         /// <summary>
         /// Indicates whether the flashcard was successfully loaded
@@ -96,7 +96,7 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
         /// Handles HTTP GET requests to retrieve a specific flashcard by ID
         /// </summary>
         /// <param name="id">ID of the flashcard to be retrieved.</param>
-        public void OnGet(int id)
+        public void OnGet(string id)
         {
             // Retrieve the flashcard using the provided ID.
             Flashcard = FlashcardService.GetById(id);
