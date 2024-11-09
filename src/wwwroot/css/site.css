@@ -130,7 +130,8 @@ ul {
     line-height: 60px; /* Vertically center the text there */
     font-family: 'Nunito', sans-serif;
 }
-/*Backgrounds*/
+/*Backgrounds
+----------------------------------------------------*/
 .bg-navbar {
     background: -webkit-linear-gradient(110deg, #4a90e2 60%, #003366 60%);
     background: -o-linear-gradient(110deg, #4a90e2 60%, #003366 60%);
@@ -143,3 +144,108 @@ ul {
     background: -moz-linear-gradient(110deg, #003366 60%, #4a90e2 60%);
     background: linear-gradient(110deg, #003366 60%, #4a90e2 60%);
 }
+
+
+/*FlashcardList
+----------------------------------------------------*/
+
+ .masonry-grid {
+     display: grid;
+     grid-template-columns: repeat(3, 1fr);
+     gap: 1rem;
+}
+
+@media (max-width:1000px) and (min-width:700px) {
+    .masonry-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width:700px) {
+    .masonry-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.masonry-grid .card {
+    break-inside: avoid;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.masonry-grid .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background-color: aliceblue;
+}
+
+.flipped-counter {
+    text-align: end;
+}
+
+.flipped {
+     background-color: #b0e0e6 !important;
+ }
+
+.category {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.category-item {
+    padding: 3px 6px;
+    border-radius: 5px;
+    color: white;
+}
+
+.flashcard-body {
+    position: relative;
+    min-height: 200px;
+    height: fit-content;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.custom-badge {
+    background-color: #828588;
+    color: #ffffff;
+    padding: 0.5em 1em;
+    font-size: 14px;
+    border-radius: 50px;
+    font-weight: 500;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.difficulty-image {
+    width: 20px;
+    height: 18px;
+}
+
+.text-answer {
+    color:  #36454f;
+}
+
+.text-question {
+    font-size: 20px;
+}
+
+.flashcard-footer {
+    background-color: white;
+    min-height: 48px;
+}
+
+.text-second {
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+
+
