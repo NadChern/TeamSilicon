@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
@@ -54,7 +55,7 @@ namespace ContosoCrafts.WebSite.Services
         /// </summary>
         /// <param name="id">The ID of the flashcard to retrieve.</param>
         /// <returns>The FlashcardModel object with the specified ID, or null if not found.</returns>
-        public FlashcardModel GetById(int id)
+        public FlashcardModel GetById(string id)
         {
             return GetAllData().FirstOrDefault(x => x.Id == id);
         }
@@ -67,7 +68,6 @@ namespace ContosoCrafts.WebSite.Services
         public FlashcardModel CreateData(FlashcardModel flashcard)
         {
             // generate a unique ID for the new flashcard
-            flashcard.Id = GenerateCardId();
             flashcard.OpenCount = 0;
             
             // retrieve the existing dataset and add the new flashcard
@@ -84,7 +84,7 @@ namespace ContosoCrafts.WebSite.Services
         /// </summary>
         /// <param name="id">The ID of the flashcard to remove.</param>
         /// <returns>True if the flashcard was successfully removed; otherwise, false.</returns>
-        public bool RemoveFlashcard(int id)
+        public bool RemoveFlashcard(string id)
         {
             // Retrieve all flashcards from JSON file, convert to list for manipulation
             var flashcards = GetAllData().ToList();
@@ -104,33 +104,7 @@ namespace ContosoCrafts.WebSite.Services
             return true; // Removal successful
         }
 
-
-        /// <summary>
-        /// Generates a unique ID for a flashcard by finding the first available gap in the sequence of existing IDs.
-        /// </summary>
-        /// <returns>The next available ID as an integer.</returns>
-        public int GenerateCardId(IEnumerable<FlashcardModel> flashcards = null)
-        {
-            // get and sort existing Ids
-            var dataset = (flashcards ?? GetAllData()).Select(f => f.Id).OrderBy(id => id).ToList();
-            
-            // check gaps in sequence of IDs
-            // start checking from 1
-            var expectedId = 1;
-            foreach (var id in dataset)
-            {
-                // found gap, so return missing expected ID
-                if (id > expectedId)
-                {
-                    return expectedId;
-                }
-                // move to the next expected ID in sequence
-                expectedId++;
-            }
-            // if no gaps were found, return next highest ID
-            return expectedId;
-        } 
-        
+       
         /// <summary>
         /// Get the number of flashcards for a specific category.
         /// </summary>
