@@ -2,81 +2,9 @@
 @using ContosoCrafts.WebSite.Services
 @inject JsonFileFlashcardService FlashcardService
 @inject JsonFileCategoryService CategoryService
+@* do not delete Microsoft.AspNeCore.Components.Web, handles navigation*@
 @using Microsoft.AspNetCore.Components.Web
 @inject NavigationManager MyNavigationManager
-
-
-<style>
-
-  .masonry-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-  }
-
-  .masonry-grid .card {
-    break-inside: avoid;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .masonry-grid .card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    background-color: aliceblue;
-  }
-
-  .flipped {
-    text-align: end;
-  }
-
-  .category {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .categoryItem {
-    padding: 3px 6px;
-    border-radius: 5px;
-    color: white;
-  }
-
-  .cardBody {
-    position: relative;
-    min-height: 200px;
-    height: fit-content;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-weight: 500;
-  }
-
-.custom-badge {
-    background-color: #828588; /* Bright green */
-    color: #ffffff; /* White text for contrast */
-    padding: 0.5em 1em; /* Adjust padding for a rounded, pill-like shape */
-    font-size: 14px;
-    border-radius: 50px; /* Makes the badge a pill shape */
-    font-weight: 500; /* Slightly bolder text */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Optional: subtle shadow for depth */
-}
-
-  .svg {
-    width: 20px;
-    height: 18px;
-  }
-
-  .text-second {
-    font-size: 16px;
-    margin-right: 5px;
-  }
-</style>
 
 
 <div>
@@ -86,65 +14,83 @@
         {
             <p>No flashcards found with selected Category</p>
         }
-        else
+        @foreach (var flashcard in GetFilteredFlashcards())
         {
-            @foreach (var flashcard in GetFilteredFlashcards())
-            {
-                bool isFlipped = IsFlipped(flashcard.Id);
-                string flipClass = isFlipped ? "flipped" : "";
+            bool isFlipped = IsFlipped(flashcard.Id);
+            string flipClass = isFlipped ? "flipped" : "";
 
-                <div class="card @flipClass" data-id="@flashcard.Id" @onclick="() => ToggleCard(flashcard.Id)">
-                    <div class="card-header category">
-                        <div>
-                            <span class="categoryItem" style="background-color: @GetCategoryColor(flashcard.CategoryId)">
-                                @flashcard.CategoryId
-                            </span>
-                        </div>
-                        <div>
-                            <span class="text-second">Level: </span>
-                            @GetDifficultyPaws(flashcard.DifficultyLevel)
-                        </div>
+            <div class="card @flipClass" data-id="@flashcard.Id" @onclick="() => ToggleCard(flashcard.Id)">
+                <div class="card-header category">
+                    <div>
+                        <span class="category-item" style="background-color: @GetCategoryColor(flashcard.CategoryId)">
+                            @flashcard.CategoryId
+                        </span>
                     </div>
-
-                    <div class="card-body cardBody">
-                        <p class="card-text text-center" style="color: @(isFlipped ? "#36454f" : "inherit")">
-                            @(isFlipped ? flashcard.Answer : flashcard.Question)
-                        </p>
-                    </div>
-                    <div class="card-footer" style="background-color: white; min-height: 48px;">
-                        @if (ShouldDisplayFlippedLabel(isFlipped, flashcard.OpenCount))
-                        {   
-                            <div class="flipped"> 
-                                <span>Flipped</span>
-                                <span class="badge rounded-pill custom-badge ms-auto">@flashcard.OpenCount</span>
-                            </div>
-                        }
-                        @if (CanShowMoreInfoLink(isFlipped, flashcard.Url))
+                    <div>
+                        <span class="text-second">Level: </span>
+                        @for (int i = 0; i < flashcard.DifficultyLevel; i++)
                         {
-                            <a href="@flashcard.Url" target="_blank">More info</a>
+                            <img src="icons/dog-paw.svg" alt="dog-paw" class="difficulty-image"/>
                         }
                     </div>
                 </div>
-            }
+            
+                <div class="card-body flashcard-body">
+                    <p class="card-text text-center">
+                        @if (isFlipped)
+                        {
+                            <span class="text-answer">@flashcard.Answer </span>
+                        }
+                        
+                        @if (!isFlipped)
+                        {
+                            <span class="text-question">@flashcard.Question</span>
+                        }
+                    </p>
+                </div>
+            
+                <div class="card-footer flashcard-footer">
+                    @if (ShouldDisplayFlippedLabel(isFlipped, flashcard.OpenCount))
+                    {
+                        <div class="flipped-counter">
+                            <span>Flipped</span>
+                            <span class="badge rounded-pill custom-badge ms-auto">@flashcard.OpenCount</span>
+                        </div>
+                    }
+            
+                    @if (CanShowMoreInfoLink(isFlipped, flashcard.Url))
+                    {
+                        <a href="@flashcard.Url" target="_blank">More info</a>
+                    }
+                </div>
+            </div>
         }
     </div>
 </div>
 
 
 @code {
-    FlashcardModel selectedFlashcard; // selected flashcard
-    private string selectedCardId; // Id of the selected card to manage state
-    private bool showAnswer; // track whether answer side is displayed
-    private string categoryId; // category Id obtained from URL to filter cards
+    // Selected flashcard
+    FlashcardModel selectedFlashcard; 
+    
+    // Id of the selected card to manage state
+    private string selectedCardId; 
+    
+    // Track whether answer side is displayed
+    private bool showAnswer; 
+    
+    // Category Id obtained from URL to filter cards
+    private string categoryId; 
 
     // Fetches and filters flashcards based on the selected category ID
     private IEnumerable<FlashcardModel> GetFilteredFlashcards()
     {
+        // Retrieves all flashcards from FlashcardService
         var allFlashcards = FlashcardService.GetAllData();
-        
+
         if (!string.IsNullOrEmpty(categoryId))
         {
-            return allFlashcards.Where(f => 
+            return allFlashcards.Where(f =>
                 string.Equals(f.CategoryId, categoryId, StringComparison.OrdinalIgnoreCase));
         }
 
@@ -153,19 +99,25 @@
 
     // Get color of the category
     private string GetCategoryColor(string topicId)
-    {   
+    {
+        // Calls CategoryService to get color value for given topic ID
         var categoryColor = CategoryService.GetCategoryColorById(topicId);
-        
+
+        // Returns retrieved color value
         return categoryColor;
     }
 
     // Called whenever parameters of the component change, such as a new URL
     // This method extracts the category ID from the URL path
     protected override void OnParametersSet()
-    { 
+    {
+        // Retrieves current URL path
         var urlPath = MyNavigationManager.ToBaseRelativePath(MyNavigationManager.Uri);
+        
+        // Extracts last segment of URL path if there are multiple segments,
+        // otherwise, it assigns null if there is only one segment
         var lastSegment = urlPath.Split('/').Length > 1 ? urlPath.Split('/').Last() : null;
-       
+
         // Check if last segment matches special case 
         categoryId = lastSegment == "C  " ? "C++" : lastSegment;
     }
@@ -186,7 +138,7 @@
         // Check if flashcard exists
         if (flashcard == null)
         {
-            return; 
+            return;
         }
 
         // Check if the user is flipping to show the answer
@@ -194,27 +146,19 @@
         {
             // Increment OpenCount and update the flashcard data
             flashcard.OpenCount++;
-            FlashcardService.UpdateFlashcard(flashcard); 
+            FlashcardService.UpdateFlashcard(flashcard);
         }
     }
 
-    // Helper method to render difficulty level as paw icons
-    private RenderFragment GetDifficultyPaws(int difficultyLevel)
-    {
-        return builder =>
-        {
-            for (int i = 0; i < difficultyLevel; i++)
-            {
-                builder.OpenElement(i, "span");
-                builder.AddMarkupContent(i, "<img src=\"icons/dog-paw.svg\" alt=\"Logo\" class=\"svg\" />");
-                builder.CloseElement();
-            }
-        };
-    }
-
-    
+    // Checks if there are no flashcards in filtered set
     private bool HasNoFlashcards() => !GetFilteredFlashcards().Any();
+    
+    // Determines if a specific card is currently flipped to answer side
     private bool IsFlipped(string cardId) => selectedCardId == cardId && showAnswer;
+    
+    // Checks if the "Flipped" label should be displayed based on whether  card is flipped and OpenCount
     private bool ShouldDisplayFlippedLabel(bool isFlipped, int openCount) => isFlipped == false && openCount > 0;
+   
+    // Checks if a "More info" link should be displayed when answer side is shown, URL is provided
     private bool CanShowMoreInfoLink(bool isFlipped, string url) => isFlipped && !string.IsNullOrEmpty(url);
 }
