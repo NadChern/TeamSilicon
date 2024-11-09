@@ -39,12 +39,6 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
             new List<string> { "OOP", "Python", "C#", "C++", "Mobile", "DS" };
 
         /// <summary>
-        /// Define lists of available options for Difficulty
-        /// </summary>
-        public List<string> DifficultyLevels { get; } =
-            new List<string> { "Easy", "Medium", "Hard" };
-
-        /// <summary>
         /// Handles HTTP GET requests to initialize Create page.
         /// </summary>
         /// <returns>Create page.</returns>
@@ -69,7 +63,7 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
             {
                 return Page(); // return to the form with validation errors displayed
             }
-
+            
             // Proceed with valid ModelState
             FlashcardService.CreateData(Flashcard);
             return RedirectToPage("/FlashcardAdmin/Index");
