@@ -82,7 +82,7 @@
 <div>
     <p>Category ID: @(string.IsNullOrEmpty(categoryId) ? "All Categories" : categoryId)</p>
     <div class="masonry-grid">
-        @if (GetFilteredFlashcards().Count() == 0) // Check if any flashcards exist
+        @if (HasNoFlashcards())
         {
             <p>No flashcards found with selected Category</p>
         }
@@ -90,7 +90,7 @@
         {
             @foreach (var flashcard in GetFilteredFlashcards())
             {
-                bool isFlipped = selectedCardId == flashcard.Id && showAnswer;
+                bool isFlipped = IsFlipped(flashcard.Id);
                 string flipClass = isFlipped ? "flipped" : "";
 
                 <div class="card @flipClass" data-id="@flashcard.Id" @onclick="() => ToggleCard(flashcard.Id)">
@@ -112,14 +112,14 @@
                         </p>
                     </div>
                     <div class="card-footer" style="background-color: white; min-height: 48px;">
-                        @if (!isFlipped && @flashcard.OpenCount > 0)
+                        @if (ShouldDisplayFlippedLabel(isFlipped, flashcard.OpenCount))
                         {   
                             <div class="flipped"> 
-                            <span>Flipped</span>
-                            <span class="badge rounded-pill custom-badge ms-auto">@flashcard.OpenCount</span>
+                                <span>Flipped</span>
+                                <span class="badge rounded-pill custom-badge ms-auto">@flashcard.OpenCount</span>
                             </div>
                         }
-                        @if (isFlipped && !string.IsNullOrEmpty(flashcard.Url))
+                        @if (CanShowMoreInfoLink(isFlipped, flashcard.Url))
                         {
                             <a href="@flashcard.Url" target="_blank">More info</a>
                         }
@@ -130,9 +130,10 @@
     </div>
 </div>
 
+
 @code {
     FlashcardModel selectedFlashcard; // selected flashcard
-    private int selectedCardId; // Id of the selected card to manage state
+    private string selectedCardId; // Id of the selected card to manage state
     private bool showAnswer; // track whether answer side is displayed
     private string categoryId; // category Id obtained from URL to filter cards
 
@@ -140,9 +141,11 @@
     private IEnumerable<FlashcardModel> GetFilteredFlashcards()
     {
         var allFlashcards = FlashcardService.GetAllData();
+        
         if (!string.IsNullOrEmpty(categoryId))
         {
-            return allFlashcards.Where(f => f.CategoryId.ToLower() == categoryId.ToLower());
+            return allFlashcards.Where(f => 
+                string.Equals(f.CategoryId, categoryId, StringComparison.OrdinalIgnoreCase));
         }
 
         return allFlashcards;
@@ -150,56 +153,57 @@
 
     // Get color of the category
     private string GetCategoryColor(string topicId)
-    {
+    {   
         var categoryColor = CategoryService.GetCategoryColorById(topicId);
+        
         return categoryColor;
     }
 
     // Called whenever parameters of the component change, such as a new URL
     // This method extracts the category ID from the URL path
     protected override void OnParametersSet()
-    {
+    { 
         var urlPath = MyNavigationManager.ToBaseRelativePath(MyNavigationManager.Uri);
-        // If the path contains a category ID, extract it;
-        // otherwise, set categoryId to null
-        categoryId = urlPath.Split('/').Length > 1 ? urlPath.Split('/').Last() : null;
+        var lastSegment = urlPath.Split('/').Length > 1 ? urlPath.Split('/').Last() : null;
+       
+        // Check if last segment matches special case 
+        categoryId = lastSegment == "C  " ? "C++" : lastSegment;
     }
 
     // Toggles the selected flashcard between the question and answer side
-    private void ToggleCard(int cardId)
+    private void ToggleCard(string cardId)
     {
-        // Check if the user is flipping to show the answer
-        bool isFlippingToAnswer = selectedCardId != cardId || !showAnswer;
+        // Check if the user is flipping to show answer
+        var shouldFlipToAnswer = selectedCardId != cardId || !showAnswer;
 
-        // Toggle the display of the answer
+        // Toggle the display of answer
         showAnswer = selectedCardId == cardId ? !showAnswer : true;
         selectedCardId = cardId;
 
         // Find the selected flashcard
         var flashcard = GetFilteredFlashcards().FirstOrDefault(f => f.Id == cardId);
 
-        if (flashcard != null && isFlippingToAnswer)
+        // Check if flashcard exists
+        if (flashcard == null)
+        {
+            return; 
+        }
+
+        // Check if the user is flipping to show the answer
+        if (shouldFlipToAnswer)
         {
             // Increment OpenCount and update the flashcard data
             flashcard.OpenCount++;
-            FlashcardService.UpdateFlashcard(flashcard); // Save the updated OpenCount
+            FlashcardService.UpdateFlashcard(flashcard); 
         }
     }
 
     // Helper method to render difficulty level as paw icons
-    private RenderFragment GetDifficultyPaws(string difficultyLevel)
+    private RenderFragment GetDifficultyPaws(int difficultyLevel)
     {
-        int pawCount = difficultyLevel switch
-        {
-            "Easy" => 1,
-            "Medium" => 2,
-            "Hard" => 3,
-            _ => 0
-        };
-
         return builder =>
         {
-            for (int i = 0; i < pawCount; i++)
+            for (int i = 0; i < difficultyLevel; i++)
             {
                 builder.OpenElement(i, "span");
                 builder.AddMarkupContent(i, "<img src=\"icons/dog-paw.svg\" alt=\"Logo\" class=\"svg\" />");
@@ -208,4 +212,9 @@
         };
     }
 
+    
+    private bool HasNoFlashcards() => !GetFilteredFlashcards().Any();
+    private bool IsFlipped(string cardId) => selectedCardId == cardId && showAnswer;
+    private bool ShouldDisplayFlippedLabel(bool isFlipped, int openCount) => isFlipped == false && openCount > 0;
+    private bool CanShowMoreInfoLink(bool isFlipped, string url) => isFlipped && !string.IsNullOrEmpty(url);
 }
