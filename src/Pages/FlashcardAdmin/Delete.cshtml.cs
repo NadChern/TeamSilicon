@@ -19,7 +19,7 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
             _flashcardService = flashcardService;
         }
 
-        public IActionResult OnGet(int id)
+        public IActionResult OnGet(string id)
         {
             Flashcard = _flashcardService.GetById(id);
             if (Flashcard == null)
@@ -30,7 +30,7 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
             return Page();
         }
 
-        public IActionResult OnPost(int id)
+        public IActionResult OnPost(string id)
         {
             var success = _flashcardService.RemoveFlashcard(id);
             if (success)
