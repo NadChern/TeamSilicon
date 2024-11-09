@@ -89,7 +89,7 @@
         .close-btn:hover {
             background-color: #5a6268;
         }
-
+        
 </style>
 
 <h1>Create Flashcard</h1>
@@ -137,24 +137,18 @@
             <textarea asp-for="Flashcard.Answer" rows="3" style="resize: none;" maxlength="250" placeholder="Keep your answer brief and to the point"></textarea>
         </div>
 
-        <!-- Difficulty Level w/ Dropdown Box-->
+        <!-- Difficulty Level Numeric Input-->
         <div>
             <label asp-for="Flashcard.DifficultyLevel">Difficulty Level</label>
-            <select asp-for="Flashcard.DifficultyLevel" class="form-control">
-                @foreach (var level in Model.DifficultyLevels)
-                {
-                    if (level == Model.Flashcard.DifficultyLevel)
-                    {
-                        <option value="@level" selected>@level</option>
-                    }
-                    else
-                    {
-                        <option value="@level">@level</option>
-                    }
-                }
-            </select>
+            <small>Enter 1 for Easy, 2 for Medium, or 3 for Hard.</small>
+             <span asp-validation-for="Flashcard.DifficultyLevel" class="text-danger font-weight-bold"></span>
+            <input type="text" 
+                   name="Flashcard.DifficultyLevel"
+                   placeholder="Enter 1, 2, or 3"
+                   class="form-control" 
+                   value="" />
         </div>
-
+        
         <!-- Additional Resources Url -->
         <div>
             <label asp-for="Flashcard.Url">Additional Resources (URL)</label>
@@ -176,3 +170,7 @@
         </div>
     </form>
 </div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
