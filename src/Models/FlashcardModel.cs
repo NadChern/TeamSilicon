@@ -26,9 +26,11 @@ namespace ContosoCrafts.WebSite.Models
         [JsonPropertyName("Difficulty")]
         [Required(ErrorMessage = "*Required")]
         [Range(1, 3, ErrorMessage = "Please enter a value between 1 and 3.")]
-        public int DifficultyLevel { get; set; } = 1;
+        public int DifficultyLevel { get; set; }
        
         // Link to additional resources related to the flashcard (optional)
+        [RegularExpression(@"(https?:\/\/.*)", 
+            ErrorMessage = "Please enter secured urls starts with \"https://\". ")]
         public string Url { get; set; }
         
         // Number of times flashcard has been opened (flipped)
