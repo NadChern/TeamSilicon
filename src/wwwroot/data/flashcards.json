@@ -6,7 +6,7 @@
     "Answer": "Encapsulation, inheritance, polymorphism, and abstraction. ",
     "Difficulty": 1,
     "Url": "https://www.freecodecamp.org/news/object-oriented-programming-concepts-21bb035f7260/",
-    "OpenCount": 4
+    "OpenCount": 0
   },
   {
     "Id": "4cce8136-84c3-4e69-abfb-51fedae8432b",
@@ -15,7 +15,7 @@
     "Answer": "Polymorphism allows objects of different types to be treated as a common type. It\u0027s implemented through method overriding and interfaces, enabling methods to behave differently based on the object.",
     "Difficulty": 2,
     "Url": null,
-    "OpenCount": 3
+    "OpenCount": 0
   },
   {
     "Id": "b35a8619-7a4a-44b4-a769-3d24e8f90c58",
@@ -24,7 +24,7 @@
     "Answer": "Encapsulation is the bundling of data (attributes) and methods (functions) into a single unit or class, restricting access to certain components. It protects object integrity and promotes modular, maintainable code.",
     "Difficulty": 1,
     "Url": "https://www.geeksforgeeks.org/encapsulation-in-java/",
-    "OpenCount": 4
+    "OpenCount": 0
   },
   {
     "Id": "e01073ce-be37-464a-aa8d-cc7e80579815",
@@ -33,7 +33,7 @@
     "Answer": "Dictionary is a collection of key-value pairs, defined with curly braces { }. Elements are accessed by their key, e.g., my_dict[\u0027key\u0027].",
     "Difficulty": 1,
     "Url": "https://www.w3schools.com/python/python_dictionaries.asp",
-    "OpenCount": 2
+    "OpenCount": 0
   },
   {
     "Id": "44e39ba0-7cf8-4a3a-904a-8ef7f2410d10",
@@ -42,7 +42,7 @@
     "Answer": "Exceptions in Python are handled using the try, except, and optionally finally blocks.",
     "Difficulty": 1,
     "Url": "",
-    "OpenCount": 1
+    "OpenCount": 0
   },
   {
     "Id": "742fcdc1-f9ab-4f51-bb91-9d79f95a6ccf",
@@ -51,7 +51,7 @@
     "Answer": "A List is Mutable (can be modified after creation) and defined with square brackets []. A tuple is Immutable (cannot be modified after creation) and defined with parentheses ().",
     "Difficulty": 1,
     "Url": "",
-    "OpenCount": 1
+    "OpenCount": 0
   },
   {
     "Id": "51e989ed-db3c-45fe-bba2-a0ece1e8f6a1",
@@ -60,7 +60,7 @@
     "Answer": "A nullable type allows value types to hold null values. It\u0027s used with \u0027?\u0027 (e.g., int? x = null) to represent an undefined or absent value.",
     "Difficulty": 2,
     "Url": "",
-    "OpenCount": 1
+    "OpenCount": 0
   },
   {
     "Id": "f366e99b-eab4-42c8-b517-ff282074de7e",
@@ -69,7 +69,7 @@
     "Answer": "A pointer stores the memory address of a variable, while a reference is an alias to an existing variable. Pointers can be reassigned, but references cannot.",
     "Difficulty": 3,
     "Url": "",
-    "OpenCount": 2
+    "OpenCount": 0
   },
   {
     "Id": "18dabdbd-c1af-4e7c-88e2-3e860720cbc3",
@@ -78,7 +78,7 @@
     "Answer": "Native apps are built for specific platforms (e.g., iOS or Android), hybrid apps are developed using web technologies and run inside a native container, and web apps run in mobile browsers without installation.",
     "Difficulty": 1,
     "Url": "",
-    "OpenCount": 2
+    "OpenCount": 0
   },
   {
     "Id": "71202431-03d1-409c-8b39-15c68df9b0d9",
@@ -87,7 +87,7 @@
     "Answer": "A distributed system is a collection of independent computers that appear to users as a single coherent system. These systems share resources and coordinate tasks to achieve common goals.",
     "Difficulty": 2,
     "Url": "",
-    "OpenCount": 2
+    "OpenCount": 0
   },
   {
     "Id": "f13c8078-ea8d-495e-9cf2-756736c5669a",
@@ -96,7 +96,7 @@
     "Answer": "A distributed system is a collection of independent computers that appear to users as a single coherent system. These systems share resources and coordinate tasks to achieve common goals.",
     "Difficulty": 2,
     "Url": "",
-    "OpenCount": 2
+    "OpenCount": 0
   },
   {
     "Id": "3ff9fbc5-55de-48ed-a836-10e6846390dc",
@@ -105,7 +105,7 @@
     "Answer": "Key challenges include latency, fault tolerance, data consistency, and scalability.",
     "Difficulty": 2,
     "Url": "",
-    "OpenCount": 3
+    "OpenCount": 0
   },
   {
     "Id": "ee62425d-4bc7-4975-9f32-450515ea77c7",
@@ -114,7 +114,7 @@
     "Answer": "The CAP theorem states that in a distributed data store, it is impossible to simultaneously guarantee consistency, availability, and partition tolerance.",
     "Difficulty": 3,
     "Url": "",
-    "OpenCount": 1
+    "OpenCount": 0
   },
   {
     "Id": "b5ea9290-428e-4617-8977-4b5a06970fa8",
@@ -123,7 +123,7 @@
     "Answer": "An interface defines a contract with no implementation, while an abstract class can contain both abstract and concrete methods. A class can implement multiple interfaces, but it can only inherit from a single abstract class.",
     "Difficulty": 2,
     "Url": "https://www.geeksforgeeks.org/difference-between-abstract-class-and-interface-in-c-sharp/",
-    "OpenCount": 2
+    "OpenCount": 0
   },
   {
     "Id": "b0da6786-bb90-4009-852a-9c20733d88b1",
@@ -132,7 +132,7 @@
     "Answer": "The \u0027using\u0027 statement ensures that unmanaged resources, like file handles or database connections, are properly disposed of when no longer needed. It simplifies resource management by automatically calling Dispose.",
     "Difficulty": 2,
     "Url": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-statement",
-    "OpenCount": 1
+    "OpenCount": 0
   },
   {
     "Id": "f777a4e9-1c2f-4710-8def-8bb21347488d",
@@ -141,6 +141,6 @@
     "Answer": "The async/await keywords are used to write asynchronous code more easily. \u0027async\u0027 marks a method as asynchronous, and \u0027await\u0027 pauses the execution until the awaited task completes, without blocking the thread.",
     "Difficulty": 3,
     "Url": "https://www.geeksforgeeks.org/async-and-await-in-c-sharp/",
-    "OpenCount": 3
+    "OpenCount": 0
   }
 ]
