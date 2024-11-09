@@ -1,3 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
+using ContosoCrafts.WebSite.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -50,7 +56,7 @@ namespace ContosoCrafts.WebSite
         /// <param name="env">The hosting environment information.</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-             // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -71,13 +77,6 @@ namespace ContosoCrafts.WebSite
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
                 endpoints.MapBlazorHub();
-
-                // endpoints.MapGet("/products", (context) => 
-                // {
-                //     var products = app.ApplicationServices.GetService<JsonFileProductService>().GetProducts();
-                //     var json = JsonSerializer.Serialize<IEnumerable<Product>>(products);
-                //     return context.Response.WriteAsync(json);
-                // });
             });
         }
     }
