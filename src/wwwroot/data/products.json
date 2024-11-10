@@ -18,13 +18,13 @@
     "CategoryColor": "#D269E7"
   },
   {
-    "Id": "C#",
+    "Id": "CSharp",
     "img": "https://i.pinimg.com/736x/7e/14/ef/7e14ef1149cf21cc28d72b4d0e7f1172.jpg",
     "Title": "C#",
     "CategoryColor": "#FF69B4"
   },
   {
-    "Id": "C++",
+    "Id": "CPlusPlus",
     "img": "https://i.pinimg.com/736x/37/58/f7/3758f771580c6e5e3f48939d942ef681.jpg",
     "Title": "C++",
     "CategoryColor": "#FFA07A"
