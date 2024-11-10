@@ -116,10 +116,7 @@
         
         // Extracts last segment of URL path if there are multiple segments,
         // otherwise, it assigns null if there is only one segment
-        var lastSegment = urlPath.Split('/').Length > 1 ? urlPath.Split('/').Last() : null;
-
-        // Check if last segment matches special case 
-        categoryId = lastSegment == "C  " ? "C++" : lastSegment;
+         categoryId = urlPath.Split('/').Length > 1 ? urlPath.Split('/').Last() : null;
     }
 
     // Toggles the selected flashcard between the question and answer side
