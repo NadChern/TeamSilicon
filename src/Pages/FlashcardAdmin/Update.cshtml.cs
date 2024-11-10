@@ -32,55 +32,6 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
             FlashcardService = flashcardService;
         }
 
-        // Category selection properties
-
-        /// <summary>
-        /// Gets a value indicating whether the "OOP" category is selected.
-        /// </summary>
-        public bool IsOOPSelected => Flashcard?.CategoryId == "OOP";
-
-        /// <summary>
-        /// Gets a value indicating whether the "Python" category is selected.
-        /// </summary>
-        public bool IsPythonSelected => Flashcard?.CategoryId == "Python";
-
-        /// <summary>
-        /// Gets a value indicating whether the "C#" category is selected.
-        /// </summary>
-        public bool IsCSharpSelected => Flashcard?.CategoryId == "C#";
-
-        /// <summary>
-        /// Gets a value indicating whether the "C++" category is selected.
-        /// </summary>
-        public bool IsCPlusPlusSelected => Flashcard?.CategoryId == "C++";
-
-        /// <summary>
-        /// Gets a value indicating whether the "Mobile" category is selected.
-        /// </summary>
-        public bool IsMobileSelected => Flashcard?.CategoryId == "Mobile";
-
-        /// <summary>
-        /// Gets a value indicating whether the "DS" category is selected.
-        /// </summary>
-        public bool IsDSSelected => Flashcard?.CategoryId == "DS";
-
-        // Difficulty selection properties
-
-        // /// <summary>
-        // /// Gets a value indicating whether the "Easy" difficulty level is selected.
-        // /// </summary>
-        // public bool IsEasySelected => Flashcard?.DifficultyLevel == "Easy";
-
-        // /// <summary>
-        // /// Gets a value indicating whether the "Medium" difficulty level is selected.
-        // /// </summary>
-        // public bool IsMediumSelected => Flashcard?.DifficultyLevel == "Medium";
-
-        // /// <summary>
-        // /// Gets a value indicating whether the "Hard" difficulty level is selected.
-        // /// </summary>
-        // public bool IsHardSelected => Flashcard?.DifficultyLevel == "Hard";
-
         /// <summary>
         /// Indicates whether the flashcard was successfully loaded
         /// </summary>
