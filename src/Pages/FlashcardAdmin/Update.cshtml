@@ -1,4 +1,6 @@
 ﻿@page "{id}"
+@using ContosoCrafts.WebSite.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ContosoCrafts.WebSite.Pages.FlashcardAdmin.UpdateModel
 @{
     ViewData["Title"] = "Update Flashcard";
@@ -104,18 +106,16 @@
 <div class="form-container">
     <form method="post">
 
-        <input type="hidden" name="Flashcard.Id" value="@Model.Flashcard.Id" />
+        <input type="hidden" name="Flashcard.Id" value="@Model.Flashcard.Id"/>
 
-       <!-- Category -->
+      <!-- Category Dropdown -->
         <div>
-            <label for="CategoryId">Category</label>
-            <select id="CategoryId" name="Flashcard.CategoryId">
-                <option value="OOP" selected="@(Model.IsOOPSelected ? "selected" : null)">OOP</option>
-                <option value="Python" selected="@(Model.IsPythonSelected ? "selected" : null)">Python</option>
-                <option value="C#" selected="@(Model.IsCSharpSelected ? "selected" : null)">C#</option>
-                <option value="C++" selected="@(Model.IsCPlusPlusSelected ? "selected" : null)">C++</option>
-                <option value="Mobile" selected="@(Model.IsMobileSelected ? "selected" : null)">Mobile</option>
-                <option value="DS" selected="@(Model.IsDSSelected ? "selected" : null)">DS</option>
+            <label asp-for="Flashcard.CategoryId">Category</label>
+            <select asp-for="Flashcard.CategoryId" class="form-control">
+                @foreach (CategoryTypeEnum category in Enum.GetValues(typeof(CategoryTypeEnum)))
+                {
+                    <option value="@category.ToString()">@category.DisplayName()</option>
+                }
             </select>
         </div>
 
@@ -124,7 +124,7 @@
             <label for="Question">Question</label>
             <small>Max 100 characters</small>
             <span asp-validation-for="Flashcard.Question" class="text-danger font-weight-bold"></span> <!-- Shows *Required if empty -->
-            <input type="text" id="Question" name="Flashcard.Question" value="@Model.Flashcard.Question" maxlength="100" placeholder="Enter your question here" />
+            <input type="text" id="Question" name="Flashcard.Question" value="@Model.Flashcard.Question" maxlength="100" placeholder="Enter your question here"/>
         </div>
 
         <!-- Answer, cannot be empty -->
@@ -140,19 +140,19 @@
             <label asp-for="Flashcard.DifficultyLevel">Difficulty Level</label>
             <small>Enter 1 for Easy, 2 for Medium, or 3 for Hard.</small>
             <span asp-validation-for="Flashcard.DifficultyLevel" class="text-danger font-weight-bold"></span>
-            <input type="number" 
+            <input type="number"
                    step="1" min="1" max="3"
                    asp-for="Flashcard.DifficultyLevel"
                    placeholder="Enter 1, 2, or 3"
-                   class="form-control" 
-                   value="" />
-       </div>
-                
-          <!-- Additional Resources Url -->
+                   class="form-control"
+                   value=""/>
+        </div>
+
+        <!-- Additional Resources Url -->
         <div>
             <label asp-for="Flashcard.Url">Additional Resources (URL)</label>
             <span asp-validation-for="Flashcard.Url" class="text-danger font-weight-bold"></span>
-            <input type="text" asp-for="Flashcard.Url" placeholder="Enter a helpful link, e.g., https://example.com" />
+            <input type="text" asp-for="Flashcard.Url" placeholder="Enter a helpful link, e.g., https://example.com"/>
         </div>
 
         <!-- Open Count with Dropdown (Current count and Reset option) -->
@@ -164,12 +164,12 @@
             </select>
         </div>
 
-        <div class="button-container"> 
-        <!-- Close Button -->
-        <a asp-page="/FlashcardAdmin/Index" asp-route-id="@Model.Flashcard.Id" class="close-btn">Close</a>
+        <div class="button-container">
+            <!-- Close Button -->
+            <a asp-page="/FlashcardAdmin/Index" asp-route-id="@Model.Flashcard.Id" class="close-btn">Close</a>
 
-        <!-- Save Changes Button -->
-        <input type="submit" value="Save" class="submit-btn" />
+            <!-- Save Changes Button -->
+            <input type="submit" value="Save" class="submit-btn"/>
         </div>
     </form>
 </div>
