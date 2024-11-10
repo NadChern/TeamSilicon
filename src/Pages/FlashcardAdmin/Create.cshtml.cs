@@ -33,12 +33,6 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
         }
 
         /// <summary>
-        /// Define lists of available options for Category 
-        /// </summary>
-        public List<string> Categories { get; } =
-            new List<string> { "OOP", "Python", "C#", "C++", "Mobile", "DS" };
-
-        /// <summary>
         /// Handles HTTP GET requests to initialize Create page.
         /// </summary>
         /// <returns>Create page.</returns>
