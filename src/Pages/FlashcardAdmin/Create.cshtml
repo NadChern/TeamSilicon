@@ -1,4 +1,6 @@
 @page
+@using ContosoCrafts.WebSite.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model ContosoCrafts.WebSite.Pages.FlashcardAdmin.CreateModel
 @{
     ViewData["Title"] = "Create Flashcard";
@@ -101,16 +103,9 @@
         <div>
             <label asp-for="Flashcard.CategoryId">Category</label>
             <select asp-for="Flashcard.CategoryId" class="form-control">
-                @foreach (var category in Model.Categories)
+                @foreach (CategoryTypeEnum category in Enum.GetValues(typeof(CategoryTypeEnum)))
                 {
-                    if (category == Model.Flashcard.CategoryId)
-                    {
-                        <option value="@category" selected>@category</option>
-                    }
-                    else
-                    {
-                        <option value="@category">@category</option>
-                    }
+                    <option value="@category.ToString()">@category.DisplayName()</option>
                 }
             </select>
         </div>
@@ -120,7 +115,7 @@
             <label asp-for="Flashcard.Question">Question</label>
             <small>Max 100 characters</small>
             <span asp-validation-for="Flashcard.Question" class="text-danger font-weight-bold"></span>
-            <input type="text" asp-for="Flashcard.Question" maxlength="100" placeholder="Type a concise, specific question" />
+            <input type="text" asp-for="Flashcard.Question" maxlength="100" placeholder="Type a concise, specific question"/>
         </div>
 
         <!-- Answer, cannot be empty -->
@@ -135,34 +130,34 @@
         <div>
             <label asp-for="Flashcard.DifficultyLevel">Difficulty Level</label>
             <small>Enter 1 for Easy, 2 for Medium, or 3 for Hard.</small>
-             <span asp-validation-for="Flashcard.DifficultyLevel" class="text-danger font-weight-bold"></span>
-            <input type="number" 
+            <span asp-validation-for="Flashcard.DifficultyLevel" class="text-danger font-weight-bold"></span>
+            <input type="number"
                    step="1" min="1" max="3"
                    asp-for="Flashcard.DifficultyLevel"
                    placeholder="Enter 1, 2, or 3"
-                   class="form-control" 
-                   value="" />
+                   class="form-control"
+                   value=""/>
         </div>
-        
+
         <!-- Additional Resources Url -->
         <div>
             <label asp-for="Flashcard.Url">Additional Resources (URL)</label>
-             <span asp-validation-for="Flashcard.Url" class="text-danger font-weight-bold"></span>
-            <input type="text" asp-for="Flashcard.Url" placeholder="Enter a helpful link, e.g., https://example.com" />
+            <span asp-validation-for="Flashcard.Url" class="text-danger font-weight-bold"></span>
+            <input type="text" asp-for="Flashcard.Url" placeholder="Enter a helpful link, e.g., https://example.com"/>
         </div>
 
         <!-- Open Count (readonly, preset to 0) -->
         <div>
             <label asp-for="Flashcard.OpenCount">Open Count</label>
-            <input type="text" asp-for="Flashcard.OpenCount" readonly class="readonly-input" />
+            <input type="text" asp-for="Flashcard.OpenCount" readonly class="readonly-input"/>
         </div>
 
-        <div class="button-container"> 
-        <!-- Cancel Button -->
-        <a asp-page="/FlashcardAdmin/Index" asp-route-id="@Model.Flashcard.Id" class="cancel-btn">Cancel</a>
+        <div class="button-container">
+            <!-- Cancel Button -->
+            <a asp-page="/FlashcardAdmin/Index" asp-route-id="@Model.Flashcard.Id" class="cancel-btn">Cancel</a>
 
-        <!-- Create Button -->
-        <input type="submit" value="Create" class="submit-btn" />
+            <!-- Create Button -->
+            <input type="submit" value="Create" class="submit-btn"/>
         </div>
     </form>
 </div>
