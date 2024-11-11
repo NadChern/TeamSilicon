@@ -23,14 +23,14 @@ namespace UnitTests.Models
             // Arrange:
             var flashcard = new FlashcardModel
             {
-                Id = 123
+                Id = "123e4567-e89b-12d3-a456-426614174000"
             };
 
             // Act:
             var result = flashcard.Id;
 
             // Assert:
-            ClassicAssert.AreEqual(123, result);
+            ClassicAssert.AreEqual("123e4567-e89b-12d3-a456-426614174000", result);
         }
 
         /// <summary>
@@ -42,16 +42,16 @@ namespace UnitTests.Models
             // Arrange:
             var flashcard = new FlashcardModel
             {
-                Id = 123
+                Id ="123e4567-e89b-12d3-a456-426614174000"
             };
 
-            flashcard.Id = 321;
+            flashcard.Id = "123e4567-e89b-12d3-a456-426614174001";
 
             // Act:
             var result = flashcard.Id;
 
             // Assert:
-            ClassicAssert.AreEqual(321, result);
+            ClassicAssert.AreEqual("123e4567-e89b-12d3-a456-426614174001", result);
         }
         #endregion Id Property Tests
 
@@ -191,14 +191,14 @@ namespace UnitTests.Models
             // Arrange:
             var flashcard = new FlashcardModel
             {
-                DifficultyLevel = "Hard"
+                DifficultyLevel = 3
             };
 
             // Act:
             var result = flashcard.DifficultyLevel;
 
             // Assert:
-            ClassicAssert.AreEqual("Hard", result);
+            ClassicAssert.AreEqual(3, result);
         }
 
         /// <summary>
@@ -210,16 +210,16 @@ namespace UnitTests.Models
             // Arrange:
             var flashcard = new FlashcardModel
             {
-                DifficultyLevel = "Hard"
+                DifficultyLevel = 1
             };
 
-            flashcard.DifficultyLevel = "Hard";
+            flashcard.DifficultyLevel = 3;
 
             // Act:
             var result = flashcard.DifficultyLevel;
 
             // Assert:
-            ClassicAssert.AreEqual("Hard", result);
+            ClassicAssert.AreEqual(3, result);
         }
         #endregion DifficultyLevel
 
