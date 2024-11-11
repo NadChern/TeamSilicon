@@ -1,41 +1,44 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Flash Cards</title>
-    <base href="/"/>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css"/>
-    <link rel="stylesheet" href="~/css/site.css"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <base href="/" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="icon" type="image/png" href="icons/card-icon.png" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" />
     <link href="https://fonts.googleapis.com/css2?family=Londrina+Sketch&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"/>
 
     <style>
         .navbar-brand {
             display: flex;
-            flex-direction: column; /* Stack icon+title and watermark vertically */
-            align-items: center; /* Center-align the content */
+            flex-direction: column; 
+            align-items: center;
             font-family: 'Londrina Sketch', cursive;
         }
 
             .navbar-brand .title-row {
                 display: flex;
-                align-items: center; /* Align icon and title in the same row */
-                gap: 0.5rem; /* Space between icon and text */
+                align-items: center; 
+                gap: 0.5rem; 
             }
 
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        .nav-item {
+            margin-left: 15px;
+            font-size: 17px;
+            text-decoration: underline;
         }
-
         .watermark {
             font-style: italic;
-            color: rgba(0, 0, 0, 0.5); /* black with transparency */
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-            font-size: 16px; /* Smaller font size for watermark */
-            margin-top: -5px; /* Adjust spacing between title and watermark */
+            color: rgba(0, 0, 0, 0.5);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            margin-top: -5px;
+            margin-left: 70px;
         }
     </style>
 </head>
@@ -46,7 +49,9 @@
             <!-- Navbar Brand -->
             <a class="navbar-brand" asp-area="" asp-page="/Index">
                 <div class="title-row">
-                    <span class="material-symbols-outlined">style</span>
+                    <span>
+                        <img src="icons/card-icon.png" alt="card-icon" width="40" height="50"></i>
+                    </span>
                     Flash Cards
                 </div>
                 <span class="watermark">Presented by: Team Silicon</span>
