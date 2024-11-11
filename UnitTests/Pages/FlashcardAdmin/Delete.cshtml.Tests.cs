@@ -47,7 +47,7 @@ namespace UnitTests.Pages.FlashcardAdmin
         public void OnGet_Invalid_Id_Should_Redirect_To_Index()
         {
             // Arrange
-            var invalidId = 9999;
+            var invalidId = "00000000-0000-0000-0000-000000000000";
 
             // Act
             var result = deleteModel.OnGet(invalidId) as RedirectToPageResult;
@@ -65,7 +65,7 @@ namespace UnitTests.Pages.FlashcardAdmin
         public void OnGet_Valid_Id_Should_Load_Flashcard()
         {
             // Arrange
-            var validId = 1;
+            var validId = "123e4567-e89b-12d3-a456-426614174000";
 
             // Act
             deleteModel.OnGet(validId);
@@ -85,7 +85,7 @@ namespace UnitTests.Pages.FlashcardAdmin
         public void OnPost_Valid_Id_Should_Delete_Flashcard_And_Redirect_To_Index()
         {
             // Arrange
-            var validId = 1;
+            var validId = "123e4567-e89b-12d3-a456-426614174000";
 
             // Act
             var result = deleteModel.OnPost(validId) as RedirectToPageResult;
@@ -107,7 +107,7 @@ namespace UnitTests.Pages.FlashcardAdmin
         public void OnPost_Invalid_Id_Should_Return_Page_With_Error()
         {
             // Arrange
-            var invalidId = 9999;
+            var invalidId = "00000000-0000-0000-0000-000000000000";
 
             // Act
             var result = deleteModel.OnPost(invalidId) as PageResult;
