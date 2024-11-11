@@ -24,7 +24,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             // Arrange
             flashcardService = TestHelper.FlashcardService;
             updateModel = new UpdateModel(flashcardService);
-            var invalidId = 9999;
+            var invalidId = "00000000-0000-0000-0000-000000000000";
 
             // Act
             updateModel.OnGet(invalidId);
@@ -43,7 +43,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             // Arrange
             flashcardService = TestHelper.FlashcardService;
             updateModel = new UpdateModel(flashcardService);
-            var validId = 2;
+            var validId = "4cce8136-84c3-4e69-abfb-51fedae8432b";
 
             // Act
             updateModel.OnGet(validId);
@@ -67,11 +67,11 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = 1,
+                    Id = "123e4567-e89b-12d3-a456-426614174000",
                     Question = "", // Invalid model
                     Answer = "Sample Answer",
                     CategoryId = "OOP",
-                    DifficultyLevel = "Easy"
+                    DifficultyLevel = 1
                 }
             };
 
@@ -101,11 +101,11 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = 1,
+                    Id = "123e4567-e89b-12d3-a456-426614174000",
                     Question = "Sample Question", // Valid model
                     Answer = "Sample Answer",
                     CategoryId = "OOP",
-                    DifficultyLevel = "Easy"
+                    DifficultyLevel = 2
                 }
             };
 
