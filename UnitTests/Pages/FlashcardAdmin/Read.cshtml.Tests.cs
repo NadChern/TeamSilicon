@@ -25,7 +25,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             // Arrange
             flashcardService = TestHelper.FlashcardService;
             readModel = new ReadModel(flashcardService);
-            var invalidId = 9999;
+            var invalidId = "00000000-0000-0000-0000-000000000000"; ;
 
             // Act
             readModel.OnGet(invalidId);
@@ -44,7 +44,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             // Arrange
             flashcardService = TestHelper.FlashcardService;
             readModel = new ReadModel(flashcardService);
-            var validId = 2;
+            var validId = "e0264da2-8c97-426a-8af2-0fb1bb64c243";
 
             // Act
             readModel.OnGet(validId);
