@@ -47,7 +47,7 @@ namespace UnitTests.Services
         {
             // Arrange
             flashcardService = TestHelper.FlashcardService;
-            var validId = 1; // Set valid flashcard ID
+            var validId = "4cce8136-84c3-4e69-abfb-51fedae8432b"; // Set valid flashcard ID
 
             // Act
             var result = flashcardService.GetById(validId);
@@ -67,7 +67,7 @@ namespace UnitTests.Services
         {
             // Arrange
             flashcardService = TestHelper.FlashcardService;
-            var invalidId = 9999; // Non-existing flashcard ID
+            var invalidId = "00000000-0000-0000-0000-000000000000"; // Non-existing flashcard ID
 
             // Act
             var result = flashcardService.GetById(invalidId);
@@ -88,11 +88,11 @@ namespace UnitTests.Services
             flashcardService = TestHelper.FlashcardService;
             var nonExistentFlashcard = new FlashcardModel
             {
-                Id = -1,
+                Id = "00000000-0000-0000-0000-000000000000",
                 Question = "Question",
                 Answer = "Answer",
                 CategoryId = "Python",
-                DifficultyLevel = "Easy"
+                DifficultyLevel = 1
             };
 
             // Act
@@ -112,11 +112,11 @@ namespace UnitTests.Services
             flashcardService = TestHelper.FlashcardService;
             var validFlashcard = new FlashcardModel
             {
-                Id = 1, // valid flashcard ID
+                Id = "4cce8136-84c3-4e69-abfb-51fedae8432b", // valid flashcard ID
                 Question = "Updated Question",
                 Answer = "Updated Answer",
                 CategoryId = "Python",
-                DifficultyLevel = "Medium"
+                DifficultyLevel = 2
             };
 
             // Act
@@ -174,11 +174,11 @@ namespace UnitTests.Services
             flashcardService = TestHelper.FlashcardService;
             var validFlashcard = new FlashcardModel
             {
-                Id = 2, // Assume this is a valid flashcard ID that exists in the dataset
+                Id = "123e4567-e89b-12d3-a456-426614174001", // Assume this is a valid flashcard ID that exists in the dataset
                 Question = "Sample Question",
                 Answer = "Sample Answer",
                 CategoryId = "SampleCategory",
-                DifficultyLevel = "Easy"
+                DifficultyLevel = 1
             };
 
             // Adding the flashcard first to ensure it exists before testing removal
@@ -203,7 +203,7 @@ namespace UnitTests.Services
         {
             // Arrange
             flashcardService = TestHelper.FlashcardService;
-            var invalidId = 9999; // Non-existing flashcard ID
+            var invalidId = "00000000-0000-0000-0000-000000000000" ; // Non-existing flashcard ID
 
             // Act
             var result = flashcardService.RemoveFlashcard(invalidId);
@@ -213,120 +213,8 @@ namespace UnitTests.Services
         }
         #endregion RemoveFlashcard
 
-        #region GenerateCardId
         
-        /// <summary>
-        /// Test to verify that GenerateCardId returns a positive integer as the new ID.
-        /// </summary>
-        [Test]
-        public void GenerateCardId_Should_Return_Positive_Integer()
-        {
-            // Arrange
-            flashcardService = TestHelper.FlashcardService;
-
-            // Act
-            var newId = flashcardService.GenerateCardId();
-
-            // Assert 
-            ClassicAssert.AreEqual(true, newId > 0);
-        }
-        
-        /// <summary>
-        /// Test to verify that GenerateCardId returns an ID that is not in the existing dataset.
-        /// </summary>
-        [Test]
-        public void GenerateCardId_Should_Return_Unique_Id_Not_In_Dataset()
-        {
-            // Arrange
-            flashcardService = TestHelper.FlashcardService;
-            var existingIds = flashcardService.GetAllData().Select(f => f.Id).ToList();
-
-            // Act
-            var newId = flashcardService.GenerateCardId();
-
-            // Assert - Verify that the generated ID is unique and not in the existing dataset
-            ClassicAssert.AreEqual(false, existingIds.Contains(newId));
-        }
-        
-        /// <summary>
-        /// Test to verify that GenerateCardId increments properly when there are no gaps in the dataset.
-        /// </summary>
-        [Test]
-        public void GenerateCardId_Should_Increment_When_No_Gaps()
-        {
-            // Arrange
-            flashcardService = TestHelper.FlashcardService;
-
-            // Create a dataset with sequential IDs to remove gaps
-            var lastFlashcardId = flashcardService.GetAllData().Max(f => f.Id);
-            var newFlashcard = new FlashcardModel
-            {
-                Id = lastFlashcardId + 1,
-                Question = "Test Question",
-                Answer = "Test Answer",
-                CategoryId = "OOP",
-                DifficultyLevel = "Medium"
-            };
-
-            flashcardService.CreateData(newFlashcard);
-
-            // Act
-            var newId = flashcardService.GenerateCardId();
-
-            // Assert - Verify that the new ID is one more than the last ID
-            ClassicAssert.AreEqual(lastFlashcardId + 2, newId);
-        }
-        
-        /// <summary>
-        /// Test to verify that GenerateCardId returns the first available gap in the sequence.
-        /// </summary>
-        [Test]
-       public void GenerateCardId_Should_Return_First_Available_Gap()
-        {
-            // Arrange - create a list with a gap in IDs
-            var testData = new List<FlashcardModel>
-            {
-                new FlashcardModel { Id = 1, Question = "Q1", Answer = "A1", CategoryId = "OOP" },
-                new FlashcardModel { Id = 2, Question = "Q2", Answer = "A2", CategoryId = "OOP" },
-                // Gap at ID 3
-                new FlashcardModel { Id = 4, Question = "Q4", Answer = "A4", CategoryId = "OOP" }
-            };
-
-            var flashcardService = TestHelper.FlashcardService;
-
-            // Act
-            var newId = flashcardService.GenerateCardId(testData);
-
-            // Assert
-            Assert.That(newId, Is.EqualTo(3));
-        }
-
-        /// <summary>
-        /// Test to verify that GenerateCardId returns the next ID after the highest ID when there are no gaps.
-        /// </summary>
-        [Test]
-        public void GenerateCardId_Should_Return_Next_Id_If_No_Gaps()
-        {
-            // Arrange - create a list with no gaps
-            var flashcardsSequential = new List<FlashcardModel>
-            {
-                new FlashcardModel { Id = 1, Question = "Q1", Answer = "A1", CategoryId = "OOP" },
-                new FlashcardModel { Id = 2, Question = "Q2", Answer = "A2", CategoryId = "OOP" },
-                new FlashcardModel { Id = 3, Question = "Q3", Answer = "A3", CategoryId = "OOP" }
-            };
-
-            var flashcardService = TestHelper.FlashcardService;
-
-            // Act
-            var newId = flashcardService.GenerateCardId(flashcardsSequential);
-
-            // Assert 
-            Assert.That(newId, Is.EqualTo(4));
-        }
-        
-        #endregion GenerateCardId
-        
-       #region CreateData
+        #region CreateData
         /// <summary>
         /// Test to verify that CreateData adds a new flashcard
         /// and returns the flashcard with a unique ID.
@@ -341,7 +229,7 @@ namespace UnitTests.Services
                 Question = "New Question",
                 Answer = "New Answer",
                 CategoryId = "OOP",
-                DifficultyLevel = "Medium"
+                DifficultyLevel = 2
             };
 
             // Act
@@ -351,7 +239,7 @@ namespace UnitTests.Services
             ClassicAssert.AreEqual(false, createdFlashcard == null);
 
             // Assert - Verify that the ID is unique and greater than 0
-            ClassicAssert.AreEqual(true, createdFlashcard.Id > 0);
+            ClassicAssert.IsFalse(string.IsNullOrEmpty(createdFlashcard.Id));
         }
         
         /// <summary>
@@ -367,7 +255,7 @@ namespace UnitTests.Services
                 Question = "Question with OpenCount",
                 Answer = "Answer with OpenCount",
                 CategoryId = "OOP",
-                DifficultyLevel = "Easy"
+                DifficultyLevel = 1
             };
 
             // Act
@@ -391,7 +279,7 @@ namespace UnitTests.Services
                 Question = "Test Addition Question",
                 Answer = "Test Addition Answer",
                 CategoryId = "OOP",
-                DifficultyLevel = "Hard"
+                DifficultyLevel = 3
             };
 
             // Act
