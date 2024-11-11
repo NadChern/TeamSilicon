@@ -106,9 +106,9 @@
 <div class="form-container">
     <form method="post">
 
-        <input type="hidden" name="Flashcard.Id" value="@Model.Flashcard.Id"/>
+        <input type="hidden" name="Flashcard.Id" value="@Model.Flashcard.Id" />
 
-      <!-- Category Dropdown -->
+        <!-- Category Dropdown -->
         <div>
             <label asp-for="Flashcard.CategoryId">Category</label>
             <select asp-for="Flashcard.CategoryId" class="form-control">
@@ -124,7 +124,7 @@
             <label for="Question">Question</label>
             <small>Max 100 characters</small>
             <span asp-validation-for="Flashcard.Question" class="text-danger font-weight-bold"></span> <!-- Shows *Required if empty -->
-            <input type="text" id="Question" name="Flashcard.Question" value="@Model.Flashcard.Question" maxlength="100" placeholder="Enter your question here"/>
+            <input type="text" id="Question" name="Flashcard.Question" value="@Model.Flashcard.Question" maxlength="100" placeholder="Enter your question here" />
         </div>
 
         <!-- Answer, cannot be empty -->
@@ -149,11 +149,13 @@
         </div>
 
         <!-- Additional Resources Url -->
-        <div>
-            <label asp-for="Flashcard.Url">Additional Resources (URL)</label>
+        <div style="margin-top: 20px;">
+            <label asp-for="Flashcard.Url">Additional Resources</label>
+            <small>Enter a valid URL</small>
             <span asp-validation-for="Flashcard.Url" class="text-danger font-weight-bold"></span>
-            <input type="text" asp-for="Flashcard.Url" placeholder="Enter a helpful link, e.g., https://example.com"/>
+            <input type="text" asp-for="Flashcard.Url" placeholder="Enter a helpful link, e.g., https://example.com" />
         </div>
+
 
         <!-- Open Count -->
         <div>
@@ -164,8 +166,8 @@
                    asp-for="Flashcard.OpenCount"
                    placeholder="Enter 0 or current open count"
                    class="form-control"
-                   value="@Model.Flashcard.OpenCount" 
-                   min="0"/>
+                   value="@Model.Flashcard.OpenCount"
+                   min="0" />
         </div>
 
         <div class="button-container">
@@ -173,7 +175,7 @@
             <a asp-page="/FlashcardAdmin/Index" asp-route-id="@Model.Flashcard.Id" class="close-btn">Close</a>
 
             <!-- Save Changes Button -->
-            <input type="submit" value="Save" class="submit-btn"/>
+            <input type="submit" value="Save" class="submit-btn" />
         </div>
     </form>
 </div>
