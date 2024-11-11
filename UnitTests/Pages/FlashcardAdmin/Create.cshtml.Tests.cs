@@ -58,11 +58,11 @@ namespace UnitTests.Pages.FlashcardAdmin
             // Arrange - Set up an invalid flashcard model
             _createModel.Flashcard = new FlashcardModel
             {
-                Id = 1,
+                Id = "123e4567-e89b-12d3-a456-426614174000",
                 Question = "", // Invalid because Question is required
                 Answer = "Sample Answer",
                 CategoryId = "OOP",
-                DifficultyLevel = "Easy"
+                DifficultyLevel = 1
             };
             
             // Simulate model validation error for Question field
@@ -84,11 +84,11 @@ namespace UnitTests.Pages.FlashcardAdmin
             // Arrange - Set up a valid flashcard model
             _createModel.Flashcard = new FlashcardModel
             {
-                Id = 1,
+                Id = "123e4567-e89b-12d3-a456-426614174000",
                 Question = "Sample Question",
                 Answer = "Sample Answer",
                 CategoryId = "OOP",
-                DifficultyLevel = "Easy"
+                DifficultyLevel = 2
             };
 
             // Ensure ModelState is clear
@@ -100,47 +100,11 @@ namespace UnitTests.Pages.FlashcardAdmin
             // Assert - Verify that the result is a redirection to the Index page
             Assert.That(result, Is.TypeOf<RedirectToPageResult>(), "Result should be a RedirectToPageResult.");
             var redirectResult = result as RedirectToPageResult;
-            Assert.That(redirectResult.PageName, Is.EqualTo("/FlashcardAdmin/Index"), "Should redirect to Index page.");
+            Assert.That(redirectResult.PageName, Is.EqualTo("/FlashcardAdmin/Index"));
         }
         
         #endregion OnPost
-        
-        #region Categories and DifficultyLevels
-
-        /// <summary>
-        /// Test that Categories list contains the expected options.
-        /// </summary>
-        [Test]
-        public void Categories_Should_Contain_Expected_Options()
-        {
-            // Arrange - Expected categories
-            var expectedCategories = new List<string> { "OOP", "Python", "C#", "C++", "Mobile", "DS" };
-
-            // Act
-            var actualCategories = _createModel.Categories;
-
-            // Assert - Verify each category matches expected value
-            Assert.That(actualCategories, Is.EqualTo(expectedCategories));
-        }
-
-        /// <summary>
-        /// Test that DifficultyLevels list contains the expected options.
-        /// </summary>
-        [Test]
-        public void DifficultyLevels_Should_Contain_Expected_Options()
-        {
-            // Arrange - Expected difficulty levels
-            var expectedDifficultyLevels = new List<string> { "Easy", "Medium", "Hard" };
-
-            // Act
-            var actualDifficultyLevels = _createModel.DifficultyLevels;
-
-            // Assert - Verify each difficulty level matches expected value
-            Assert.That(actualDifficultyLevels, Is.EqualTo(expectedDifficultyLevels));
-        }
-
-        #endregion Categories and DifficultyLevels
-        
+    
     }
 }
 
