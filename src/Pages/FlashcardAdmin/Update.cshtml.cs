@@ -71,10 +71,27 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
         {
             if (ModelState.IsValid)
             {
-                FlashcardService.UpdateFlashcard(Flashcard);
-                IsFlashcardUpdated = true;
-                return RedirectToPage("/FlashcardAdmin/Index",
-                    new { id = Flashcard.Id }); // Redirect details page
+                // Retrieve the existing flashcard to check the current OpenCount
+                var existingFlashcard = FlashcardService.GetById(Flashcard.Id);
+
+                // Case 1: Check if OpenCount is 0
+                if (Flashcard.OpenCount == 0)
+                {
+                    FlashcardService.UpdateFlashcard(Flashcard);
+                    IsFlashcardUpdated = true;
+                    return RedirectToPage("/FlashcardAdmin/Index");
+                }
+
+                // Case 2: Check if OpenCount matches the existing count
+                if (Flashcard.OpenCount == existingFlashcard.OpenCount)
+                {
+                    FlashcardService.UpdateFlashcard(Flashcard);
+                    IsFlashcardUpdated = true;
+                    return RedirectToPage("/FlashcardAdmin/Index");
+                }
+
+                // If neither case is met, add a validation error
+                ModelState.AddModelError("Flashcard.OpenCount", $"Please enter 0 to reset or the current count {existingFlashcard.OpenCount}.");
             }
 
             IsFlashcardUpdated = false;
