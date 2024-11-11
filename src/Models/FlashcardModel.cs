@@ -17,10 +17,12 @@ namespace ContosoCrafts.WebSite.Models
         public string CategoryId { get; set; }
 
         // Question on the flashcard
-        [Required(ErrorMessage = "*Required")] public string Question { get; set; }
+        [Required(ErrorMessage = "*Required")] 
+        public string Question { get; set; }
 
         // Answer for the question on the flashcard
-        [Required(ErrorMessage = "*Required")] public string Answer { get; set; }
+        [Required(ErrorMessage = "*Required")] 
+        public string Answer { get; set; }
 
        // Difficulty level of the question (1- Easy, 2 - Medium, 3 - Hard)
         [JsonPropertyName("Difficulty")]
@@ -32,9 +34,11 @@ namespace ContosoCrafts.WebSite.Models
         [RegularExpression(@"(https?:\/\/.*)", 
             ErrorMessage = "Please enter secured urls starts with \"https://\". ")]
         public string Url { get; set; }
-        
+
         // Number of times flashcard has been opened (flipped)
-        public int OpenCount { get; set; } = 0;
+        [JsonPropertyName("OpenCount")]
+        [Required(ErrorMessage = "*Required")]
+        public int OpenCount { get; set; }
 
         /// <summary>
         /// Converts current FlashcardModel object into JSON string representation
