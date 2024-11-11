@@ -155,13 +155,17 @@
             <input type="text" asp-for="Flashcard.Url" placeholder="Enter a helpful link, e.g., https://example.com"/>
         </div>
 
-        <!-- Open Count with Dropdown (Current count and Reset option) -->
+        <!-- Open Count -->
         <div>
             <label for="OpenCount">Open Count</label>
-            <select id="OpenCount" name="Flashcard.OpenCount">
-                <option value="@Model.Flashcard.OpenCount" selected>@Model.Flashcard.OpenCount</option>
-                <option value="0">Reset to 0</option>
-            </select>
+            <small>Enter 0 to reset or the current count</small>
+            <span asp-validation-for="Flashcard.OpenCount" class="text-danger font-weight-bold"></span>
+            <input type="number"
+                   asp-for="Flashcard.OpenCount"
+                   placeholder="Enter 0 or current open count"
+                   class="form-control"
+                   value="@Model.Flashcard.OpenCount" 
+                   min="0"/>
         </div>
 
         <div class="button-container">
