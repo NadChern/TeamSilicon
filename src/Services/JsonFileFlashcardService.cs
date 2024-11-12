@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
@@ -27,7 +26,6 @@ namespace ContosoCrafts.WebSite.Services
         /// Gets the web hosting environment, used to access the web root path.
         /// </summary>
         public IWebHostEnvironment WebHostEnvironment { get; }
-
 
         /// <summary>
         /// Gets the full path to the JSON file containing the flashcard data.
@@ -69,11 +67,13 @@ namespace ContosoCrafts.WebSite.Services
         {
             // generate a unique ID for the new flashcard
             flashcard.OpenCount = 0;
-            
+
             // retrieve the existing dataset and add the new flashcard
             var dataset = GetAllData();
+
+            // create new dataset to append new card
             var newDataset = dataset.Append(flashcard);
-            
+
             // save the updated dataset
             SaveData(newDataset);
             return flashcard;
@@ -104,7 +104,6 @@ namespace ContosoCrafts.WebSite.Services
             return true; // Removal successful
         }
 
-       
         /// <summary>
         /// Get the number of flashcards for a specific category.
         /// </summary>
@@ -122,11 +121,13 @@ namespace ContosoCrafts.WebSite.Services
         /// <returns>True if the update was successful; otherwise, false.</returns>
         public bool UpdateFlashcard(FlashcardModel updatedFlashcard)
         {
-            // Retrieve all flashcards from JSON file, convert to list 
+            
+            // retrieve all flashcards from JSON file, convert to list 
             var flashcards = GetAllData();
 
-            // Find the flashcard with the specified ID
+            // find the flashcard with the specified ID
             var existingFlashcard = flashcards.FirstOrDefault(f => f.Id == updatedFlashcard.Id);
+            
             if (existingFlashcard == null)
             {
                 return false; // Flashcard not found
@@ -143,11 +144,13 @@ namespace ContosoCrafts.WebSite.Services
         /// <param name="flashcards">The collection of flashcards to save.</param>
         private void SaveData(IEnumerable<FlashcardModel> flashcards)
         {
+            
             // Serialize the flashcards to JSON format with indentation.
             var jsonData = JsonSerializer.Serialize(flashcards, new JsonSerializerOptions
             {
                 WriteIndented = true
             });
+            
             File.WriteAllText(JsonFileName, jsonData);
         }
 
