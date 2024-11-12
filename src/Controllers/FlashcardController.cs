@@ -5,6 +5,7 @@ using ContosoCrafts.WebSite.Services;
 
 namespace ContosoCrafts.WebSite.Controllers
 {
+    
     /// <summary>
     /// Controller for managing flashcards
     /// </summary>
@@ -12,6 +13,7 @@ namespace ContosoCrafts.WebSite.Controllers
     [Route("[controller]")]
     public class FlashcardController: ControllerBase
     {
+        
         /// <summary>
         /// Initializes a new instance of FlashcardController class.
         /// </summary>
