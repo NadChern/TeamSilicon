@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -6,11 +5,13 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
 {
+    
     /// <summary>
     /// Represents Create page 
     /// </summary>
     public class CreateModel : PageModel
     {
+        
         /// <summary>
         /// Gets service responsible for accessing and updating flashcard data
         /// </summary>
@@ -28,6 +29,7 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
         /// <param name="flashcardService">Service used to manage flashcard data.</param>
         public CreateModel(JsonFileFlashcardService flashcardService)
         {
+            
             // Assign provided service to FlashcardService property
             FlashcardService = flashcardService;
         }
@@ -38,6 +40,7 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
         /// <returns>Create page.</returns>
         public IActionResult OnGet()
         {
+            
             // Initialize Flashcard to avoid null reference issues in the form
             Flashcard = new FlashcardModel();
             return Page();
@@ -52,10 +55,11 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
         /// </returns>
         public IActionResult OnPost()
         {
+            
             // Check if the model state is valid
             if (ModelState.IsValid == false)
             {
-                return Page(); // return to the form with validation errors displayed
+                return Page(); 
             }
             
             // Proceed with valid ModelState
