@@ -39,12 +39,5 @@ namespace ContosoCrafts.WebSite.Models
         [JsonPropertyName("OpenCount")]
         [Required(ErrorMessage = "*Required")]
         public int OpenCount { get; set; }
-
-        /// <summary>
-        /// Converts current FlashcardModel object into JSON string representation
-        /// </summary>
-        /// <returns>Json string representation of FlashcardModel object</returns>
-        public override string ToString() => JsonSerializer.Serialize<FlashcardModel>(this);
-
     }
 }
