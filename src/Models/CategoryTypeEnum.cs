@@ -1,25 +1,25 @@
-
 namespace ContosoCrafts.WebSite.Models
 {
-
-   /// <summary>
+    
+    /// <summary>
     /// Enum representing types of categories for flashcards
     /// </summary>
     public enum CategoryTypeEnum
     {
         OOP,
         Python,
-        CSharp,         
-        CPlusPlus,      
+        CSharp,
+        CPlusPlus,
         Mobile,
         DS
     }
-    
+
     /// <summary>
     /// Extension methods for CategoryTypeEnum to provide display-friendly names
     /// </summary>
     public static class CategoryTypeEnumExtensions
     {
+        
         /// <summary>
         /// Gets the display-friendly name for each category
         /// </summary>
@@ -35,9 +35,8 @@ namespace ContosoCrafts.WebSite.Models
                 CategoryTypeEnum.CPlusPlus => "CPlusPlus",
                 CategoryTypeEnum.Mobile => "Mobile",
                 CategoryTypeEnum.DS => "DS",
-                _=> category.ToString()
-             };
+                _ => category.ToString()
+            };
         }
-       
     }
 }
