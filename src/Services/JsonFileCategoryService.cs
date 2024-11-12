@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace ContosoCrafts.WebSite.Services
 {
+    
     /// <summary>
     /// Service class to manage category data stored in a JSON file
     /// </summary>
     public class JsonFileCategoryService
     {
+        
         /// <summary>
         /// Initializes a new instance of JsonFileCategoryService class
         /// </summary>
@@ -58,8 +60,14 @@ namespace ContosoCrafts.WebSite.Services
         /// <returns>The color of the specified category.</returns>
         public string GetCategoryColorById(string id)
         {
+            
+            // Retrieves all categories
             var products = GetAllData();
+            
+            // Finds the category with the specified ID
             var product = products.FirstOrDefault(x => x.Id.Equals(id));
+            
+            // Returns the category color
             return product.CategoryColor;
         }
 
@@ -71,8 +79,13 @@ namespace ContosoCrafts.WebSite.Services
         /// <param name="data"></param>
         public CategoryModel UpdateData(CategoryModel data)
         {
+            
+            // Retrieves all categories
             var products = GetAllData();
+            
+            // Finds the category to update
             var productData = products.FirstOrDefault(x => x.Id.Equals(data.Id));
+            
             if (productData == null)
             {
                 return null;
@@ -110,6 +123,8 @@ namespace ContosoCrafts.WebSite.Services
         /// <returns></returns>
         public CategoryModel CreateData()
         {
+            
+            // Create a new CategoryModel instance with default values
             var data = new CategoryModel()
             {
                 Id = System.Guid.NewGuid().ToString(),
@@ -117,7 +132,8 @@ namespace ContosoCrafts.WebSite.Services
                 Image = "",
             };
 
-            // Get the current set, and append the new record to it because IEnumerable does not have Add
+            // Get the current set, and append the new record to it
+            // because IEnumerable does not have Add
             var dataSet = GetAllData();
             dataSet = dataSet.Append(data);
             SaveData(dataSet);
@@ -130,9 +146,14 @@ namespace ContosoCrafts.WebSite.Services
         /// <returns></returns>
         public CategoryModel DeleteData(string id)
         {
-            // Get the current set, and append the new record to it
+            
+            // Retrieves all categories
             var dataSet = GetAllData();
+            
+            // Finds the category to delete.
             var data = dataSet.FirstOrDefault(m => m.Id.Equals(id));
+            
+            // Creates a new dataset excluding the deleted category.
             var newDataSet = GetAllData().Where(m => m.Id.Equals(id) == false);
             SaveData(newDataSet);
             return data;
