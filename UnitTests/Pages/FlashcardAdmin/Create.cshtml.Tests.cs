@@ -36,6 +36,8 @@ namespace UnitTests.Pages.FlashcardAdmin
         [Test]
         public void OnGet_Should_Initialize_New_FlashcardModel()
         {
+            // Arrange
+
             // Act
             var result = _createModel.OnGet();
 
