@@ -79,6 +79,7 @@ namespace UnitTests.Pages.Error
             Assert.That(pageModel.RequestId, Is.EqualTo("trace"));
             Assert.That(pageModel.ShowRequestId, Is.EqualTo(true));
         }
+
         #endregion OnGet
     }
 }
