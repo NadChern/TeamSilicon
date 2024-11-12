@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using NUnit.Framework;
-using ContosoCrafts.WebSite.Models;
+﻿using NUnit.Framework;
 using ContosoCrafts.WebSite.Services;
 using NUnit.Framework.Legacy;
 using ContosoCrafts.WebSite.Pages.FlashcardAdmin;
@@ -26,6 +24,7 @@ namespace UnitTests.Pages.FlashcardAdmin
         private DeleteModel deleteModel;
 
         #region Setup
+
         /// <summary>
         /// Initializes necessary services and page model instances
         /// before each test is executed.
@@ -36,9 +35,11 @@ namespace UnitTests.Pages.FlashcardAdmin
             flashcardService = TestHelper.FlashcardService;
             deleteModel = new DeleteModel(flashcardService);
         }
+
         #endregion Setup
 
         #region OnGet
+
         /// <summary>
         /// Verifies that calling OnGet with an invalid ID redirects to 
         /// the index page, ensuring non-existent flashcards are handled appropriately.
@@ -74,9 +75,11 @@ namespace UnitTests.Pages.FlashcardAdmin
             ClassicAssert.IsNotNull(deleteModel.Flashcard);
             ClassicAssert.AreEqual(validId, deleteModel.Flashcard.Id);
         }
+
         #endregion OnGet
 
         #region OnPost
+
         /// <summary>
         /// Verifies that calling OnPost with a valid ID deletes the flashcard
         /// and redirects to the index page, ensuring successful deletion.
@@ -117,6 +120,8 @@ namespace UnitTests.Pages.FlashcardAdmin
             ClassicAssert.IsTrue(deleteModel.ModelState.ContainsKey(string.Empty));
             ClassicAssert.IsFalse(deleteModel.ModelState.IsValid);
         }
+
         #endregion OnPost
+
     }
 }
