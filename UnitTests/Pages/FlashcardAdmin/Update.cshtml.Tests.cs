@@ -116,6 +116,34 @@ namespace UnitTests.Pages.FlashcardAdmin
             // Assert:
             ClassicAssert.AreEqual(true, result);
         }
+
+        /// <summary>
+        /// Test when OpenCount matches the existing OpenCount, should update successfully.
+        /// </summary>
+        [Test]
+        public void OnPost_OpenCount_Matches_Existing_OpenCount_Should_Return_True()
+        {
+            // Arrange:
+            updateModel = new UpdateModel(flashcardService)
+            {
+                Flashcard = new FlashcardModel
+                {
+                    Id = "e0264da2-8c97-426a-8af2-0fb1bb64c243",
+                    Question = "Sample Question Updated",
+                    Answer = "Sample Answer Updated",
+                    CategoryId = "OOP",
+                    DifficultyLevel = 1,
+                    OpenCount = 3 // Match the existing OpenCount
+                }
+            };
+
+            // Act:
+            updateModel.OnPost();
+            var result = updateModel.IsFlashcardUpdated;           
+
+            // Assert:
+            ClassicAssert.AreEqual(true, result); // Flashcard should be updated
+        }
         #endregion OnPost
 
     }
