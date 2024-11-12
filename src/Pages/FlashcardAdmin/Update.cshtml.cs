@@ -5,11 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
 {
+    
     /// <summary>
     /// Represents Update page
     /// </summary>
     public class UpdateModel : PageModel
     {
+        
         /// <summary>
         /// Gets service responsible for accessing and updating flashcard data
         /// </summary>
@@ -27,6 +29,7 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
         /// <param name="flashcardService">Service used to manage flashcard data.</param>
         public UpdateModel(JsonFileFlashcardService flashcardService)
         {
+            
             // Assign provided service to FlashcardService property
             FlashcardService = flashcardService;
         }
@@ -41,15 +44,16 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
         /// </summary>
         public bool IsFlashcardUpdated { get; set; }
 
-
         /// <summary>
         /// Handles HTTP GET requests to retrieve a specific flashcard by ID
         /// </summary>
         /// <param name="id">ID of the flashcard to be retrieved.</param>
         public void OnGet(string id)
         {
+            
             // Retrieve the flashcard using the provided ID.
             Flashcard = FlashcardService.GetById(id);
+            
             if (Flashcard == null)
             {
                 IsFlashcardLoaded = false;
@@ -70,6 +74,7 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
         {
             if (ModelState.IsValid)
             {
+                
                 // Retrieve the existing flashcard to check the current OpenCount
                 var existingFlashcard = FlashcardService.GetById(Flashcard.Id);
 
@@ -90,7 +95,8 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
                 }
 
                 // If neither case is met, add a validation error
-                ModelState.AddModelError("Flashcard.OpenCount", $"Please enter 0 to reset or the current count {existingFlashcard.OpenCount}.");
+                ModelState.AddModelError("Flashcard.OpenCount", 
+                    $"Please enter 0 to reset or the current count {existingFlashcard.OpenCount}.");
             }
 
             IsFlashcardUpdated = false;
