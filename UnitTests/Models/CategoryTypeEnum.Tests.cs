@@ -3,6 +3,7 @@ using ContosoCrafts.WebSite.Models;
 
 namespace UnitTests.Models
 {
+    
     /// <summary>
     /// Unit tests for CategoryTypeEnumExtensions class
     /// </summary>
@@ -32,6 +33,7 @@ namespace UnitTests.Models
         [Test]
         public void DisplayName_Valid_Test_Python_Should_Return_Python()
         {
+            
             // Arrange
             var category = CategoryTypeEnum.Python;
 
@@ -48,6 +50,7 @@ namespace UnitTests.Models
         [Test]
         public void DisplayName_Valid_Test_CSharp_Should_Return_CSharp()
         {
+            
             // Arrange
             var category = CategoryTypeEnum.CSharp;
 
@@ -64,6 +67,7 @@ namespace UnitTests.Models
         [Test]
         public void DisplayName_Valid_Test_CPlusPlus_Should_Return_CPlusPlus()
         {
+            
             // Arrange
             var category = CategoryTypeEnum.CPlusPlus;
 
@@ -80,6 +84,7 @@ namespace UnitTests.Models
         [Test]
         public void DisplayName_Valid_Test_Mobile_Should_Return_Mobile()
         {
+            
             // Arrange
             var category = CategoryTypeEnum.Mobile;
 
@@ -96,6 +101,7 @@ namespace UnitTests.Models
         [Test]
         public void DisplayName_Valid_Test_DS_Should_Return_DS()
         {
+            
             // Arrange
             var category = CategoryTypeEnum.DS;
 
@@ -112,6 +118,7 @@ namespace UnitTests.Models
         [Test]
         public void DisplayName_Invalid_Test_UndefinedCategory_Should_Return_ToString()
         {
+            
             // Arrange
             var undefinedCategory = (CategoryTypeEnum)99;
 
