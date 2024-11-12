@@ -52,6 +52,7 @@ namespace UnitTests.Pages
             Assert.That(pageModel.ModelState.IsValid, Is.EqualTo(true));
             Assert.That(pageModel.Categories.ToList().Any(), Is.EqualTo(true));
         }
+
         #endregion OnGet
     }
 }
