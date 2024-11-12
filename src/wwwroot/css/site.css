@@ -282,26 +282,26 @@ ul {
 /* CategoryList.razor styling
 ----------------------------------------------------*/
 /* Define the masonry grid layout */
-.masonry-grid {
+.CL-masonry-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
 }
 
 @@media (max-width:1000px) and (min-width:700px) {
-    .masonry-grid {
+    .CL-masonry-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @@media (max-width:700px) {
-    .masonry-grid {
+    .CL-masonry-grid {
         grid-template-columns: repeat(1, 1fr);
     }
 }
 
 /* Styling for each card in the grid */
-.masonry-grid .card {
+.CL-masonry-grid .CL-card {
     break-inside: avoid; /* Avoid breaking cards across columns */
     width: 300px;
     height: 365px;
@@ -315,13 +315,13 @@ ul {
 }
 
     /* Scale card on hover */
-    .masonry-grid .card:hover {
+    .CL-masonry-grid .CL-card:hover {
         transform: scale(1.05);
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
     }
 
 /* Image styling inside the card */
-.image {
+.CL-image {
     width: 100%;
     height: 300px;
     background-size: cover;
@@ -330,7 +330,7 @@ ul {
 }
 
 /* Styling the card's footer with count and heart icon */
-.card-count {
+.CL-card-count {
     position: absolute;
     bottom: 10px;
     left: 50%;
@@ -346,7 +346,7 @@ ul {
 }
 
 /* Default heart icon styling */
-.heart-icon {
+.CL-heart-icon {
     cursor: pointer;
     font-size: 24px;
     color: white;
@@ -354,25 +354,25 @@ ul {
 }
 
     /* Styling for active heart */
-    .heart-icon.active {
+    .CL-heart-icon.active {
         color: red;
     }
 
     /* Scaling the heart icon when growing */
-    .heart-icon.grow {
+    .CL-heart-icon.grow {
         transform: scale(2.0); /* Grow effect */
     }
 
 /* Additional fonts for the card */
-.cute-font-regular {
+.CL-cute-font-regular {
     font-family: "Cute Font", sans-serif;
 }
 
-.londrina-sketch-regular {
+.CL-londrina-sketch-regular {
     font-family: "Londrina Sketch", serif;
 }
 
 /* Font settings for material icons */
-.material-symbols-outlined {
+.CL-material-symbols-outlined {
     font-variation-settings: 'FILL' 100, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
