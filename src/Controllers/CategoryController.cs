@@ -5,6 +5,7 @@ using ContosoCrafts.WebSite.Services;
 
 namespace ContosoCrafts.WebSite.Controllers
 {
+    
     /// <summary>
     /// Controller for managing categories
     /// </summary>
@@ -12,6 +13,7 @@ namespace ContosoCrafts.WebSite.Controllers
     [Route("[controller]")]
     public class CategoryController : ControllerBase
     {
+        
         /// <summary>
         /// Initializes a new instance of the CategoryController class
         /// </summary>
@@ -25,7 +27,6 @@ namespace ContosoCrafts.WebSite.Controllers
         /// Gets service that provides access to category data
         /// </summary>
         public JsonFileCategoryService CategoryService { get; }
-
 
         /// <summary>
         /// Handles HTTP GET requests to retrieve all categories
