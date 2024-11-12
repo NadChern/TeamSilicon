@@ -3,11 +3,13 @@ using Microsoft.Extensions.Hosting;
 
 namespace ContosoCrafts.WebSite
 {
+    
     /// <summary>
     /// Entry point for application
     /// </summary>
     public class Program
     {
+        
         /// <summary>
         /// Main method, the entry point of the application.
         /// It initializes and runs the web host.
