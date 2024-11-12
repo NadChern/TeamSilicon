@@ -1,15 +1,16 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace ContosoCrafts.WebSite.Models
 {
+    
     /// <summary>
     /// FlashcardModel represents a single flashcard with its properties
     /// </summary>
     public class FlashcardModel
     {
+        
         // Primary key Id for flashcard
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
