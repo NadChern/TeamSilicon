@@ -15,6 +15,7 @@ namespace UnitTests.Pages.FlashcardAdmin
         private UpdateModel updateModel;
 
         #region OnGet
+
         /// <summary>
         /// OnGet should return false for invalid id
         /// </summary>
@@ -52,6 +53,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             // Assert
             ClassicAssert.AreEqual(true, result);
         }
+
         #endregion OnGet
 
         #region OnPost
@@ -172,6 +174,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             // Assert:
             ClassicAssert.AreEqual(false, result); // Flashcard should be updated
         }
+
         #endregion OnPost
 
     }
