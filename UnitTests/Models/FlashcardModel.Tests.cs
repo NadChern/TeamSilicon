@@ -51,9 +51,11 @@ namespace UnitTests.Models
             // Assert:
             ClassicAssert.AreEqual("123e4567-e89b-12d3-a456-426614174001", result);
         }
+
         #endregion Id Property Tests
 
         #region CategoryId
+
         /// <summary>
         /// Test to ensure the CategoryId getter works correctly.
         /// </summary>
@@ -93,9 +95,11 @@ namespace UnitTests.Models
             // Assert:
             ClassicAssert.AreEqual("Python", result);
         }
+
         #endregion CategoryId
 
         #region Question
+
         /// <summary>
         /// Test to ensure the Question getter works correctly.
         /// </summary>
@@ -135,9 +139,11 @@ namespace UnitTests.Models
             // Assert:
             ClassicAssert.AreEqual("Sample Question 2?", result);
         }
+
         #endregion Question
 
         #region Answer
+
         /// <summary>
         /// Test to ensure the Answer getter works correctly.
         /// </summary>
@@ -177,9 +183,11 @@ namespace UnitTests.Models
             // Assert:
             ClassicAssert.AreEqual("Sample Answer 2", result);
         }
+
         #endregion Answer
 
         #region DifficultyLevel
+
         /// <summary>
         /// Test to ensure the Difficulty Level getter works correctly.
         /// </summary>
@@ -219,6 +227,7 @@ namespace UnitTests.Models
             // Assert:
             ClassicAssert.AreEqual(3, result);
         }
+
         #endregion DifficultyLevel
 
         #region Url
@@ -262,9 +271,11 @@ namespace UnitTests.Models
             // Assert:
             ClassicAssert.AreEqual("https://www.sample2.com", result);
         }
+
         #endregion Url
 
         #region OpenCount
+
         /// <summary>
         /// Test to ensure the OpenCount getter works correctly.
         /// </summary>
@@ -304,6 +315,7 @@ namespace UnitTests.Models
             // Assert:
             ClassicAssert.AreEqual(0, result);
         }
+
         #endregion OpenCount
     }
 }
