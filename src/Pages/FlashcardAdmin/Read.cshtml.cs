@@ -4,11 +4,13 @@ using ContosoCrafts.WebSite.Services;
 
 namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
 {
+    
     /// <summary>
     /// Represents Read page
     /// </summary>
     public class ReadModel : PageModel
     {
+        
         /// <summary>
         /// Gets service responsible for accessing flashcard data
         /// </summary>
@@ -39,8 +41,10 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
         /// <param name="id">ID of the flashcard to be retrieved</param>
         public void OnGet(string id)
         {
+            
             // Assign provided service to FlashcardService property
             Flashcard = FlashcardService.GetById(id);
+            
             if (Flashcard == null)
             {
                 IsFlashcardLoaded = false;
