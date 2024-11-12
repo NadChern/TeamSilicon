@@ -8,19 +8,18 @@
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Cute+Font&family=Londrina+Sketch&display=swap" rel="stylesheet">
 
-
 <!-- Masonry grid to display category cards -->
-<div class="masonry-grid">
+<div class="CL-masonry-grid">
     @foreach (var category in CategoryService.GetAllData()) // Loop through all categories
     {
-        <div class="card" style="background-color: @category.CategoryColor;">
+        <div class="CL-card" style="background-color: @category.CategoryColor;">
             <div @onclick="() => NavigateToCategory(category.Id)"
-                 class="image" style="background-image: url('@category.Image');">
+                 class="CL-image" style="background-image: url('@category.Image');">
             </div>
-            <div class="card-count cute-font-regular">
+            <div class="CL-card-count CL-cute-font-regular">
                 @($" {ShowLabel(category.Id)} ")
                 <!-- Heart icon with dynamic classes and click event -->
-                <span class="material-symbols-outlined heart-icon @GetHeartClass(category.Id) @GetGrowClass(category.Id)"
+                <span class="material-symbols-outlined CL-heart-icon @GetHeartClass(category.Id) @GetGrowClass(category.Id)"
                       @onclick="() => ToggleHeart(category.Id)">
                     favorite
                 </span>
