@@ -50,19 +50,14 @@ namespace ContosoCrafts.WebSite.Pages.Flashcards
             CategoryId = categoryId;
 
             // Retrieve all flashcards from the service
-            var allFlashcards = FlashcardService.GetAllData();
+            Flashcards = FlashcardService.GetAllData();
 
             // Filter flashcards by category 
             if (!string.IsNullOrEmpty(CategoryId))
             {
-                Flashcards = allFlashcards
+                Flashcards = Flashcards
                     .Where(f => f.CategoryId.Equals(CategoryId,
                         System.StringComparison.OrdinalIgnoreCase));
-            }
-            else
-            {
-                // if no category ID is provided, display all flashcards
-                Flashcards = allFlashcards;
             }
         }
     }
