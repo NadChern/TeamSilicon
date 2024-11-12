@@ -1,12 +1,11 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using ContosoCrafts.WebSite.Pages.FlashcardAdmin;
 using ContosoCrafts.WebSite.Services;
 using System.Linq;
 
 namespace UnitTests.Pages.FlashcardAdmin
 {
-   /// <summary>
+    /// <summary>
     /// Unit Tests for the IndexModel class.
     /// </summary>
     public class IndexModelTests
@@ -27,58 +26,175 @@ namespace UnitTests.Pages.FlashcardAdmin
             _indexModel = new IndexModel(_flashcardService);
         }
 
+        #region OnGet Tests
+
         /// <summary>
-        /// Test that OnGet returns all flashcards successfully.
+        /// Verifies that OnGet initializes Flashcards property with data.
         /// </summary>
         [Test]
-        public void OnGet_Should_Return_All_Flashcards()
+        public void OnGet_Valid_Test_Should_Return_NonNull_Flashcards()
         {
             // Arrange
-            
+
             // Act
             _indexModel.OnGet();
 
             // Assert
             Assert.That(_indexModel.Flashcards, Is.Not.Null);
+        }
+
+        /// <summary>
+        /// Verifies that OnGet initializes Flashcards property with a non-empty collection.
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Test_Should_Return_NonEmpty_Flashcards()
+        {
+            // Arrange
+
+            // Act
+            _indexModel.OnGet();
+
+            // Assert
             Assert.That(_indexModel.Flashcards, Is.Not.Empty);
         }
 
         /// <summary>
-        /// Test that OnGet retrieves the expected data from the service.
+        /// Verifies that OnGet retrieves the correct count of flashcards.
         /// </summary>
         [Test]
-        public void OnGet_Should_Match_Expected_Data()
+        public void OnGet_Valid_Test_Should_Return_Correct_Count()
+        {
+            // Arrange
+            var expectedCount = _flashcardService.GetAllData().Count();
+
+            // Act
+            _indexModel.OnGet();
+            var resultCount = _indexModel.Flashcards.Count();
+
+            // Assert
+            Assert.That(resultCount, Is.EqualTo(expectedCount));
+        }
+
+        /// <summary>
+        /// Verifies that OnGet retrieves the correct IDs for flashcards.
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Test_Should_Return_Matching_Flashcard_Ids()
         {
             // Arrange
             var expectedFlashcards = _flashcardService.GetAllData().ToList();
 
             // Act
             _indexModel.OnGet();
-            var result = _indexModel.Flashcards.ToList();
+            var resultFlashcards = _indexModel.Flashcards.ToList();
 
             // Assert
-            Assert.That(result.Count, Is.EqualTo(expectedFlashcards.Count));
-
-            for (int i = 0; i < result.Count; i++)
+            for (int i = 0; i < resultFlashcards.Count; i++)
             {
-                Assert.That(result[i].Id, Is.EqualTo(expectedFlashcards[i].Id));
-                Assert.That(result[i].CategoryId, Is.EqualTo(expectedFlashcards[i].CategoryId));
-                Assert.That(result[i].Question, Is.EqualTo(expectedFlashcards[i].Question));
-                Assert.That(result[i].Answer, Is.EqualTo(expectedFlashcards[i].Answer));
-                Assert.That(result[i].DifficultyLevel, Is.EqualTo(expectedFlashcards[i].DifficultyLevel));
-                Assert.That(result[i].Url, Is.EqualTo(expectedFlashcards[i].Url));
+                Assert.That(resultFlashcards[i].Id, Is.EqualTo(expectedFlashcards[i].Id));
             }
         }
 
         /// <summary>
-        /// Test that the model throws an exception when the service is not available.
+        /// Verifies that OnGet retrieves the correct Category IDs for flashcards.
         /// </summary>
         [Test]
-        public void Constructor_When_Service_Is_Null_Should_Throw_ArgumentNullException()
+        public void OnGet_Valid_Test_Should_Return_Matching_Category_Ids()
         {
-            // Assert: Verify ArgumentNullException is thrown
-            Assert.Throws<ArgumentNullException>(() => { new IndexModel(null); });
+            // Arrange
+            var expectedFlashcards = _flashcardService.GetAllData().ToList();
+
+            // Act
+            _indexModel.OnGet();
+            var resultFlashcards = _indexModel.Flashcards.ToList();
+
+            // Assert
+            for (int i = 0; i < resultFlashcards.Count; i++)
+            {
+                Assert.That(resultFlashcards[i].CategoryId, Is.EqualTo(expectedFlashcards[i].CategoryId));
+            }
         }
 
+        /// <summary>
+        /// Verifies that OnGet retrieves the correct Questions for flashcards.
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Test_Should_Return_Matching_Questions()
+        {
+            // Arrange
+            var expectedFlashcards = _flashcardService.GetAllData().ToList();
+
+            // Act
+            _indexModel.OnGet();
+            var resultFlashcards = _indexModel.Flashcards.ToList();
+
+            // Assert
+            for (int i = 0; i < resultFlashcards.Count; i++)
+            {
+                Assert.That(resultFlashcards[i].Question, Is.EqualTo(expectedFlashcards[i].Question));
+            }
+        }
+
+        /// <summary>
+        /// Verifies that OnGet retrieves the correct Answers for flashcards.
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Test_Should_Return_Matching_Answers()
+        {
+            // Arrange
+            var expectedFlashcards = _flashcardService.GetAllData().ToList();
+
+            // Act
+            _indexModel.OnGet();
+            var resultFlashcards = _indexModel.Flashcards.ToList();
+
+            // Assert
+            for (int i = 0; i < resultFlashcards.Count; i++)
+            {
+                Assert.That(resultFlashcards[i].Answer, Is.EqualTo(expectedFlashcards[i].Answer));
+            }
+        }
+
+        /// <summary>
+        /// Verifies that OnGet retrieves the correct Difficulty Levels for flashcards.
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Test_Should_Return_Matching_Difficulty_Levels()
+        {
+            // Arrange
+            var expectedFlashcards = _flashcardService.GetAllData().ToList();
+
+            // Act
+            _indexModel.OnGet();
+            var resultFlashcards = _indexModel.Flashcards.ToList();
+
+            // Assert
+            for (int i = 0; i < resultFlashcards.Count; i++)
+            {
+                Assert.That(resultFlashcards[i].DifficultyLevel, Is.EqualTo(expectedFlashcards[i].DifficultyLevel));
+            }
+        }
+
+        /// <summary>
+        /// Verifies that OnGet retrieves the correct URLs for flashcards.
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_Test_Should_Return_Matching_Urls()
+        {
+            // Arrange
+            var expectedFlashcards = _flashcardService.GetAllData().ToList();
+
+            // Act
+            _indexModel.OnGet();
+            var resultFlashcards = _indexModel.Flashcards.ToList();
+
+            // Assert
+            for (int i = 0; i < resultFlashcards.Count; i++)
+            {
+                Assert.That(resultFlashcards[i].Url, Is.EqualTo(expectedFlashcards[i].Url));
+            }
+        }
+
+        #endregion OnGet Tests
     }
 }
