@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text.Json;
-using ContosoCrafts.WebSite.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -13,11 +7,13 @@ using ContosoCrafts.WebSite.Services;
 
 namespace ContosoCrafts.WebSite
 {
+    
     /// <summary>
     /// Configures services and request pipeline for web application.
     /// </summary>
     public class Startup
     {
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="Startup"/> class.
         /// </summary>
@@ -39,13 +35,14 @@ namespace ContosoCrafts.WebSite
         /// <param name="services">The collection of services to configure.</param>
         public void ConfigureServices(IServiceCollection services)
         {
+            
             // This method gets called by the runtime. Use this method to add services to the container.
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddServerSideBlazor();
             services.AddHttpClient();
             services.AddControllers();
             services.AddTransient<JsonFileCategoryService>();
-            services.AddTransient<JsonFileFlashcardService>(); // register flashcard service
+            services.AddTransient<JsonFileFlashcardService>(); 
         }
 
         /// <summary>
@@ -61,6 +58,7 @@ namespace ContosoCrafts.WebSite
             {
                 app.UseDeveloperExceptionPage();
             }
+            
             else
             {
                 app.UseExceptionHandler("/Error");
