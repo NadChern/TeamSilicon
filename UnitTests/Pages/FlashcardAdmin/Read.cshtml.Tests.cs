@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using NUnit.Framework;
-using ContosoCrafts.WebSite.Models;
+﻿using NUnit.Framework;
 using ContosoCrafts.WebSite.Services;
 using NUnit.Framework.Legacy;
 using ContosoCrafts.WebSite.Pages.FlashcardAdmin;
@@ -16,6 +14,7 @@ namespace UnitTests.Pages.FlashcardAdmin
         private ReadModel readModel;
 
         #region OnGet
+
         /// <summary>
         /// Ensures OnGet returns false for an invalid ID.
         /// </summary>
@@ -53,7 +52,8 @@ namespace UnitTests.Pages.FlashcardAdmin
             // Assert
             ClassicAssert.AreEqual(true, result);
         }
-        #endregion OnGet
-    }
 
+        #endregion OnGet
+
+    }
 }
