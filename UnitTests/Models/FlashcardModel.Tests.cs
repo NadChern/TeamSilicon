@@ -1,12 +1,10 @@
 ﻿using NUnit.Framework;
 using ContosoCrafts.WebSite.Models;
-using ContosoCrafts.WebSite.Services;
 using NUnit.Framework.Legacy;
-using ContosoCrafts.WebSite.Pages.FlashcardAdmin;
-
 
 namespace UnitTests.Models
 {
+    
     /// <summary>
     /// Unit tests for FlashcardModel class.
     /// </summary>
@@ -224,6 +222,7 @@ namespace UnitTests.Models
         #endregion DifficultyLevel
 
         #region Url
+        
         /// <summary>
         /// Test to ensure the Url getter works correctly.
         /// </summary>
