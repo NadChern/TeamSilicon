@@ -15,6 +15,7 @@ namespace UnitTests.Pages
         private Mock<ILogger<AboutUsModel>> mockLogger;
 
         #region OnGet
+
         /// <summary>
         /// Ensures OnGet executes without errors.
         /// </summary>
@@ -32,6 +33,8 @@ namespace UnitTests.Pages
             // Assert
             ClassicAssert.AreEqual(true, result);
         }
+
         #endregion OnGet
+
     }
 }
