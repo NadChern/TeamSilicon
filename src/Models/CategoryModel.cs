@@ -4,12 +4,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ContosoCrafts.WebSite.Models
 {
+    
     /// <summary>
     /// CategoryModel represents a single category of the flashcards 
     /// with its properties
     /// </summary>
     public class CategoryModel
     {
+        
         // Primary key Id for the category
         public string Id { get; set; }
         
