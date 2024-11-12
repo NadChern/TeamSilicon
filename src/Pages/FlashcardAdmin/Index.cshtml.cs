@@ -5,12 +5,14 @@ using ContosoCrafts.WebSite.Services;
 
 namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
 {
+    
     /// <summary>
     /// Index Page will return all the data to show the user
     /// </summary>
     public class IndexModel : PageModel
     {
-       /// <summary>
+       
+        /// <summary>
         /// Default Constructor
         /// </summary>
         /// <param name="flashcardService"></param>
@@ -35,6 +37,7 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
         /// </summary>
         public void OnGet()
         {
+            
             // Fetch all flashcards from service, store them in Flashcards property
             Flashcards = FlashcardService.GetAllData();
         }
