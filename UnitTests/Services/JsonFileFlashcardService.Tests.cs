@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using NUnit.Framework;
 using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Services;
@@ -16,7 +16,8 @@ namespace UnitTests.Services
         /// </summary>
         private JsonFileFlashcardService flashcardService;
  
-    #region GetAllData
+        #region GetAllData
+
         /// <summary>
         /// Test to verify that GetAllData method returns a non-empty list.
         /// </summary>
@@ -35,9 +36,11 @@ namespace UnitTests.Services
             // Assert - Check if the result contains data
             ClassicAssert.AreEqual(true, result.Any());
         }
+
         #endregion GetAllData
 
         #region GetById
+
         /// <summary>
         /// Test to verify that GetById returns a flashcard for a valid ID.
         /// </summary>
@@ -74,9 +77,11 @@ namespace UnitTests.Services
             // Assert - Fast fail, result should be null
             ClassicAssert.AreEqual(true, result == null);
         }
+
         #endregion GetById
 
         #region UpdateFlashcard
+
         /// <summary>
         /// Test to verify that UpdateFlashcard returns false for an invalid ID.
         /// </summary>
@@ -124,9 +129,11 @@ namespace UnitTests.Services
             // Assert - Fast fail if update fails for valid flashcard
             ClassicAssert.AreEqual(true, result);
         }
+
         #endregion UpdateFlashcard
 
         #region GetCountByCategoryId
+
         /// <summary>
         /// Test to verify that GetCountByCategoryId returns the correct count for a valid category ID.
         /// </summary>
@@ -160,9 +167,11 @@ namespace UnitTests.Services
             // Assert - Fast fail, count should be zero for invalid category ID
             ClassicAssert.AreEqual(true, result == 0);
         }
+
         #endregion GetCountByCategoryId
 
         #region RemoveFlashcard
+
         /// <summary>
         /// Test to verify that RemoveFlashcard removes the flashcard for a valid ID and returns true.
         /// </summary>
@@ -210,10 +219,11 @@ namespace UnitTests.Services
             // Assert - Verify that removal attempt fails for non-existent ID
             ClassicAssert.AreEqual(false, result);
         }
-        #endregion RemoveFlashcard
 
-        
+        #endregion RemoveFlashcard
+    
         #region CreateData
+
         /// <summary>
         /// Test to verify that CreateData adds a new flashcard
         /// and returns the flashcard with a unique ID.
@@ -288,6 +298,7 @@ namespace UnitTests.Services
             // Assert - Verify that the dataset count has increased by 1
             ClassicAssert.AreEqual(initialCount + 1, finalCount);
         }
+
         #endregion CreateData
         
     }
