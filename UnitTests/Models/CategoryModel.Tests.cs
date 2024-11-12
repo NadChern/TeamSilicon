@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 namespace UnitTests.Models
 {
+
     /// <summary>
     /// Unit tests for CategoryModel class
     /// </summary>
