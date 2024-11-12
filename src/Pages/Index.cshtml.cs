@@ -38,7 +38,6 @@ namespace ContosoCrafts.WebSite.Pages
         /// </summary>
         public IEnumerable<CategoryModel> Categories { get; private set; }
 
-
         /// <summary>
         /// Handles HTTP GET requests to retrieve all categories and assigns
         /// them to Categories property.
