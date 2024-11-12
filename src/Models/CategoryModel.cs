@@ -1,7 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 
 namespace ContosoCrafts.WebSite.Models
 {
@@ -31,6 +30,5 @@ namespace ContosoCrafts.WebSite.Models
         /// </summary>
         /// <returns>Json string representation of CategoryModel object</returns>
         public override string ToString() => JsonSerializer.Serialize<CategoryModel>(this);
-
     }
 }
