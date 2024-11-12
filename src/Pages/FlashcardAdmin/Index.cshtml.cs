@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ContosoCrafts.WebSite.Models;
@@ -17,10 +16,7 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
         /// <param name="flashcardService"></param>
         public IndexModel(JsonFileFlashcardService flashcardService)
         {
-            // Ensure the service is not null, otherwise throw an exception.
-            FlashcardService = flashcardService ?? 
-                               throw new ArgumentNullException(nameof(flashcardService), 
-                                   "Flashcard service cannot be null.");
+            FlashcardService = flashcardService;
         }
         
        /// <summary>
