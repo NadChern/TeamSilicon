@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ContosoCrafts.WebSite.Pages.Flashcards
 {
+    
     /// <summary>
     /// FlashcardsModel handles fetching and displaying flashcards data,
     /// including filtering by category ID.
     /// </summary>
     public class FlashcardsModel : PageModel
     {
+        
         /// <summary>
         /// Initializes a new instance of the FlashcardModel with service
         /// </summary>
@@ -46,6 +48,7 @@ namespace ContosoCrafts.WebSite.Pages.Flashcards
         /// <param name="categoryId"></param>
         public void OnGet(string? categoryId)
         {
+            
             // Assign categoryId from query string to the property
             CategoryId = categoryId;
 
