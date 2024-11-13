@@ -441,6 +441,10 @@ tr:hover {
     font-size: 24px;
 }
 
+.gap {
+    margin-top: 20px;
+}
+
 
 
 /* CategoryList.razor styling
