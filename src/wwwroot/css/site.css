@@ -445,6 +445,9 @@ tr:hover {
     margin-top: 20px;
 }
 
+.answer {
+    resize: none;
+}
 
 
 /* CategoryList.razor styling

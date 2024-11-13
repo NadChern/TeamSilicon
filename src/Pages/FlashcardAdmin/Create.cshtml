@@ -35,7 +35,7 @@
             <label asp-for="Flashcard.Answer">Answer</label>
             <small>Max 250 characters</small>
             <span asp-validation-for="Flashcard.Answer" class="text-danger font-weight-bold"></span>
-            <textarea asp-for="Flashcard.Answer" rows="3" style="resize: none;" maxlength="250" placeholder="Keep your answer brief and to the point"></textarea>
+            <textarea class= "answer" asp-for="Flashcard.Answer" rows="3" maxlength="250" placeholder="Keep your answer brief and to the point"></textarea>
         </div>
 
         <!-- Difficulty Level Numeric Input-->
