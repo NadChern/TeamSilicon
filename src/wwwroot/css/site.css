@@ -369,6 +369,7 @@ tr:hover {
     display: flex;
     justify-content: center;
     gap: 12px;
+    margin-top: 50px;
 }
 
 .submit-btn, .confirm-btn, .read-btn {
