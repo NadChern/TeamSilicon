@@ -5,50 +5,48 @@
     ViewData["Title"] = "Delete Flashcard";
 }
 
-<h1>Delete Flashcard</h1>
+<h3 class="admin-title">Are you sure you want to delete this flashcard?</h3>
 
-<!-- Flashcard Details Section -->
-<div class="form-container">
-    
-    <div>
-        <label>Category</label>
-        <p>@Model.Flashcard.CategoryId</p>
+    <!-- Flashcard Details Section -->
+    <div class="form-container">
+
+        <div>
+            <label>Category</label>
+            <p>@Model.Flashcard.CategoryId</p>
+        </div>
+
+        <div>
+            <label>Question</label>
+            <p>@Model.Flashcard.Question</p>
+        </div>
+
+        <div>
+            <label>Answer</label>
+            <p>@Model.Flashcard.Answer</p>
+        </div>
+
+        <div>
+            <label>Difficulty Level</label>
+            <p>@Model.Flashcard.DifficultyLevel</p>
+        </div>
+
+        <div>
+            <label>Additional Resources</label>
+            <p><a href="@Model.Flashcard.Url" target="_blank">@Model.Flashcard.Url</a></p>
+        </div>
+
+        <div>
+            <label>Open Count</label>
+            <p>@Model.Flashcard.OpenCount</p>
+        </div>
+
+        <div class="button-container">
+            <!-- Confirm Button -->
+            <form method="post">
+                <button type="submit" class="confirm-btn">Confirm</button>
+            </form>
+
+            <!-- Cancel Button -->
+            <a asp-page="/FlashcardAdmin/Index" class="cancel-btn">Cancel</a>
+        </div>
     </div>
-
-    <div>
-        <label>Question</label>
-        <p>@Model.Flashcard.Question</p>
-    </div>
-
-    <div>
-        <label>Answer</label>
-        <p>@Model.Flashcard.Answer</p>
-    </div>
-
-    <div>
-        <label>Difficulty Level</label>
-        <p>@Model.Flashcard.DifficultyLevel</p>
-    </div>
-
-    <div>
-        <label>Additional Resources</label>
-        <p><a href="@Model.Flashcard.Url" target="_blank">@Model.Flashcard.Url</a></p>
-    </div>
-
-    <div>
-        <label>Open Count</label>
-        <p>@Model.Flashcard.OpenCount</p>
-    </div>
-
-    <p>Are you sure you want to delete this flashcard?</p>
-
-    <div class="button-container">
-        <!-- Confirm Button -->
-        <form method="post">
-            <button type="submit" class="confirm-btn">Confirm</button>
-        </form>
-
-        <!-- Cancel Button -->
-        <a asp-page="/FlashcardAdmin/Index" class="cancel-btn">Cancel</a>
-    </div>
-</div>
