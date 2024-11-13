@@ -260,7 +260,7 @@ ul {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: 'Londrina Sketch', cursive;
+    font-family: 'Londrina Sketch';
 }
 
     .navbar-brand .title-row {
@@ -427,6 +427,18 @@ tr:hover {
 
 .create-btn {
     padding: 0 0 10px 0;
+}
+
+.admin-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Londrina Sketch', cursive;
+}
+
+.idx-title {
+    font-family: 'Londrina Sketch', cursive;
+    font-size: 24px;
 }
 
 
