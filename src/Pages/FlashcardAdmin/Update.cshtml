@@ -6,86 +6,86 @@
     ViewData["Title"] = "Update Flashcard";
 }
 
-<h1>Update Flashcard</h1>
+<h3 class="admin-title">Update Flashcard</h3>
 
-<!-- Form Structure -->
-<div class="form-container">
-    <form method="post">
+    <!-- Form Structure -->
+    <div class="form-container">
+        <form method="post">
 
-        <input type="hidden" name="Flashcard.Id" value="@Model.Flashcard.Id" />
+            <input type="hidden" name="Flashcard.Id" value="@Model.Flashcard.Id" />
 
-        <!-- Category Dropdown -->
-        <div>
-            <label asp-for="Flashcard.CategoryId">Category</label>
-            <select asp-for="Flashcard.CategoryId" class="form-control">
-                @foreach (CategoryTypeEnum category in Enum.GetValues(typeof(CategoryTypeEnum)))
-                {
-                    <option value="@category.ToString()">@category.DisplayName()</option>
-                }
-            </select>
-        </div>
+            <!-- Category Dropdown -->
+            <div>
+                <label asp-for="Flashcard.CategoryId">Category</label>
+                <select asp-for="Flashcard.CategoryId" class="form-control">
+                    @foreach (CategoryTypeEnum category in Enum.GetValues(typeof(CategoryTypeEnum)))
+                    {
+                        <option value="@category.ToString()">@category.DisplayName()</option>
+                    }
+                </select>
+            </div>
 
-        <!-- Question, cannot be empty -->
-        <div>
-            <label for="Question">Question</label>
-            <small>Max 100 characters</small>
-            <span asp-validation-for="Flashcard.Question" class="text-danger font-weight-bold"></span> <!-- Shows *Required if empty -->
-            <input type="text" id="Question" name="Flashcard.Question" value="@Model.Flashcard.Question" maxlength="100" placeholder="Enter your question here" />
-        </div>
+            <!-- Question, cannot be empty -->
+            <div>
+                <label for="Question">Question</label>
+                <small>Max 100 characters</small>
+                <span asp-validation-for="Flashcard.Question" class="text-danger font-weight-bold"></span> <!-- Shows *Required if empty -->
+                <input type="text" id="Question" name="Flashcard.Question" value="@Model.Flashcard.Question" maxlength="100" placeholder="Enter your question here" />
+            </div>
 
-        <!-- Answer, cannot be empty -->
-        <div>
-            <label for="Answer">Answer</label>
-            <small>Max 250 characters</small>
-            <span asp-validation-for="Flashcard.Answer" class="text-danger font-weight-bold"></span> <!-- Shows *Required if empty -->
-            <textarea id="Answer" name="Flashcard.Answer" rows="3" style="resize: none;" maxlength="250" placeholder="Enter your answer here">@Model.Flashcard.Answer </textarea>
-        </div>
+            <!-- Answer, cannot be empty -->
+            <div>
+                <label for="Answer">Answer</label>
+                <small>Max 250 characters</small>
+                <span asp-validation-for="Flashcard.Answer" class="text-danger font-weight-bold"></span> <!-- Shows *Required if empty -->
+                <textarea id="Answer" name="Flashcard.Answer" rows="3" style="resize: none;" maxlength="250" placeholder="Enter your answer here">@Model.Flashcard.Answer </textarea>
+            </div>
 
-        <!-- Difficulty Level Numeric Input-->
-        <div>
-            <label asp-for="Flashcard.DifficultyLevel">Difficulty Level</label>
-            <small>Enter 1 for Easy, 2 for Medium, or 3 for Hard.</small>
-            <span asp-validation-for="Flashcard.DifficultyLevel" class="text-danger font-weight-bold"></span>
-            <input type="number"
-                   step="1" min="1" max="3"
-                   asp-for="Flashcard.DifficultyLevel"
-                   placeholder="Enter 1, 2, or 3"
-                   class="form-control"
-                   value="@Model.Flashcard.DifficultyLevel" />
-        </div>
+            <!-- Difficulty Level Numeric Input-->
+            <div>
+                <label asp-for="Flashcard.DifficultyLevel">Difficulty Level</label>
+                <small>Enter 1 for Easy, 2 for Medium, or 3 for Hard.</small>
+                <span asp-validation-for="Flashcard.DifficultyLevel" class="text-danger font-weight-bold"></span>
+                <input type="number"
+                       step="1" min="1" max="3"
+                       asp-for="Flashcard.DifficultyLevel"
+                       placeholder="Enter 1, 2, or 3"
+                       class="form-control"
+                       value="@Model.Flashcard.DifficultyLevel" />
+            </div>
 
-        <!-- Additional Resources Url -->
-        <div style="margin-top: 20px;">
-            <label asp-for="Flashcard.Url">Additional Resources</label>
-            <small>Enter a valid URL</small>
-            <span asp-validation-for="Flashcard.Url" class="text-danger font-weight-bold"></span>
-            <input type="text" asp-for="Flashcard.Url" placeholder="Enter a helpful link, e.g., https://example.com" />
-        </div>
+            <!-- Additional Resources Url -->
+            <div style="margin-top: 20px;">
+                <label asp-for="Flashcard.Url">Additional Resources</label>
+                <small>Enter a valid URL</small>
+                <span asp-validation-for="Flashcard.Url" class="text-danger font-weight-bold"></span>
+                <input type="text" asp-for="Flashcard.Url" placeholder="Enter a helpful link, e.g., https://example.com" />
+            </div>
 
 
-        <!-- Open Count -->
-        <div>
-            <label for="OpenCount">Open Count</label>
-            <small>Enter 0 to reset or the current count</small>
-            <span asp-validation-for="Flashcard.OpenCount" class="text-danger font-weight-bold"></span>
-            <input type="number"
-                   asp-for="Flashcard.OpenCount"
-                   placeholder="Enter 0 or current open count"
-                   class="form-control"
-                   value="@Model.Flashcard.OpenCount"
-                   min="0" />
-        </div>
+            <!-- Open Count -->
+            <div>
+                <label for="OpenCount">Open Count</label>
+                <small>Enter 0 to reset or the current count</small>
+                <span asp-validation-for="Flashcard.OpenCount" class="text-danger font-weight-bold"></span>
+                <input type="number"
+                       asp-for="Flashcard.OpenCount"
+                       placeholder="Enter 0 or current open count"
+                       class="form-control"
+                       value="@Model.Flashcard.OpenCount"
+                       min="0" />
+            </div>
 
-        <div class="button-container">
-            <!-- Close Button -->
-            <a asp-page="/FlashcardAdmin/Index" asp-route-id="@Model.Flashcard.Id" class="close-btn">Close</a>
+            <div class="button-container">
+                <!-- Close Button -->
+                <a asp-page="/FlashcardAdmin/Index" asp-route-id="@Model.Flashcard.Id" class="close-btn">Close</a>
 
-            <!-- Save Changes Button -->
-            <input type="submit" value="Save" class="submit-btn" />
-        </div>
-    </form>
-</div>
+                <!-- Save Changes Button -->
+                <input type="submit" value="Save" class="submit-btn" />
+            </div>
+        </form>
+    </div>
 
-@section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
-}
+    @section Scripts {
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    }
