@@ -250,7 +250,12 @@ ul {
 
 /*Shared header & footer style
 ----------------------------------------------------*/
-
+.navbar {
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
 .navbar-brand {
     display: flex;
     flex-direction: column;
@@ -277,6 +282,10 @@ ul {
     font-size: 16px;
     margin-top: -5px;
     margin-left: 70px;
+}
+
+.body-class {
+    padding-top: 130px;
 }
 
 /* CategoryList.razor styling
