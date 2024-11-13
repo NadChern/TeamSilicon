@@ -248,7 +248,7 @@ ul {
 }
 
 
-/*Shared header & footer style
+/*Shared header styles
 ----------------------------------------------------*/
 .navbar {
     position: fixed;
@@ -287,6 +287,148 @@ ul {
 .body-class {
     padding-top: 130px;
 }
+
+
+/*FLashcardAdmin shared styling
+    ------------------------------------------------*/
+/* site.css */
+
+body {
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+.form-container {
+    margin-top: 20px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #1a1a2e;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"], textarea, select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #d0e7f9;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+thead {
+    background-color: #b0e0e6;
+    text-align: left;
+}
+
+th, td {
+    padding: 15px;
+    border-bottom: 1px solid #d0e7f9;
+}
+
+th {
+    font-size: 18px;
+    color: #1a1a2e;
+}
+
+td {
+    font-size: 16px;
+    color: #2f4f4f;
+}
+
+tr:hover {
+    background-color: #cfe2f3;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.submit-btn, .confirm-btn, .read-btn {
+    display: inline-block;
+    padding: 8px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    background-color: #4682b4;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+    .submit-btn:hover, .confirm-btn:hover, .read-btn:hover {
+        background-color: #1e90ff;
+    }
+
+.cancel-btn, .close-btn {
+    display: inline-block;
+    padding: 8px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    background-color: #6c757d;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+    .cancel-btn:hover, .close-btn:hover {
+        background-color: #5a6268;
+    }
+
+.readonly-input {
+    background-color: #e5eaed;
+}
+
+.dropdown-spacing {
+    width: 150px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #d0e7f9;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-sizing: border-box;
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.create-btn {
+    padding: 0 0 10px 0;
+}
+
+
 
 /* CategoryList.razor styling
 ----------------------------------------------------*/
