@@ -245,6 +245,13 @@ ul {
 .flashcard-footer {
     background-color: white;
     min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flashcard-button{
+    margin-left: auto;
 }
 
 .text-second {
