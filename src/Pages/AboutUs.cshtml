@@ -6,18 +6,31 @@
     ViewData["Subtitle"] = "Authors";
 }
 
+<!-- Title Section -->
 <h1>@ViewData["Title"]</h1>
 
-<p>This web application is designed to help computer science students prepare for technical 
-    interviews through interactive flashcards. We offer a wide range of topics related to computer science. 
-    Students can customize their learning experience by adding flashcard sets to their personal learning decks, 
+<!-- Content Section -->
+<p>
+    This web application is designed to help computer science students prepare for technical
+    interviews through interactive flashcards. We offer a wide range of topics related to computer science.
+    Students can customize their learning experience by adding flashcard sets to their personal learning decks,
     allowing them to prepare for any interview with confidence.
 </p>
 
+<!-- Authors Section -->
 <h2>@ViewData["Subtitle"]</h2>
 
-<p>
-    Nadezhda Chernova <br />
-    Ai Sun <br />
-    Dat Nguyen
-</p>
+<div class="AU-author-container">
+    <div class="AU-author">
+        <img src="https://as2.ftcdn.net/v2/jpg/02/71/63/53/1000_F_271635340_4NYkCEEQUp7u448eQYaarJXMIPFgaKjV.jpg" alt="Dat" />
+        <p>Dat</p>
+    </div>
+    <div class="AU-author">
+        <img src="https://as2.ftcdn.net/v2/jpg/08/10/88/17/1000_F_810881799_pEmWF6XYdXQGvKBO7nVWZNfrYNY16b5Z.webp" alt="Nadine" />
+        <p>Nadine</p>
+    </div>
+    <div class="AU-author">
+        <img src="https://as1.ftcdn.net/v2/jpg/09/64/90/74/1000_F_964907451_aUK25pseZpQGLfMOEQFpHvCHc7Q1kuhz.jpg" alt="Ai" />
+        <p>Ai</p>
+    </div>
+</div>
