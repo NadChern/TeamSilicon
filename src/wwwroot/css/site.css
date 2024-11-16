@@ -558,3 +558,30 @@ tr:hover {
 .CL-material-symbols-outlined {
     font-variation-settings: 'FILL' 100, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
+
+/* AboutUs.cshtml styling
+ ----------------------------------------------------*/
+.AU-author-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.AU-author {
+    text-align: center;
+}
+
+    .AU-author img {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .AU-author p {
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: bold;
+    }
