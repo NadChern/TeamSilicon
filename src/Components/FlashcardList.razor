@@ -72,18 +72,18 @@
 @code {
     // Selected flashcard
     FlashcardModel selectedFlashcard; 
-    
+
     // Id of the selected card to manage state
-    private string selectedCardId; 
-    
+    public string selectedCardId; 
+
     // Track whether answer side is displayed
-    private bool showAnswer; 
-    
+    public bool showAnswer;
+
     // Category Id obtained from URL to filter cards
-    private string categoryId; 
+    public string categoryId;
 
     // Fetches and filters flashcards based on the selected category ID
-    private IEnumerable<FlashcardModel> GetFilteredFlashcards()
+    public IEnumerable<FlashcardModel> GetFilteredFlashcards()
     {
         // Retrieves all flashcards from FlashcardService
         var allFlashcards = FlashcardService.GetAllData();
@@ -98,7 +98,7 @@
     }
 
     // Get color of the category
-    private string GetCategoryColor(string topicId)
+    public string GetCategoryColor(string topicId)
     {
         // Calls CategoryService to get color value for given topic ID
         var categoryColor = CategoryService.GetCategoryColorById(topicId);
@@ -120,7 +120,7 @@
     }
 
     // Toggles the selected flashcard between the question and answer side
-    private void ToggleCard(string cardId)
+    public void ToggleCard(string cardId)
     {
         // Check if the user is flipping to show answer
         var shouldFlipToAnswer = selectedCardId != cardId || !showAnswer;
@@ -148,14 +148,14 @@
     }
 
     // Checks if there are no flashcards in filtered set
-    private bool HasNoFlashcards() => !GetFilteredFlashcards().Any();
+    public bool HasNoFlashcards() => !GetFilteredFlashcards().Any();
     
     // Determines if a specific card is currently flipped to answer side
-    private bool IsFlipped(string cardId) => selectedCardId == cardId && showAnswer;
+    public bool IsFlipped(string cardId) => selectedCardId == cardId && showAnswer;
     
     // Checks if the "Flipped" label should be displayed based on whether  card is flipped and OpenCount
-    private bool ShouldDisplayFlippedLabel(bool isFlipped, int openCount) => isFlipped == false && openCount > 0;
+    public bool ShouldDisplayFlippedLabel(bool isFlipped, int openCount) => isFlipped == false && openCount > 0;
    
     // Checks if a "More info" link should be displayed when answer side is shown, URL is provided
-    private bool CanShowMoreInfoLink(bool isFlipped, string url) => isFlipped && !string.IsNullOrEmpty(url);
+    public bool CanShowMoreInfoLink(bool isFlipped, string url) => isFlipped && !string.IsNullOrEmpty(url);
 }
