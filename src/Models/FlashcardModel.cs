@@ -4,13 +4,11 @@ using System.Text.Json.Serialization;
 
 namespace ContosoCrafts.WebSite.Models
 {
-    
     /// <summary>
     /// FlashcardModel represents a single flashcard with its properties
     /// </summary>
     public class FlashcardModel
     {
-        
         // Primary key Id for flashcard
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
@@ -18,22 +16,20 @@ namespace ContosoCrafts.WebSite.Models
         public string CategoryId { get; set; }
 
         // Question on the flashcard
-        [Required(ErrorMessage = "*Required")] 
-        public string Question { get; set; }
+        [Required(ErrorMessage = "*Required")] public string Question { get; set; }
 
         // Answer for the question on the flashcard
-        [Required(ErrorMessage = "*Required")] 
-        public string Answer { get; set; }
+        [Required(ErrorMessage = "*Required")] public string Answer { get; set; }
 
-       // Difficulty level of the question (1- Easy, 2 - Medium, 3 - Hard)
+        // Difficulty level of the question (1- Easy, 2 - Medium, 3 - Hard)
         [JsonPropertyName("Difficulty")]
         [Required(ErrorMessage = "*Required")]
-        [Range(1, 3, ErrorMessage = "Please enter a value between 1 and 3.")]
+        [Range(1, 3, ErrorMessage = "Please enter a value between 1 and 3")]
         public int DifficultyLevel { get; set; }
-       
+
         // Link to additional resources related to the flashcard (optional)
-        [RegularExpression(@"(https?:\/\/.*)", 
-            ErrorMessage = "Please enter secured urls starts with \"https://\". ")]
+        [RegularExpression(@"(https?:\/\/.*)",
+            ErrorMessage = "Please enter secured urls starts with \"https://\" ")]
         public string Url { get; set; }
 
         // Number of times flashcard has been opened (flipped)
