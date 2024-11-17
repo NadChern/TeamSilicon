@@ -53,8 +53,12 @@
 
         <!-- Additional Resources Url -->
         <div class="gap">
-            <label asp-for="Flashcard.Url">Additional Resources (URL)</label>
+            <label asp-for="Flashcard.Url">Additional Resource (URL)</label>
             <span asp-validation-for="Flashcard.Url" class="text-danger font-weight-bold"></span>
+            @if (ViewData["UrlError"] != null)
+            {
+                <div class="text-danger font-weight-bold">@ViewData["UrlError"]</div>
+            }
             <input type="text" asp-for="Flashcard.Url" placeholder="Enter a helpful link, e.g., https://example.com"/>
         </div>
 
