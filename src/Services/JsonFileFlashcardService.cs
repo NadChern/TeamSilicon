@@ -4,6 +4,8 @@ using System.Text.Json;
 using ContosoCrafts.WebSite.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace ContosoCrafts.WebSite.Services
 {
@@ -167,6 +169,39 @@ namespace ContosoCrafts.WebSite.Services
             existingFlashcard.DifficultyLevel = updatedFlashcard.DifficultyLevel;
             existingFlashcard.OpenCount = updatedFlashcard.OpenCount;
             existingFlashcard.Url = updatedFlashcard.Url;
+        }
+        
+        /// <summary>
+        /// Validates if the provided URL exists and can be reached by making an HTTP HEAD request
+        /// </summary>
+        /// <param name="url">The URL to validate</param>
+        /// <returns>Returns true if the URL exists, otherwise, false for invalid or unreachable URLs.</returns>
+        public async Task<bool> ValidateUrlAsync(string url)
+        {
+            
+            // Check if URL is null, empty, or contains only white spaces
+            if (string.IsNullOrWhiteSpace(url)) return false;
+
+            // Create new instance of HttpClient to make HTTP requests
+            using (var httpClient = new HttpClient())
+            {
+                try
+                {
+                    // Make a HEAD request to avoid downloading the content
+                    var request = new HttpRequestMessage(HttpMethod.Head, url);
+                    
+                    // Send HTTP request asynchronously and await the response
+                    var response = await httpClient.SendAsync(request);
+                    
+                    // Check if the response status code is a success (200-299 range)
+                    return response.IsSuccessStatusCode; 
+                }
+                catch
+                {
+                    // Treat any error as a non-existent URL
+                    return false; 
+                }
+            }
         }
     }
 }
