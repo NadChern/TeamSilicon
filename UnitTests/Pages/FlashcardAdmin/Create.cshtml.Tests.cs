@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using NUnit.Framework;
 using ContosoCrafts.WebSite.Pages.FlashcardAdmin;
 using ContosoCrafts.WebSite.Services;
@@ -42,8 +43,8 @@ namespace UnitTests.Pages.FlashcardAdmin
             var result = _createModel.OnGet();
 
             // Assert - Check if Flashcard is initialized
-            ClassicAssert.AreEqual(true, _createModel.Flashcard != null, "Flashcard should be initialized.");
-            ClassicAssert.AreEqual(typeof(PageResult), result.GetType(), "Result should be a PageResult.");
+            ClassicAssert.AreEqual(true, _createModel.Flashcard != null);
+            ClassicAssert.AreEqual(typeof(PageResult), result.GetType());
         }
 
         #endregion OnGet
@@ -54,7 +55,7 @@ namespace UnitTests.Pages.FlashcardAdmin
         /// Test to verify that OnPost returns to the Create page if the model state is invalid.
         /// </summary>
         [Test]
-        public void OnPost_Invalid_ModelState_Should_Return_Page_With_Errors()
+        public void OnPost_Invalid_Model_State_Should_Return_Page_With_Errors()
         {
             // Arrange - Set up an invalid flashcard model
             _createModel.Flashcard = new FlashcardModel
@@ -72,7 +73,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             // Act
             var result = _createModel.OnPost();
 
-            // Assert - Verify it returns the Page result with validation errors
+            // Assert 
             ClassicAssert.AreEqual(typeof(PageResult), result.GetType());
         }
         
@@ -80,7 +81,7 @@ namespace UnitTests.Pages.FlashcardAdmin
         /// Test to verify that OnPost redirects to Index when ModelState is valid.
         /// </summary>
         [Test]
-        public void OnPost_Valid_ModelState_Should_Redirect_To_Index()
+        public async Task OnPost_Valid_ModelState_Should_Redirect_To_Index()
         {
             // Arrange - Set up a valid flashcard model
             _createModel.Flashcard = new FlashcardModel
@@ -96,12 +97,12 @@ namespace UnitTests.Pages.FlashcardAdmin
             _createModel.ModelState.Clear();
 
             // Act
-            var result = _createModel.OnPost();
+            var result = await _createModel.OnPost();
 
             // Assert - Verify that the result is a redirection to the Index page
-            Assert.That(result, Is.TypeOf<RedirectToPageResult>(), "Result should be a RedirectToPageResult.");
+            ClassicAssert.AreEqual(typeof(RedirectToPageResult), result.GetType(), "Result should be a RedirectToPageResult.");
             var redirectResult = result as RedirectToPageResult;
-            Assert.That(redirectResult.PageName, Is.EqualTo("/FlashcardAdmin/Index"));
+            ClassicAssert.AreEqual("/FlashcardAdmin/Index", redirectResult.PageName, "Should redirect to the Index page.");
         }
         
         #endregion OnPost
