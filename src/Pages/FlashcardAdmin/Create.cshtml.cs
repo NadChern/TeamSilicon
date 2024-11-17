@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -53,13 +54,27 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
         /// Redirects to the Index page if the creation is successful. 
         /// If the model state is invalid, redisplays the Create page with errors.
         /// </returns>
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost()
         {
             
             // Check if the model state is valid
             if (ModelState.IsValid == false)
             {
                 return Page(); 
+            }
+            
+            // Proceed only if URL is not null, empty, or whitespace
+            if (string.IsNullOrWhiteSpace(Flashcard.Url) == false)
+            {
+                // Validate Url using FlashcardService
+                bool isUrlValid = await FlashcardService.ValidateUrlAsync(Flashcard.Url);
+            
+                if (isUrlValid == false)
+                {
+                    // Add a URL validation error to ViewData
+                    ViewData["UrlError"] = "The provided URL does not exist or cannot be reached. Please use another URL";
+                    return Page(); 
+                }
             }
             
             // Proceed with valid ModelState
