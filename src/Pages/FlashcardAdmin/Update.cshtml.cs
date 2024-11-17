@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Services;
@@ -70,10 +71,26 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
         /// Redirects to the Read page if the update is successful. 
         /// If the model state is invalid, redisplays the Update page with errors.
         /// </returns>
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost()
         {
             if (ModelState.IsValid)
             {
+                
+                // Proceed only if URL is not null, empty, or whitespace
+                if (string.IsNullOrWhiteSpace(Flashcard.Url) == false)
+                {
+                    // Validate Url using FlashcardService
+                    bool isUrlValid = await FlashcardService.ValidateUrlAsync(Flashcard.Url);
+            
+                    if (isUrlValid == false)
+                    {
+                        // Add a URL validation error to ViewData
+                        ModelState.AddModelError("Flashcard.Url", 
+                            "The provided URL does not exist or cannot be reached. Please use another URL");
+                        IsFlashcardUpdated = false;
+                        return Page(); 
+                    }
+                }
                 
                 // Retrieve the existing flashcard to check the current OpenCount
                 var existingFlashcard = FlashcardService.GetById(Flashcard.Id);
