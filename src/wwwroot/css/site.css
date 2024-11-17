@@ -6,8 +6,6 @@
   cursor: pointer;
 }
 
-/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
 .card-columns .card:hover .card-img {
     opacity: 1;
     -webkit-transform-style: preserve-3d;
@@ -22,28 +20,28 @@ for details on configuring this project to bundle and minify static web assets. 
 .card-columns .card-img {
   height: 330px;
   vertical-align: bottom;
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
+  background-position: center; 
+  background-repeat: no-repeat; 
+  background-size: cover; 
   opacity: .8;
 }
 
 .modal .card-img {
   height: 500px;
   vertical-align: bottom;
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
+  background-position: center; 
+  background-repeat: no-repeat; 
+  background-size: cover; 
 }
 
 .card-columns .card:hover {
     transform: scale(1.05);
     box-shadow: 0 10px 20px rgba(37,33,82,.12), 0 4px 8px rgba(37,33,82,.06);
 }
+
 .card-footer {
     background: #fbfafd;
 }
-
 
 a.navbar-brand {
     white-space: normal;
@@ -54,6 +52,7 @@ a.navbar-brand {
 }
 
 /* Provide sufficient contrast against white background */
+
 a {
    color: #0366d6;
 }
@@ -63,6 +62,7 @@ a {
     background-color: #252152;
     border-color: #252152;
 }
+
 .btn-primary:hover {
     color: #fff;
     background-color: #e9a8a6;
@@ -81,9 +81,11 @@ a {
 
 /* Sticky footer styles
 -------------------------------------------------- */
+
 html {
   font-size: 14px;
 }
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -93,6 +95,7 @@ html {
 .border-top {
   border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
 }
@@ -108,6 +111,7 @@ button.accept-policy {
 
 /* Sticky footer styles
 -------------------------------------------------- */
+
 html {
   position: relative;
   min-height: 100%;
@@ -117,15 +121,19 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
+
 p {
     font-family: 'Nunito', sans-serif;
 }
+
 h1 {
     font-family: 'Nunito', sans-serif;
 }
+
 ul {
     font-family: 'Nunito', sans-serif;
 }
+
 .footer {
     position: absolute;
     bottom: 0;
@@ -137,6 +145,7 @@ ul {
 
 /*Backgrounds
 ----------------------------------------------------*/
+
 .bg-navbar {
     background: -webkit-linear-gradient(110deg, #4a90e2 60%, #003366 60%);
     background: -o-linear-gradient(110deg, #4a90e2 60%, #003366 60%);
@@ -275,11 +284,11 @@ ul {
     font-family: 'Londrina Sketch';
 }
 
-    .navbar-brand .title-row {
+.navbar-brand .title-row {
         display: flex;
         align-items: center;
         gap: 0.5rem;
-    }
+}
 
 .nav-item {
     margin-left: 15px;
@@ -396,9 +405,9 @@ tr:hover {
     text-align: center;
 }
 
-    .submit-btn:hover, .confirm-btn:hover, .read-btn:hover {
+.submit-btn:hover, .confirm-btn:hover, .read-btn:hover {
         background-color: #1e90ff;
-    }
+}
 
 .cancel-btn, .close-btn {
     display: inline-block;
@@ -414,9 +423,9 @@ tr:hover {
     text-align: center;
 }
 
-    .cancel-btn:hover, .close-btn:hover {
+.cancel-btn:hover, .close-btn:hover {
         background-color: #5a6268;
-    }
+}
 
 .readonly-input {
     background-color: #e5eaed;
@@ -496,11 +505,11 @@ tr:hover {
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
 }
 
-    /* Scale card on hover */
-    .CL-masonry-grid .CL-card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
-    }
+/* Scale card on hover */
+.CL-masonry-grid .CL-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+}
 
 /* Image styling inside the card */
 .CL-image {
@@ -535,15 +544,15 @@ tr:hover {
     transition: transform 0.2s ease-in-out, color 0.3s ease; /* Smooth transition */
 }
 
-    /* Styling for active heart */
-    .CL-heart-icon.active {
-        color: red;
-    }
+/* Styling for active heart */
+.CL-heart-icon.active {
+    color: red;
+}
 
-    /* Scaling the heart icon when growing */
-    .CL-heart-icon.grow {
-        transform: scale(2.0); /* Grow effect */
-    }
+/* Scaling the heart icon when growing */
+.CL-heart-icon.grow {
+    transform: scale(2.0); /* Grow effect */
+}
 
 /* Additional fonts for the card */
 .CL-cute-font-regular {
@@ -572,16 +581,16 @@ tr:hover {
     text-align: center;
 }
 
-    .AU-author img {
+.AU-author img {
         width: 250px;
         height: 250px;
         border-radius: 50%;
         object-fit: cover;
         box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
-    }
+}
 
-    .AU-author p {
+.AU-author p {
         margin-top: 10px;
         font-size: 16px;
         font-weight: bold;
-    }
+}
