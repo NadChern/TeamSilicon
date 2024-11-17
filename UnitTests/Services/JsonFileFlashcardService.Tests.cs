@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Services;
@@ -301,5 +302,88 @@ namespace UnitTests.Services
 
         #endregion CreateData
         
+        #region ValidateUrlAsync
+
+        /// <summary>
+        /// Test to verify that ValidateUrlAsync returns true for a valid and accessible URL.
+        /// </summary>
+        [Test]
+        public async Task ValidateUrlAsync_Valid_Url_Should_Return_True()
+        {
+            // Arrange
+            var validUrl = "https://www.google.com";
+
+            // Act
+            var result = await flashcardService.ValidateUrlAsync(validUrl);
+
+            // Assert
+            ClassicAssert.AreEqual(true, result);
+        }
+
+        /// <summary>
+        /// Test to verify that ValidateUrlAsync returns false for an invalid URL.
+        /// </summary>
+        [Test]
+        public async Task ValidateUrlAsync_Invalid_Url_Should_Return_False()
+        {
+            // Arrange
+            var invalidUrl = "https://invalid.url.com";
+
+            // Act
+            var result = await flashcardService.ValidateUrlAsync(invalidUrl);
+
+            // Assert
+            ClassicAssert.AreEqual(false, result);
+        }
+
+        /// <summary>
+        /// Test to verify that ValidateUrlAsync returns false for an empty URL.
+        /// </summary>
+        [Test]
+        public async Task ValidateUrlAsync_Empty_Url_Should_Return_False()
+        {
+            // Arrange
+            var emptyUrl = "";
+
+            // Act
+            var result = await flashcardService.ValidateUrlAsync(emptyUrl);
+
+            // Assert
+            ClassicAssert.AreEqual(false, result);
+        }
+
+        /// <summary>
+        /// Test to verify that ValidateUrlAsync returns false for a null URL.
+        /// </summary>
+        [Test]
+        public async Task ValidateUrlAsync_Null_Url_Should_Return_False()
+        {
+            // Arrange
+            string nullUrl = null;
+
+            // Act
+            var result = await flashcardService.ValidateUrlAsync(nullUrl);
+
+            // Assert
+            ClassicAssert.AreEqual(false, result);
+        }
+
+        /// <summary>
+        /// Test to verify that ValidateUrlAsync handles URLs with invalid format gracefully.
+        /// </summary>
+        [Test]
+        public async Task ValidateUrlAsync_Invalid_Format_Url_Should_Return_False()
+        {
+            // Arrange
+            var invalidFormatUrl = "invalid-url";
+
+            // Act
+            var result = await flashcardService.ValidateUrlAsync(invalidFormatUrl);
+
+            // Assert
+            ClassicAssert.AreEqual(false, result);
+        }
+
+        #endregion ValidateUrlAsync
     }
 }
