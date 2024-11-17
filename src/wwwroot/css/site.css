@@ -203,12 +203,19 @@ ul {
 }
 
 .flipped-counter {
-    text-align: end;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
 }
 
 .flipped {
      background-color: #b0e0e6 !important;
  }
+
+.last-opened {
+    font-size: 14px;
+}
 
 .category {
     display: flex;
