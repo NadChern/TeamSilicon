@@ -85,6 +85,40 @@ a {
     text-underline-offset: 6px;
 }
 
+/* General font styles
+-------------------------------------------------- */
+
+/* Website Title */
+.title-font {
+    font-family: 'Playfair Display', Georgia, serif; /* Elegant and distinct font */
+    font-size: 3rem; /* Large and eye-catching */
+    font-weight: bold; /* Strong emphasis */
+    color: #222; /* Deep black for contrast */
+    text-align: center; /* Centered alignment */
+    margin: 1rem 0; /* Spacing to separate from other elements */
+}
+
+/* Subtitle */
+.sub-font {
+    font-family: 'Roboto', Arial, sans-serif; /* Same as body for consistency */
+    font-size: 1.5rem; /* Larger than content but smaller than title */
+    font-weight: 500; /* Medium weight for emphasis */
+    color: #555; /* Slightly lighter gray than the title */
+    text-align: center; /* Matches the title alignment */
+    margin: 0.5rem 0 1rem 0; /* Distinct separation from title and content */
+}
+
+/* Content */
+.con-font {
+    font-family: 'Roboto', Arial, sans-serif; /* Matches body font for readability */
+    font-size: 1rem; /* Standard size */
+    font-weight: 400; /* Regular weight */
+    color: #444; /* Dark gray for easy reading */
+    text-align: justify; /* Makes blocks of text uniform */
+    margin: 0 1rem; /* Consistent padding around text */
+}
+
+
 /* Sticky footer styles
 -------------------------------------------------- */
 
