@@ -76,7 +76,13 @@ a {
 }
 
 .nav-white {
-    color: #fff !important;
+    color: #fff !important;    
+}
+
+.nav-white:hover {
+    text-decoration: underline;
+    color: #e5e0e0 !important;
+    text-underline-offset: 6px;
 }
 
 /* Sticky footer styles
