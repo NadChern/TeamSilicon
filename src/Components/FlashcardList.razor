@@ -2,6 +2,7 @@
 @using ContosoCrafts.WebSite.Services
 @inject JsonFileFlashcardService FlashcardService
 @inject JsonFileCategoryService CategoryService
+@inject LocalStorageFlashcardService FlashcardStorage
 @* do not delete Microsoft.AspNeCore.Components.Web, handles navigation*@
 @using Microsoft.AspNetCore.Components.Web
 @inject NavigationManager MyNavigationManager
@@ -19,7 +20,7 @@
             bool isFlipped = IsFlipped(flashcard.Id);
             string flipClass = isFlipped ? "flipped" : "";
 
-            <div class="card @flipClass" data-id="@flashcard.Id" @onclick="() => ToggleCard(flashcard.Id)">
+            <div class="card @flipClass" data-id="@flashcard.Id" @onclick="() => HandleClickOnCard(flashcard.Id)">
                 <div class="card-header category">
                     <div>
                         <span class="category-item" style="background-color: @GetCategoryColor(flashcard.CategoryId)">
@@ -52,10 +53,14 @@
                 <div class="card-footer flashcard-footer">
                     @if (ShouldDisplayFlippedLabel(isFlipped, flashcard.OpenCount))
                     {
+                        
                         <div class="flipped-counter">
                             <span>Flipped</span>
                             <span class="badge rounded-pill custom-badge ms-auto">@flashcard.OpenCount</span>
                         </div>
+                        <div class="last-opened">
+                          <span> @GetLastOpenedDate(flashcard.Id) </span>
+                        </div> 
                     }
 
                     @if (CanShowMoreInfoLink(isFlipped, flashcard.Url))
@@ -64,8 +69,7 @@
                     }
                     @if (isFlipped)
                     {
-                        <button class="btn btn-info btn-sm flashcard-button"
-                                @onclick="() => RedirectToUpdatePage(flashcard.Id)">
+                        <button class="btn btn-info btn-sm flashcard-button" @onclick="() => RedirectToUpdatePage(flashcard.Id)">
                             Update
                         </button>
                     }
@@ -74,12 +78,15 @@
         }
     </div>
 </div>
-
+ 
 
 @code {
 
     // Selected flashcard
     FlashcardModel selectedFlashcard;
+    
+    
+    private Dictionary<string, DateTime?> LastOpenedDates { get; set; } = new();
 
     // Id of the selected card to manage state
     public string selectedCardId;
@@ -89,6 +96,39 @@
 
     // Category Id obtained from URL to filter cards
     public string categoryId;
+    
+    private bool _isDataLoaded = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadFlashcardDataFromLocalStorage();
+            StateHasChanged(); // Trigger a re-render to update the UI
+        }
+    }
+    
+    private async Task LoadFlashcardDataFromLocalStorage()
+    {
+        // Fetch data from LocalStorageFlashcardService
+        var flashcardData = await FlashcardStorage.GetAllAsync();
+
+        // Populate the LastOpenedDates dictionary
+        LastOpenedDates = flashcardData.ToDictionary(f => f.CardId, f => (DateTime?)f.LastOpenedDate);
+
+        _isDataLoaded = true;
+    }
+
+    public string GetLastOpenedDate(string cardId)
+    {
+        if (LastOpenedDates.ContainsKey(cardId) && LastOpenedDates[cardId].HasValue)
+        {
+            var date = LastOpenedDates[cardId]?.ToLocalTime().ToString("g");
+           return "Opened: " + date;
+        }
+
+        return "";
+    }
 
     // Fetches and filters flashcards based on the selected category ID
     public IEnumerable<FlashcardModel> GetFilteredFlashcards()
@@ -118,7 +158,7 @@
     // Called whenever parameters of the component change, such as a new URL
     // This method extracts the category ID from the URL path
     protected override void OnParametersSet()
-    {
+    { 
         // Retrieves current URL path
         var urlPath = MyNavigationManager.ToBaseRelativePath(MyNavigationManager.Uri);
 
@@ -172,4 +212,13 @@
 
     // Checks if a "More info" link should be displayed when answer side is shown, URL is provided
     public bool CanShowMoreInfoLink(bool isFlipped, string url) => isFlipped && !string.IsNullOrEmpty(url);
+
+    public async Task HandleClickOnCard(string cardId)
+   {
+        await FlashcardStorage.UpdateAsync(cardId);
+        LastOpenedDates[cardId] = DateTime.UtcNow;
+        ToggleCard(cardId);
+   }
+    
+    
 }
