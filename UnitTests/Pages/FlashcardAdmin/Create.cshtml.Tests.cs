@@ -18,8 +18,8 @@ namespace UnitTests.Pages.FlashcardAdmin
         private readonly JsonFileFlashcardService _flashcardService;
 
         // Instance of CreateModel for testing
-        private readonly CreateModel _createModel;
-
+        private CreateModel _createModel;
+        
         /// <summary>
         /// Constructor initializes the service and CreateModel for testing.
         /// </summary>
@@ -42,7 +42,7 @@ namespace UnitTests.Pages.FlashcardAdmin
             // Act
             var result = _createModel.OnGet();
 
-            // Assert - Check if Flashcard is initialized
+            // Assert 
             ClassicAssert.AreEqual(true, _createModel.Flashcard != null);
             ClassicAssert.AreEqual(typeof(PageResult), result.GetType());
         }
@@ -55,9 +55,9 @@ namespace UnitTests.Pages.FlashcardAdmin
         /// Test to verify that OnPost returns to the Create page if the model state is invalid.
         /// </summary>
         [Test]
-        public void OnPost_Invalid_Model_State_Should_Return_Page_With_Errors()
+        public async Task OnPost_Invalid_ModelState_Should_Return_Page_With_Errors()
         {
-            // Arrange - Set up an invalid flashcard model
+            // Arrange
             _createModel.Flashcard = new FlashcardModel
             {
                 Id = "123e4567-e89b-12d3-a456-426614174000",
@@ -66,14 +66,14 @@ namespace UnitTests.Pages.FlashcardAdmin
                 CategoryId = "OOP",
                 DifficultyLevel = 1
             };
-            
+
             // Simulate model validation error for Question field
             _createModel.ModelState.AddModelError("Flashcard.Question", "The Question field is required.");
 
             // Act
-            var result = _createModel.OnPost();
+            var result = await _createModel.OnPost();
 
-            // Assert 
+            // Assert
             ClassicAssert.AreEqual(typeof(PageResult), result.GetType());
         }
         
@@ -100,12 +100,11 @@ namespace UnitTests.Pages.FlashcardAdmin
             var result = await _createModel.OnPost();
 
             // Assert - Verify that the result is a redirection to the Index page
-            ClassicAssert.AreEqual(typeof(RedirectToPageResult), result.GetType(), "Result should be a RedirectToPageResult.");
+            ClassicAssert.AreEqual(typeof(RedirectToPageResult), result.GetType());
             var redirectResult = result as RedirectToPageResult;
-            ClassicAssert.AreEqual("/FlashcardAdmin/Index", redirectResult.PageName, "Should redirect to the Index page.");
+            ClassicAssert.AreEqual("/FlashcardAdmin/Index", redirectResult.PageName);
         }
         
         #endregion OnPost
-    
     }
 }
