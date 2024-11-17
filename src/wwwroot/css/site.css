@@ -475,6 +475,13 @@ tr:hover {
     resize: none;
 }
 
+.link-truncate {
+    width: calc(100vw - 60%);
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
 
 /* CategoryList.razor styling
 ----------------------------------------------------*/
