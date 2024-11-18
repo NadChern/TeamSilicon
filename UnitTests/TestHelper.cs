@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -53,6 +54,9 @@ namespace UnitTests
         
         // Service to manage flashcards, used in unit tests
         public static JsonFileFlashcardService FlashcardService;
+        
+        // Service to manage local storage, used in unit tests
+        public static LocalStorageFlashcardService LocalStorageFlashcardService;
 
         /// <summary>
         /// Default Constructor
@@ -99,6 +103,12 @@ namespace UnitTests
 
             // Initialize JsonFileFlashcardService with the mocked environment
             FlashcardService = new JsonFileFlashcardService(MockWebHostEnvironment.Object);
+            
+            // Mock ILocalStorageService for unit testing LocalStorageFlashcardService
+            var mockLocalStorageService = new Mock<ILocalStorageService>();
+
+            // Initialize LocalStorageFlashcardService with the mocked ILocalStorageService
+            LocalStorageFlashcardService = new LocalStorageFlashcardService(mockLocalStorageService.Object);
         }
     }
 }
