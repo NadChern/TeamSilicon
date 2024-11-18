@@ -643,7 +643,7 @@ tr:hover {
         box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
 }
 
-.AU-author p {
+    .AU-author p {
         margin-top: 10px;
         font-size: 25px;
         font-weight: bold;
@@ -669,4 +669,27 @@ tr:hover {
     text-align: center;
     margin: 0.5rem 0 1rem 0;
 }
+
+/* Privacy.cshtml styling
+ ----------------------------------------------------*/
+/* Subtitle */
+.PR-sub-font { /* from general with slight adjustments */
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 1.7rem;
+    font-weight: 500;
+    color: #555;
+    text-align: justify;
+    margin: 0.5rem 0 1rem 0;
+    max-width: 900px;
+}
+
+/* Content */
+.PR-con-font { /* from general with slight adjustments */
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #444;
+    text-align: justify;
+    margin: 0.5rem 0 1rem 0;
+    line-height: 1.8;
 }
