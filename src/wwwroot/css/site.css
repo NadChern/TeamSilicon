@@ -407,6 +407,37 @@ textarea {
     border-collapse: collapse;
 }
 
+    .table td:first-child {
+        width: 60%; /* Adjust column width to be narrower */
+        vertical-align: middle; /* Vertically center content */
+    }
+
+    .table td:last-child {
+        width: 40%; /* Adjust width for actions */
+        text-align: center; /* Center-align actions */
+    }
+
+.read-btn {
+    margin: 0 5px; /* Add spacing between buttons */
+}
+
+.table tbody tr td {
+    overflow-wrap: break-word; /* Ensure long text wraps within column */
+}
+
+.stylebox {
+    position: relative; /* To keep content positioned relative to the box */
+}
+
+.create-btn {
+    position: sticky; /* Fix the position of the create button */
+    top: 0;
+    z-index: 10; /* Ensure it stays above other content */
+    background-color: #f0f8ff; /* Match the body background color */
+    padding: 10px; /* Add some padding for a neat look */
+}
+
+
 thead {
     background-color: #b0e0e6;
     text-align: left;
@@ -490,10 +521,6 @@ tr:hover {
 
 .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-}
-
-.create-btn {
-    padding: 0 0 10px 0;
 }
 
 .admin-title {
