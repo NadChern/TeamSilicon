@@ -155,12 +155,12 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Flashcard = new FlashcardModel
                 {
-                    Id = "e0264da2-8c97-426a-8af2-0fb1bb64c243",
+                    Id = "742fcdc1-f9ab-4f51-bb91-9d79f95a6ccf",
                     Question = "Sample Question Updated",
                     Answer = "Sample Answer Updated",
-                    CategoryId = "OOP",
+                    CategoryId = "Python",
                     DifficultyLevel = 1,
-                    OpenCount = 3 // Match the existing OpenCount
+                    OpenCount = 1 // Match the existing OpenCount
                 }
             };
 
