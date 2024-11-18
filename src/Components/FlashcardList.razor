@@ -53,14 +53,13 @@
                 <div class="card-footer flashcard-footer">
                     @if (ShouldDisplayFlippedLabel(isFlipped, flashcard.OpenCount))
                     {
-                        
                         <div class="flipped-counter">
                             <span>Flipped</span>
                             <span class="badge rounded-pill custom-badge ms-auto">@flashcard.OpenCount</span>
                         </div>
                         <div class="last-opened">
-                          <span> @GetLastOpenedDate(flashcard.Id) </span>
-                        </div> 
+                            <span> @GetLastOpenedDate(flashcard.Id) </span>
+                        </div>
                     }
 
                     @if (CanShowMoreInfoLink(isFlipped, flashcard.Url))
@@ -78,15 +77,15 @@
         }
     </div>
 </div>
- 
+
 
 @code {
 
     // Selected flashcard
     FlashcardModel selectedFlashcard;
     
-    
-    private Dictionary<string, DateTime?> LastOpenedDates { get; set; } = new();
+    // Dictionary to store the last opened dates of flashcards by their IDs
+    public Dictionary<string, DateTime?> LastOpenedDates { get; private set; } = new();
 
     // Id of the selected card to manage state
     public string selectedCardId;
@@ -96,19 +95,23 @@
 
     // Category Id obtained from URL to filter cards
     public string categoryId;
-    
+
+    // Flag to ensure data is loaded only once
     private bool _isDataLoaded = false;
 
+    // Called after component has been rendered.
+    // Ensures data is loaded on first render
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             await LoadFlashcardDataFromLocalStorage();
-            StateHasChanged(); // Trigger a re-render to update the UI
+            StateHasChanged(); 
         }
     }
-    
-    private async Task LoadFlashcardDataFromLocalStorage()
+
+    // Loads flashcard metadata (last opened dates) from local storage
+    public async Task LoadFlashcardDataFromLocalStorage()
     {
         // Fetch data from LocalStorageFlashcardService
         var flashcardData = await FlashcardStorage.GetAllAsync();
@@ -116,15 +119,21 @@
         // Populate the LastOpenedDates dictionary
         LastOpenedDates = flashcardData.ToDictionary(f => f.CardId, f => (DateTime?)f.LastOpenedDate);
 
+        // Mark data as loaded
         _isDataLoaded = true;
     }
 
+    // Gets the last opened date of a flashcard as a formatted string.
     public string GetLastOpenedDate(string cardId)
     {
-        if (LastOpenedDates.ContainsKey(cardId) && LastOpenedDates[cardId].HasValue)
+        if (LastOpenedDates.ContainsKey(cardId))
         {
-            var date = LastOpenedDates[cardId]?.ToLocalTime().ToString("g");
-           return "Opened: " + date;
+            // last opened date
+            var date = LastOpenedDates[cardId];
+            if (date.HasValue)
+            {
+                return "Opened: " + date.Value.ToLocalTime().ToString("g");
+            }
         }
 
         return "";
@@ -158,7 +167,7 @@
     // Called whenever parameters of the component change, such as a new URL
     // This method extracts the category ID from the URL path
     protected override void OnParametersSet()
-    { 
+    {
         // Retrieves current URL path
         var urlPath = MyNavigationManager.ToBaseRelativePath(MyNavigationManager.Uri);
 
@@ -201,6 +210,15 @@
         }
     }
 
+    // Handles a click event on a card by updating its last opened date
+    // and toggling the display
+    public async Task HandleClickOnCard(string cardId)
+    {
+        await FlashcardStorage.UpdateAsync(cardId);
+        LastOpenedDates[cardId] = DateTime.UtcNow;
+        ToggleCard(cardId);
+    }
+
     // Checks if there are no flashcards in filtered set
     public bool HasNoFlashcards() => !GetFilteredFlashcards().Any();
 
@@ -212,13 +230,4 @@
 
     // Checks if a "More info" link should be displayed when answer side is shown, URL is provided
     public bool CanShowMoreInfoLink(bool isFlipped, string url) => isFlipped && !string.IsNullOrEmpty(url);
-
-    public async Task HandleClickOnCard(string cardId)
-   {
-        await FlashcardStorage.UpdateAsync(cardId);
-        LastOpenedDates[cardId] = DateTime.UtcNow;
-        ToggleCard(cardId);
-   }
-    
-    
 }
