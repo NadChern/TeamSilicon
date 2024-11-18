@@ -645,6 +645,28 @@ tr:hover {
 
 .AU-author p {
         margin-top: 10px;
-        font-size: 16px;
+        font-size: 25px;
         font-weight: bold;
+        text-align: center;
+    }
+
+.AU-con-font { /* from general with slight adjustments */
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #444;
+    text-align: justify;
+    margin: 0 auto;
+    max-width: 900px;
+    line-height: 1.8;
+}
+
+.AU-sub-font { /* from general with slight adjustments */
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 1.7rem;
+    font-weight: 500;
+    color: #555;
+    text-align: center;
+    margin: 0.5rem 0 1rem 0;
+}
 }
