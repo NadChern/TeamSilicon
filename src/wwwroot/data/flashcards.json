@@ -51,7 +51,7 @@
     "Answer": "A List is Mutable (can be modified after creation) and defined with square brackets []. A tuple is Immutable (cannot be modified after creation) and defined with parentheses ().",
     "Difficulty": 1,
     "Url": "",
-    "OpenCount": 0
+    "OpenCount": 1
   },
   {
     "Id": "51e989ed-db3c-45fe-bba2-a0ece1e8f6a1",
