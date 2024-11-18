@@ -47,7 +47,7 @@ namespace ContosoCrafts.WebSite.Services
         /// </summary>
         /// <returns>A list of "FlashcardData" objects, or an empty
         /// list if no data is found.</returns>
-        public async Task<List<FlashcardData>> GetAllAsync()
+        public virtual async Task<List<FlashcardData>> GetAllAsync()
         {
             return await _localStorage.GetItemAsync<List<FlashcardData>>(StorageKey) ?? new List<FlashcardData>();
         }
