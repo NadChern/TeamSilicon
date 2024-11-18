@@ -176,7 +176,7 @@ namespace ContosoCrafts.WebSite.Services
         /// </summary>
         /// <param name="url">The URL to validate</param>
         /// <returns>Returns true if the URL exists, otherwise, false for invalid or unreachable URLs.</returns>
-        public async Task<bool> ValidateUrlAsync(string url)
+        public virtual async Task<bool> ValidateUrlAsync(string url)
         {
             
             // Check if URL is null, empty, or contains only white spaces
