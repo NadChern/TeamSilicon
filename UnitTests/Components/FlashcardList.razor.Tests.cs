@@ -1,4 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Blazored.LocalStorage;
 using Microsoft.Extensions.DependencyInjection;
 using Bunit;
 using NUnit.Framework;
@@ -6,8 +10,9 @@ using ContosoCrafts.WebSite.Services;
 using ContosoCrafts.WebSite.Components;
 using NUnit.Framework.Legacy;
 using Bunit.TestDoubles;
+using Moq;
 
-namespace UnitTests.Pages
+namespace UnitTests.Components
 {
     public class FlashcardListTests : BunitTestContext
     {
@@ -19,6 +24,10 @@ namespace UnitTests.Pages
             // Register the required services for FlashcardList
             Services.AddSingleton<JsonFileFlashcardService>(TestHelper.FlashcardService);
             Services.AddSingleton<JsonFileCategoryService>(TestHelper.CategoryService);
+
+            // Mock the LocalStorageFlashcardService and register it
+            var mockLocalStorageService = TestHelper.LocalStorageFlashcardService;
+            Services.AddSingleton(mockLocalStorageService);
         }
 
         #endregion TestSetup
@@ -278,5 +287,212 @@ namespace UnitTests.Pages
             var result = page.Markup;
             Assert.That(result.Contains("No flashcards found with selected Category"), Is.EqualTo(true));
         }
+
+        #region HandleClickOnCard
+
+        /// <summary>
+        /// Tests that HandleClickOnCard updates the last opened date
+        /// and toggles the card display.
+        /// </summary>
+        [Test]
+        public async Task HandleClickOnCard_Should_Update_LastOpenedDate_And_ToggleCard()
+        {
+            // Arrange
+            var page = RenderComponent<FlashcardList>();
+
+            // Test card Id
+            var cardId = "e0264da2-8c97-426a-8af2-0fb1bb64c243";
+
+            // Initial last opened date
+            var initialDate = DateTime.UtcNow.AddDays(-1);
+
+            // Simulate the card being already in the LastOpenedDates dictionary
+            await TestHelper.LocalStorageFlashcardService.UpdateAsync(cardId);
+            page.Instance.LastOpenedDates[cardId] = initialDate;
+
+            // Act
+            await page.Instance.HandleClickOnCard(cardId);
+
+            // Assert
+            ClassicAssert.AreEqual(DateTime.UtcNow.Date, page.Instance.LastOpenedDates[cardId]?.Date);
+            ClassicAssert.IsTrue(page.Instance.IsFlipped(cardId));
+        }
+
+        #endregion HandleClickOnCard
+
+        #region RedirectToUpdatePage
+
+        /// <summary>
+        /// Tests that RedirectToUpdatePage navigates to the correct URL.
+        /// </summary>
+        [Test]
+        public void RedirectToUpdatePage_Should_Navigate_To_Correct_Url()
+        {
+            // Arrange
+            var page = RenderComponent<FlashcardList>();
+
+            // Test card ID
+            var cardId = "e0264da2-8c97-426a-8af2-0fb1bb64c243";
+
+            // Mock navigation manager
+            var navigationManager = Services.GetRequiredService<FakeNavigationManager>();
+
+            // Act
+            page.Instance.RedirectToUpdatePage(cardId);
+
+            // Assert
+            var relativeUri = navigationManager.ToBaseRelativePath(navigationManager.Uri);
+            ClassicAssert.AreEqual($"FlashcardAdmin/Update/{cardId}", relativeUri);
+        }
+
+        #endregion RedirectToUpdatePage
+
+        #region OnAfterRenderAsync
+
+        /// <summary>
+        /// Tests that OnAfterRenderAsync loads data only on the first render.
+        /// </summary>
+        [Test]
+        public void OnAfterRenderAsync_FirstRender_Should_LoadData()
+        {
+            // Arrange
+            var mockFlashcardStorage = new Mock<LocalStorageFlashcardService>(MockBehavior.Strict, Mock.Of<ILocalStorageService>());
+
+            // Test card ID 
+            var testCardId = "e0264da2-8c97-426a-8af2-0fb1bb64c243";
+
+            // Last opened date
+            var lastOpenedDate = DateTime.UtcNow;
+
+            // Mock data returned by GetAllAsync
+            var flashcardData = new List<LocalStorageFlashcardService.FlashcardData>
+            {
+                new LocalStorageFlashcardService.FlashcardData
+                {
+                    CardId = testCardId,
+                    LastOpenedDate = lastOpenedDate
+                }
+            };
+
+            mockFlashcardStorage
+                .Setup(service => service.GetAllAsync())
+                .ReturnsAsync(flashcardData);
+
+            Services.AddSingleton(mockFlashcardStorage.Object);
+
+            // Act
+            var page = RenderComponent<FlashcardList>();
+
+            // Wait for state changes to stabilize
+            page.WaitForState(() => page.Instance.LastOpenedDates.ContainsKey(testCardId));
+
+            // Assert
+            Assert.That(page.Instance.LastOpenedDates.ContainsKey(testCardId), Is.True);
+            Assert.That(page.Instance.LastOpenedDates[testCardId], Is.EqualTo(lastOpenedDate));
+            mockFlashcardStorage.Verify(service => service.GetAllAsync(), Times.Once);
+        }
+
+        #endregion OnAfterRenderAsync
+
+
+        #region LoadFlashcardDataFromLocalStorage
+
+        /// <summary>
+        /// Tests that LoadFlashcardDataFromLocalStorage populates LastOpenedDates correctly.
+        /// </summary>
+        [Test]
+        public async Task LoadFlashcardDataFromLocalStorage_Should_Populate_LastOpenedDates()
+        {
+            // Arrange
+            // Card Id
+            var cardId = "test-card-id";
+
+            // The expected last opened date
+            var lastOpenedDate = DateTime.UtcNow.AddHours(-1);
+
+            // Mock data returned by GetAllAsync
+            var mockData = new List<LocalStorageFlashcardService.FlashcardData>
+            {
+                new LocalStorageFlashcardService.FlashcardData
+                {
+                    CardId = cardId,
+                    LastOpenedDate = lastOpenedDate
+                }
+            };
+
+            // Mock dependencies
+            var mockLocalStorage = new Mock<ILocalStorageService>();
+            var mockLocalStorageFlashcardService = new Mock<LocalStorageFlashcardService>(mockLocalStorage.Object)
+            {
+                CallBase = true
+            };
+            mockLocalStorageFlashcardService
+                .Setup(service => service.GetAllAsync())
+                .ReturnsAsync(mockData);
+
+            Services.AddSingleton(mockLocalStorageFlashcardService.Object);
+
+            // Render the FlashcardList component for testing
+            var page = RenderComponent<FlashcardList>();
+
+            // Act
+            await page.InvokeAsync(() => page.Instance.LoadFlashcardDataFromLocalStorage());
+
+            // Assert
+            ClassicAssert.IsTrue(page.Instance.LastOpenedDates.ContainsKey(cardId));
+            ClassicAssert.AreEqual(lastOpenedDate, page.Instance.LastOpenedDates[cardId]);
+        }
+
+        #endregion LoadFlashcardDataFromLocalStorage
+
+        #region GetLastOpenedDate
+
+        /// <summary>
+        /// Tests that GetLastOpenedDate returns a formatted string if a date exists.
+        /// </summary>
+        [Test]
+        public void GetLastOpenedDate_Should_Return_Correct_String_If_Date_Exists()
+        {
+            // Arrange
+            // ID of the test flashcard 
+            var cardId = "test-card-id";
+
+            // Expected last opened date (current UTC time for this test case)
+            var lastOpenedDate = DateTime.UtcNow;
+
+            // Expected formatted string that includes the "Opened:" prefix and a formatted version of the last opened date
+            var expectedDate = "Opened: " + lastOpenedDate.ToLocalTime().ToString("g");
+
+            // Render the FlashcardList component for testing
+            var page = RenderComponent<FlashcardList>();
+            page.Instance.LastOpenedDates[cardId] = lastOpenedDate;
+
+            // Act
+            var result = page.Instance.GetLastOpenedDate(cardId);
+
+            // Assert
+            ClassicAssert.AreEqual(expectedDate, result);
+        }
+
+        /// <summary>
+        /// Tests that GetLastOpenedDate returns an empty string if no date exists.
+        /// </summary>
+        [Test]
+        public void GetLastOpenedDate_Should_Return_Empty_String_If_Date_Does_Not_Exist()
+        {
+            // Arrange
+            var cardId = "non-existent-card-id";
+
+            // Render the FlashcardList component for testing
+            var page = RenderComponent<FlashcardList>();
+
+            // Act
+            var result = page.Instance.GetLastOpenedDate(cardId);
+
+            // Assert
+            ClassicAssert.AreEqual("", result);
+        }
+
+        #endregion GetLastOpenedDate
     }
 }
