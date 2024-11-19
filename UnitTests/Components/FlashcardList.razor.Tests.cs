@@ -345,6 +345,34 @@ namespace UnitTests.Components
             ClassicAssert.AreEqual($"FlashcardAdmin/Update/{cardId}", relativeUri);
         }
 
+        /// <summary>
+        /// Tests that clicking the "Update" button on a specific flashcard navigates the card's Update page
+        /// </summary>
+        [Test]
+        public void FlashcardList_Click_Update_Should_RedirectToUpdatePage()
+        {
+            // Arrange
+            var page = RenderComponent<FlashcardList>();
+
+            var cardId = "4cce8136-84c3-4e69-abfb-51fedae8432b";
+
+            // Act
+            // Locate and Click the card
+            var cardElement = page.Find($"div[data-id='{cardId}']");
+            cardElement.Click();
+
+            // Locate the Click the Update button of the card
+            var updateButton = page.Find($"div[data-id='{cardId}'] button");
+            updateButton.Click();
+
+            // Getting the current Url after click Update
+            var navigationManager = Services.GetRequiredService<FakeNavigationManager>();
+            var currentUrl = navigationManager.Uri;
+
+            // Assert
+            Assert.That(currentUrl, Is.EqualTo($"http://localhost/FlashcardAdmin/Update/{cardId}"));
+        }
+
         #endregion RedirectToUpdatePage
 
         #region OnAfterRenderAsync
