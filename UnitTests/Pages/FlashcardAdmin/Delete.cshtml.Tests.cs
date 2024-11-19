@@ -2,8 +2,10 @@
 using ContosoCrafts.WebSite.Services;
 using NUnit.Framework.Legacy;
 using ContosoCrafts.WebSite.Pages.FlashcardAdmin;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Moq;
 
 namespace UnitTests.Pages.FlashcardAdmin
 {
@@ -88,20 +90,32 @@ namespace UnitTests.Pages.FlashcardAdmin
         public void OnPost_Valid_Id_Should_Delete_Flashcard_And_Redirect_To_Index()
         {
             // Arrange
+            // Mock the IWebHostEnvironment dependency
+            var mockEnvironment = new Mock<IWebHostEnvironment>();
+            
+            // Create a mock for the JsonFileFlashcardService and pass the mocked environment
+            var mockFlashcardService = new Mock<JsonFileFlashcardService>(mockEnvironment.Object);
+
+            // Define a valid flashcard ID for the test
             var validId = "123e4567-e89b-12d3-a456-426614174000";
+
+            // Set up the mock to return true for the valid ID
+            mockFlashcardService.Setup(s => s.RemoveFlashcard(validId)).Returns(true);
+
+            // Create an instance of the DeleteModel page model
+            var deleteModel = new DeleteModel(mockFlashcardService.Object);
 
             // Act
             var result = deleteModel.OnPost(validId) as RedirectToPageResult;
 
             // Assert
-            ClassicAssert.IsNotNull(result);
-            ClassicAssert.AreEqual("/FlashcardAdmin/Index", result.PageName);
+            ClassicAssert.IsNotNull(result, "The result should not be null.");
+            ClassicAssert.AreEqual("/FlashcardAdmin/Index", result.PageName, "The result should redirect to the correct page.");
 
-            // Verify the flashcard was deleted
-            var flashcard = flashcardService.GetById(validId);
-            ClassicAssert.IsNull(flashcard);
+            // Verify that RemoveFlashcard was called once
+            mockFlashcardService.Verify(s => s.RemoveFlashcard(validId), Times.Once);
         }
-
+        
         /// <summary>
         /// Verifies that calling OnPost with an invalid ID does not delete 
         /// any flashcard and returns the current page with an error message.
