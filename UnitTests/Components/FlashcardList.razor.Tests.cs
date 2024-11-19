@@ -493,6 +493,40 @@ namespace UnitTests.Components
             ClassicAssert.AreEqual("", result);
         }
 
+        /// <summary>
+        /// Tests that GetLastOpenedDate returns an empty string if the date is null.
+        /// </summary>
+        [Test]
+        public void GetLastOpenedDate_Should_Return_Empty_String_If_Date_Is_Null()
+        {
+            // Arrange
+            var cardId = "test-card-id";
+
+            // Render the FlashcardList component for testing
+            var page = RenderComponent<FlashcardList>();
+            page.Instance.LastOpenedDates[cardId] = null;
+
+            // Act
+            var result = page.Instance.GetLastOpenedDate(cardId);
+
+            // Assert
+            ClassicAssert.AreEqual("", result);
+        }
+
+        /// <summary>
+        /// Tests that LastOpenedDates is initialized as an empty dictionary.
+        /// </summary>
+        [Test]
+        public void LastOpenedDates_Should_Be_Initialized_As_Empty_Dictionary()
+        {
+            // Arrange
+            var page = RenderComponent<FlashcardList>();
+
+            // Act & Assert
+            Assert.That(page.Instance.LastOpenedDates, Is.Not.Null);
+            Assert.That(page.Instance.LastOpenedDates, Is.Empty);
+        }
+
         #endregion GetLastOpenedDate
     }
 }
