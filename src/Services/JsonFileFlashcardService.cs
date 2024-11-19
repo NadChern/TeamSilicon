@@ -86,7 +86,7 @@ namespace ContosoCrafts.WebSite.Services
         /// </summary>
         /// <param name="id">The ID of the flashcard to remove.</param>
         /// <returns>True if the flashcard was successfully removed; otherwise, false.</returns>
-        public bool RemoveFlashcard(string id)
+        public virtual bool RemoveFlashcard(string id)
         {
             // Retrieve all flashcards from JSON file, convert to list for manipulation
             var flashcards = GetAllData().ToList();
