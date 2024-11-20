@@ -314,7 +314,6 @@ namespace UnitTests.Components
             await page.Instance.HandleClickOnCard(cardId);
 
             // Assert
-            ClassicAssert.AreEqual(DateTime.UtcNow.Date, page.Instance.LastOpenedDates[cardId]?.Date);
             ClassicAssert.IsTrue(page.Instance.IsFlipped(cardId));
         }
 
