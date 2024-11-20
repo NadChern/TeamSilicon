@@ -17,7 +17,7 @@
                  class="CL-image" style="background-image: url('@category.Image');">
             </div>
             <div class="CL-card-count CL-cute-font-regular">
-                @($" {ShowLabel(category.Id)} ")
+                @($" Contians card number: {FlashcardService.GetCountByCategoryId(@category.Id)} ")
                 <!-- Heart icon with dynamic classes and click event -->
                 <span class="material-symbols-outlined CL-heart-icon @GetHeartClass(category.Id) @GetGrowClass(category.Id)"
                       @onclick="() => ToggleHeart(category.Id)">
@@ -92,22 +92,4 @@
     /// <param name="categoryId">The ID of the category.</param>
     void NavigateToCategory(string categoryId) =>
         NavigationManager.NavigateTo($"/Flashcards/{categoryId}", forceLoad: true);
-
-    /// <summary>
-    /// Showing label of card counts on each category card.
-    /// </summary>
-    /// <param name="categoryId">The ID of the category.</param>
-    string ShowLabel(string categoryId)
-    {
-        int count = FlashcardService.GetCountByCategoryId(categoryId);
-        switch (count)
-        {
-            case 0:
-                return "Currently no card";
-            case 1:
-                return "Contains 1 card";
-            default:
-                return "Contains " + count + " cards";
-        }
-    }
 }
