@@ -107,6 +107,7 @@ namespace UnitTests.Components
             Services.AddSingleton<JsonFileFlashcardService>(TestHelper.FlashcardService);
 
             var page = RenderComponent<FlashcardList>();
+
             var flashcardID = "e01073ce-be37-464a-aa8d-cc7e80579815";
 
             // Act
@@ -129,6 +130,7 @@ namespace UnitTests.Components
         {
             // Arrange
             var page = RenderComponent<FlashcardList>();
+
             var flashcardID = "e0264da2-8c97-426a-8af2-0fb1bb64c243";
 
             // Simulate state
@@ -202,6 +204,7 @@ namespace UnitTests.Components
             Services.AddSingleton<JsonFileFlashcardService>(TestHelper.FlashcardService);
 
             var navigationManager = Services.GetRequiredService<FakeNavigationManager>();
+
             navigationManager.NavigateTo("http://localhost/Flashcards/OOP");
 
             var page = RenderComponent<FlashcardList>();
@@ -222,16 +225,19 @@ namespace UnitTests.Components
         {
             // Arrange
             var page = RenderComponent<FlashcardList>(); // Render the FlashcardList component
+          
+            var cardId = "4cce8136-84c3-4e69-abfb-51fedae8432b";
 
             // Find the card for a different flashcard
-            var cardId = "4cce8136-84c3-4e69-abfb-51fedae8432b";
             var cardElement = page.Find($"div[data-id='{cardId}']"); // Find the card by ID
 
             // Act
             cardElement.Click(); // Simulate the first click to toggle to "flipped"
+
             var firstFlipClass = cardElement.GetAttribute("class");
 
             cardElement.Click(); // Simulate the second click to toggle back
+
             var secondFlipClass = cardElement.GetAttribute("class");
 
             // Assert
@@ -248,12 +254,15 @@ namespace UnitTests.Components
             // Arrange
             var page = RenderComponent<FlashcardList>(); // Render the FlashcardList component
 
-            // Use the specified flashcard ID and URL
+            // flashcard ID
             var cardId = "e01073ce-be37-464a-aa8d-cc7e80579815";
+
+            // flashcard expected URL
             var expectedUrl = "https://www.w3schools.com/python/python_dictionaries.asp";
 
             // Act
             var cardElement = page.Find($"div[data-id='{cardId}']"); // Find the card by ID
+
             cardElement.Click(); // Simulate clicking the card (flipping to the answer side)
 
             // Locate the "More Info" link
@@ -274,6 +283,7 @@ namespace UnitTests.Components
             var flashcardService = TestHelper.FlashcardService;
 
             var cardIdToDelete = "18dabdbd-c1af-4e7c-88e2-3e860720cbc3"; // Mobile card
+
             flashcardService.RemoveFlashcard(cardIdToDelete);
 
             // Render the FlashcardList component
@@ -282,11 +292,14 @@ namespace UnitTests.Components
             // Act
             // Simulate navigating to the "Mobile" category
             var navigationManager = Services.GetRequiredService<FakeNavigationManager>();
+
             navigationManager.NavigateTo("http://localhost/Flashcards/Mobile");
+
             page.Render();
 
-            // Assert
             var result = page.Markup;
+
+            // Assert
             Assert.That(result.Contains("No flashcards found with selected Category"), Is.EqualTo(true));
         }
 
@@ -358,16 +371,17 @@ namespace UnitTests.Components
             var cardId = "4cce8136-84c3-4e69-abfb-51fedae8432b";
 
             // Act
-            // Locate and Click the card
-            var cardElement = page.Find($"div[data-id='{cardId}']");
-            cardElement.Click();
+            var cardElement = page.Find($"div[data-id='{cardId}']"); // Locate card
+            
+            cardElement.Click(); // Click card
 
-            // Locate the Click the Update button of the card
-            var updateButton = page.Find($"div[data-id='{cardId}'] button");
-            updateButton.Click();
+            var updateButton = page.Find($"div[data-id='{cardId}'] button"); // Locate Update button
+
+            updateButton.Click(); // Click on update button
 
             // Getting the current Url after click Update
             var navigationManager = Services.GetRequiredService<FakeNavigationManager>();
+
             var currentUrl = navigationManager.Uri;
 
             // Assert
