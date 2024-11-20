@@ -14,10 +14,17 @@ using Moq;
 
 namespace UnitTests.Components
 {
+    /// <summary>
+    /// Unit tests for the FlashcardList component, verifying rendering, interactions, data updates, and navigation behavior.
+    /// </summary>
     public class FlashcardListTests : BunitTestContext
     {
+
         #region TestSetup
 
+        /// <summary>
+        /// Sets up the required services and mocks for testing the FlashcardList
+        /// </summary>
         [SetUp]
         public void TestInitialize()
         {
