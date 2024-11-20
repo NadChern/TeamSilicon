@@ -97,7 +97,9 @@ namespace UnitTests.Components
             Assert.That(updatedOpenCount, Is.EqualTo(originalOpenCount));
         }
 
-
+        /// <summary>
+        /// Tests that toggling card 3 times should increment the OpenCount 3 times
+        /// </summary>
         [Test]
         public void FlashcardList_ToggleCard_Three_Times_Should_Increment_OpenCount_Three_Times()
         {
