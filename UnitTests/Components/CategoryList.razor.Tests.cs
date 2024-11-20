@@ -1,10 +1,10 @@
-using Bunit; // Bunit for Blazor component testing
-using NUnit.Framework; // NUnit testing framework
-using ContosoCrafts.WebSite.Services; // Application services for data handling
-using ContosoCrafts.WebSite.Components; // Components being tested
-using Microsoft.Extensions.DependencyInjection; // Dependency injection utilities
-using System.Linq; // LINQ for data manipulation
-using Bunit.TestDoubles; // Bunit test doubles for mocking
+using Bunit;
+using NUnit.Framework;
+using ContosoCrafts.WebSite.Services;
+using ContosoCrafts.WebSite.Components;
+using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
+using Bunit.TestDoubles;
 
 namespace UnitTests.Components
 {
