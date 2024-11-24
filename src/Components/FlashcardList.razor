@@ -8,14 +8,46 @@
 @inject NavigationManager MyNavigationManager
 
 
+
+<div class="controls">
+
+    <div class="control-item">
+        <label class="select-label" for="categoryFilter">Filter by Category</label>
+        <select class="select-category" id="categoryFilter" @onchange="HandleCategoryFilterChange">
+            <option value="" selected="@(string.IsNullOrEmpty(selectedCategory))">
+                All Categories
+            </option>
+            @foreach (var category in CategoryService.GetAllData())
+            {
+                <option value="@category.Id" selected="@(category.Id == selectedCategory)">
+                    @category.Id
+                </option>
+            }
+        </select>
+    </div>
+
+    <div class="control-item">
+        <!-- Sorting Criteria -->
+        <label class="select-label" for="sortCriteria">Sort By</label>
+        <select class="select-category" id="sortCriteria" @onchange="HandleSortCriteriaChange">
+            <option value="@SortOption.NoSorting">Without sorting</option>
+            <option value="@SortOption.DifficultyEasyToHard">Easy to Hard</option>
+            <option value="@SortOption.DifficultyHardToEasy">Hard to Easy</option>
+            <option value="@SortOption.OpenCountMostToLeast">Most Flipped</option>
+            <option value="@SortOption.OpenCountLeastToMost">Less Flipped</option>
+            <option value="@SortOption.LastOpenedNewestFirst">Newest First</option>
+            <option value="@SortOption.LastOpenedOldestFirst">Oldest First</option>
+        </select>
+    </div>
+</div>
+
 <div>
-    <p>Category ID: @(string.IsNullOrEmpty(categoryId) ? "All Categories" : categoryId)</p>
-    <div class="masonry-grid">
+   <div class="masonry-grid">
         @if (HasNoFlashcards())
         {
             <p>No flashcards found with selected Category</p>
         }
-        @foreach (var flashcard in GetFilteredFlashcards())
+        @foreach (var flashcard in GetFilteredAndSortedFlashcards())
         {
             bool isFlipped = IsFlipped(flashcard.Id);
             string flipClass = isFlipped ? "flipped" : "";
@@ -27,7 +59,7 @@
                             @flashcard.CategoryId
                         </span>
                     </div>
-                    <div>
+                    <div class="difficulty-group">
                         <span class="text-second">Level: </span>
                         @for (int i = 0; i < flashcard.DifficultyLevel; i++)
                         {
@@ -81,12 +113,29 @@
 
 @code {
 
+    public enum SortOption
+    {
+        NoSorting,
+        DifficultyHardToEasy, // Difficulty: Hard to Easy
+        DifficultyEasyToHard, // Difficulty: Easy to Hard
+        OpenCountMostToLeast, // Open Count: Most to Least
+        OpenCountLeastToMost, // Open Count: Least to Most
+        LastOpenedNewestFirst, // Last Opened Dates: Newest First
+        LastOpenedOldestFirst // Last Opened Dates: Oldest First
+    }
+
     // Selected flashcard
     FlashcardModel selectedFlashcard;
-    
+
     // Dictionary to store the last opened dates of flashcards by their IDs
     public Dictionary<string, DateTime?> LastOpenedDates { get; private set; } = new();
 
+    // No sorting by default
+    private SortOption selectedSortCriteria = SortOption.NoSorting; 
+    
+    // No filtering by default
+    public string selectedCategory = ""; 
+   
     // Id of the selected card to manage state
     public string selectedCardId;
 
@@ -106,7 +155,7 @@
         if (firstRender)
         {
             await LoadFlashcardDataFromLocalStorage();
-            StateHasChanged(); 
+            StateHasChanged();
         }
     }
 
@@ -154,6 +203,56 @@
         return allFlashcards;
     }
 
+
+    public IEnumerable<FlashcardModel> SortFlashcards(IEnumerable<FlashcardModel> flashcards, SortOption sortCriteria)
+    {
+        return sortCriteria switch
+        {
+            // Ascending (Easy → Hard), Descending (Hard → Easy)
+            SortOption.NoSorting => flashcards,
+            SortOption.DifficultyEasyToHard => flashcards.OrderBy(f => f.DifficultyLevel), 
+            SortOption.DifficultyHardToEasy => flashcards.OrderByDescending(f => f.DifficultyLevel), 
+
+            // Ascending (Low → High), Descending (High → Low)
+            SortOption.OpenCountLeastToMost => flashcards.OrderBy(f => f.OpenCount), 
+            SortOption.OpenCountMostToLeast => flashcards.OrderByDescending(f => f.OpenCount), 
+
+
+            // Ascending (from oldest to newest), Descending (New → Old)
+            // DateTime.MaxValue places unopened cards at the end in ascending order.
+            // DateTime.MaxValue places unopened cards at the beginning in descending order.
+            SortOption.LastOpenedNewestFirst => flashcards.OrderByDescending(f =>
+                LastOpenedDates.ContainsKey(f.Id) ? LastOpenedDates[f.Id] : DateTime.MaxValue), 
+            SortOption.LastOpenedOldestFirst =>
+                flashcards.OrderBy(f =>
+                    LastOpenedDates.ContainsKey(f.Id) ? LastOpenedDates[f.Id] : DateTime.MaxValue) 
+        };
+    }
+
+    public IEnumerable<FlashcardModel> GetFilteredAndSortedFlashcards()
+    {
+        // First, filter flashcards by category (if any category is selected)
+        var filteredFlashcards = FlashcardService.GetFilteredFlashcardsByCategory(selectedCategory);
+
+        // Then, sort flashcards by the selected criteria and direction
+        return SortFlashcards(filteredFlashcards, selectedSortCriteria);
+    }
+
+    private void HandleSortCriteriaChange(ChangeEventArgs e)
+    {
+        selectedSortCriteria = Enum.Parse<SortOption>(e.Value.ToString());
+        StateHasChanged(); // Triggers a re-render of the UI
+    }
+
+  private void HandleCategoryFilterChange(ChangeEventArgs e)
+    {
+        selectedCategory = e.Value.ToString();
+        MyNavigationManager.NavigateTo("/Flashcards/" + selectedCategory, replace: true);
+        StateHasChanged();
+    }
+
+
+
     // Get color of the category
     public string GetCategoryColor(string topicId)
     {
@@ -174,6 +273,7 @@
         // Extracts last segment of URL path if there are multiple segments,
         // otherwise, it assigns null if there is only one segment
         categoryId = urlPath.Split('/').Length > 1 ? urlPath.Split('/').Last() : null;
+        selectedCategory = categoryId;
     }
 
     // Redirect to Update if Update button clicked on the card
