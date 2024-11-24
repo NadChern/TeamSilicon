@@ -142,5 +142,14 @@
     "Difficulty": 3,
     "Url": "https://www.geeksforgeeks.org/async-and-await-in-c-sharp/",
     "OpenCount": 1
+  },
+  {
+    "Id": "a76cb43e-93fe-484c-a38c-d1cd1be83fe3",
+    "CategoryId": "CSharp",
+    "Question": "What is the difference between a value type and a reference type?",
+    "Answer": "Value types store actual data, while reference types store a reference to data. Value types are independent, so changes to one don\u2019t affect others. Reference types share memory, so changes to one reference affect all others pointing to the same data.",
+    "Difficulty": 1,
+    "Url": "https://www.c-sharpcorner.com/article/value-types-vs-reference-types-in-c-sharp/",
+    "OpenCount": 2
   }
 ]
