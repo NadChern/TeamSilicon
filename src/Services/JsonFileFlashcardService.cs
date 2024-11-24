@@ -95,9 +95,11 @@ namespace ContosoCrafts.WebSite.Services
 
             // Find the flashcard with the specified ID
             var flashcardToRemove = flashcards.FirstOrDefault(f => f.Id == id);
+
+            // Flashcard not found
             if (flashcardToRemove == null)
             {
-                return false; // Flashcard not found
+                return false;
             }
 
             // Remove the flashcard from the list
@@ -105,7 +107,7 @@ namespace ContosoCrafts.WebSite.Services
 
             // Save the updated list back to the JSON file
             SaveData(flashcards);
-            return true; // Removal successful
+            return true;
         }
 
         /// <summary>
@@ -125,56 +127,59 @@ namespace ContosoCrafts.WebSite.Services
         /// <returns>True if the update was successful; otherwise, false.</returns>
         public bool UpdateFlashcard(FlashcardModel updatedFlashcard)
         {
-            
-            // retrieve all flashcards from JSON file, convert to list 
+            // Retrieve all flashcards from JSON file, convert to list 
             var flashcards = GetAllData();
 
-            // find the flashcard with the specified ID
+            // Find the flashcard with the specified ID
             var existingFlashcard = flashcards.FirstOrDefault(f => f.Id == updatedFlashcard.Id);
-            
+
+            // Flashcard not found
             if (existingFlashcard == null)
             {
-                return false; // Flashcard not found
+                return false;
             }
 
             UpdateFrom(existingFlashcard, updatedFlashcard);
             SaveData(flashcards);
-            return true; // Update successful
+            return true;
         }
 
-        
-        
+
+        /// <summary>
+        /// Filters flashcards by a specific category.
+        /// </summary>
+        /// <param name="category"> Category to filter flashcards by.
+        /// If null or empty, returns all flashcards.</param>
+        /// <returns>An enumerable collection of flashcards that belong to
+        /// specified category.</returns>
         public IEnumerable<FlashcardModel> GetFilteredFlashcardsByCategory(string category)
-    {
-        // Retrieves all flashcards from FlashcardService
-        var allFlashcards = GetAllData();
-
-        // If no category is selected, return all flashcards
-        if (string.IsNullOrEmpty(category))
         {
-            return allFlashcards;
+            // Retrieves all flashcards from FlashcardService
+            var allFlashcards = GetAllData();
+
+            // If no category is selected, return all flashcards
+            if (string.IsNullOrEmpty(category))
+            {
+                return allFlashcards;
+            }
+
+            return allFlashcards.Where(f =>
+                f.CategoryId.Equals(category, StringComparison.OrdinalIgnoreCase));
         }
 
-        return allFlashcards.Where(f =>
-            f.CategoryId.Equals(category, StringComparison.OrdinalIgnoreCase));
-    }
 
-   
- 
-        
         /// <summary>
         /// Saves the flashcard data to the JSON file.
         /// </summary>
         /// <param name="flashcards">The collection of flashcards to save.</param>
         private void SaveData(IEnumerable<FlashcardModel> flashcards)
         {
-            
             // Serialize the flashcards to JSON format with indentation.
             var jsonData = JsonSerializer.Serialize(flashcards, new JsonSerializerOptions
             {
                 WriteIndented = true
             });
-            
+
             File.WriteAllText(JsonFileName, jsonData);
         }
 
@@ -192,7 +197,7 @@ namespace ContosoCrafts.WebSite.Services
             existingFlashcard.OpenCount = updatedFlashcard.OpenCount;
             existingFlashcard.Url = updatedFlashcard.Url;
         }
-        
+
         /// <summary>
         /// Validates if the provided URL exists and can be reached by making an HTTP HEAD request
         /// </summary>
@@ -200,7 +205,6 @@ namespace ContosoCrafts.WebSite.Services
         /// <returns>Returns true if the URL exists, otherwise, false for invalid or unreachable URLs.</returns>
         public virtual async Task<bool> ValidateUrlAsync(string url)
         {
-            
             // Check if URL is null, empty, or contains only white spaces
             if (string.IsNullOrWhiteSpace(url)) return false;
 
@@ -211,17 +215,17 @@ namespace ContosoCrafts.WebSite.Services
                 {
                     // Make a HEAD request to avoid downloading the content
                     var request = new HttpRequestMessage(HttpMethod.Head, url);
-                    
+
                     // Send HTTP request asynchronously and await the response
                     var response = await httpClient.SendAsync(request);
-                    
+
                     // Check if the response status code is a success (200-299 range)
-                    return response.IsSuccessStatusCode; 
+                    return response.IsSuccessStatusCode;
                 }
                 catch
                 {
                     // Treat any error as a non-existent URL
-                    return false; 
+                    return false;
                 }
             }
         }
