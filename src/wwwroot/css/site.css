@@ -288,6 +288,12 @@ ul {
 .difficulty-image {
     width: 20px;
     height: 18px;
+    margin-right: 2px;
+}
+
+.difficulty-group {
+    display: flex;
+    align-items: center;
 }
 
 .text-answer {
@@ -313,6 +319,27 @@ ul {
 .text-second {
     font-size: 16px;
     margin-right: 5px;
+}
+
+.controls {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.control-item {
+    min-width: 200px;
+}
+
+.select-category {
+    background-color: #008aff36;
+    color: #2f2c2c;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.select-label {
+    margin-left: 8px;
 }
 
 
