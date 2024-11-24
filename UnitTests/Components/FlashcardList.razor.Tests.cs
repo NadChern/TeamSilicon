@@ -10,6 +10,7 @@ using ContosoCrafts.WebSite.Services;
 using ContosoCrafts.WebSite.Components;
 using NUnit.Framework.Legacy;
 using Bunit.TestDoubles;
+using ContosoCrafts.WebSite.Models;
 using Moq;
 
 namespace UnitTests.Components
@@ -19,7 +20,6 @@ namespace UnitTests.Components
     /// </summary>
     public class FlashcardListTests : BunitTestContext
     {
-
         #region TestSetup
 
         /// <summary>
@@ -232,7 +232,7 @@ namespace UnitTests.Components
         {
             // Arrange
             var page = RenderComponent<FlashcardList>(); // Render the FlashcardList component
-          
+
             var cardId = "4cce8136-84c3-4e69-abfb-51fedae8432b";
 
             // Find the card for a different flashcard
@@ -373,22 +373,29 @@ namespace UnitTests.Components
         public void FlashcardList_Click_Update_Should_RedirectToUpdatePage()
         {
             // Arrange
+            // Render FlashcardList component for testing
             var page = RenderComponent<FlashcardList>();
 
+            // unique ID of the flashcard to be updated
             var cardId = "4cce8136-84c3-4e69-abfb-51fedae8432b";
 
             // Act
-            var cardElement = page.Find($"div[data-id='{cardId}']"); // Locate card
-            
-            cardElement.Click(); // Click card
+            // Locate the card element in the DOM using its unique ID
+            var cardElement = page.Find($"div[data-id='{cardId}']"); 
 
-            var updateButton = page.Find($"div[data-id='{cardId}'] button"); // Locate Update button
+            // Simulate a click on the card to reveal its options
+            cardElement.Click(); 
 
-            updateButton.Click(); // Click on update button
+            // Locate the Update button within the card element
+            var updateButton = page.Find($"div[data-id='{cardId}'] button"); 
+
+            // Simulate a click on the Update button
+            updateButton.Click(); 
 
             // Getting the current Url after click Update
             var navigationManager = Services.GetRequiredService<FakeNavigationManager>();
 
+            // Capture the URL after the button click
             var currentUrl = navigationManager.Uri;
 
             // Assert
@@ -578,5 +585,240 @@ namespace UnitTests.Components
         }
 
         #endregion GetLastOpenedDate
+
+        #region SortFlashcards
+
+        /// <summary>
+        /// Tests that SortFlashcards returns the list unchanged when no sorting is applied.
+        /// </summary>
+        [Test]
+        public void SortFlashcards_Valid_NoSorting_Should_Return_Unchanged_List()
+        {
+            // Arrange
+            // Create a list of flashcards
+            var flashcards = new List<FlashcardModel>
+            {
+                new FlashcardModel { Id = "1", DifficultyLevel = 3 },
+                new FlashcardModel { Id = "2", DifficultyLevel = 1 }
+            };
+
+            // Render FlashcardList component
+            var page = RenderComponent<FlashcardList>();
+
+            // Act
+            var result =
+                page.Instance.SortFlashcards(flashcards, FlashcardList.SortOption.NoSorting);
+
+            // Assert
+            Assert.That(result, Is.EqualTo(flashcards));
+        }
+
+        /// <summary>
+        /// Tests that SortFlashcards sorts flashcards by difficulty (easy to hard).
+        /// </summary>
+        [Test]
+        public void SortFlashcards_Valid_DifficultyEasyToHard_Should_Sort_Correctly()
+        {
+            // Arrange
+            // Create a list of flashcards with varying difficulty levels
+            var flashcards = new List<FlashcardModel>
+            {
+                new FlashcardModel { Id = "1", DifficultyLevel = 3 },
+                new FlashcardModel { Id = "2", DifficultyLevel = 1 }
+            };
+
+            // Render FlashcardList component
+            var page = RenderComponent<FlashcardList>();
+
+            // Act
+            var result = page.Instance.SortFlashcards(flashcards,
+                FlashcardList.SortOption.DifficultyEasyToHard).ToList();
+
+            // Assert
+            Assert.That(result[0].DifficultyLevel, Is.EqualTo(1));
+            Assert.That(result[1].DifficultyLevel, Is.EqualTo(3));
+        }
+
+        /// <summary>
+        /// Tests that SortFlashcards sorts flashcards by difficulty (hard to easy)
+        /// </summary>
+        [Test]
+        public void SortFlashcards_Valid_DifficultyHardToEasy_Should_Sort_Correctly()
+        {
+            // Arrange
+            // Create a list of flashcards with varying difficulty levels
+            var flashcards = new List<FlashcardModel>
+            {
+                new FlashcardModel { Id = "1", DifficultyLevel = 3 },
+                new FlashcardModel { Id = "2", DifficultyLevel = 1 }
+            };
+
+            // Render FlashcardList component
+            var page = RenderComponent<FlashcardList>();
+
+            // Act
+            var result = page.Instance.SortFlashcards(flashcards,
+                FlashcardList.SortOption.DifficultyHardToEasy).ToList();
+
+            // Assert
+            Assert.That(result[0].DifficultyLevel, Is.EqualTo(3));
+            Assert.That(result[1].DifficultyLevel, Is.EqualTo(1));
+        }
+
+        /// <summary>
+        /// Tests that SortFlashcards sorts flashcards by OpenCount (least to most)
+        /// </summary>
+        [Test]
+        public void SortFlashcards_Valid_OpenCountLeastToMost_Should_Sort_Correctly()
+        {
+            // Arrange
+            // Create a list of flashcards with varying OpenCounts
+            var flashcards = new List<FlashcardModel>
+            {
+                new FlashcardModel { Id = "1", OpenCount = 10 },
+                new FlashcardModel { Id = "2", OpenCount = 5 }
+            };
+
+            // Render FlashcardList component
+            var page = RenderComponent<FlashcardList>();
+
+            // Act
+            var result = page.Instance.SortFlashcards(flashcards,
+                FlashcardList.SortOption.OpenCountLeastToMost).ToList();
+
+            // Assert
+            Assert.That(result[0].OpenCount, Is.EqualTo(5));
+            Assert.That(result[1].OpenCount, Is.EqualTo(10));
+        }
+
+        /// <summary>
+        /// Tests that SortFlashcards sorts flashcards by OpenCount (most to least)
+        /// </summary>
+        [Test]
+        public void SortFlashcards_Valid_OpenCountMostToLeast_Should_Sort_Correctly()
+        {
+            // Arrange
+            // Create a list of flashcards with varying OpenCounts
+            var flashcards = new List<FlashcardModel>
+            {
+                new FlashcardModel { Id = "1", OpenCount = 10 },
+                new FlashcardModel { Id = "2", OpenCount = 20 }
+            };
+
+            // Render FlashcardList component
+            var page = RenderComponent<FlashcardList>();
+
+            // Act
+            var result = page.Instance.SortFlashcards(flashcards,
+                FlashcardList.SortOption.OpenCountMostToLeast).ToList();
+
+            // Assert
+            Assert.That(result[0].OpenCount, Is.EqualTo(20));
+            Assert.That(result[1].OpenCount, Is.EqualTo(10));
+        }
+
+        /// <summary>
+        /// Tests that SortFlashcards sorts flashcards by LastOpened date (newest first)
+        /// </summary>
+        [Test]
+        public void SortFlashcards_Valid_LastOpenedNewestFirst_Should_Sort_Correctly()
+        {
+            // Arrange
+            // Create a list of flashcards with LastOpenedDates
+            var flashcards = new List<FlashcardModel>
+            {
+                new FlashcardModel { Id = "1" },
+                new FlashcardModel { Id = "2" }
+            };
+
+            // Dictionary for last opened dates
+            var lastOpenedDates = new Dictionary<string, DateTime?>
+            {
+                { "1", DateTime.UtcNow.AddDays(-1) }, // Opened yesterday
+                { "2", DateTime.UtcNow } // Opened today
+            };
+
+            // Render FlashcardList component
+            var page = RenderComponent<FlashcardList>();
+            page.Instance.LastOpenedDates = lastOpenedDates;
+
+            // Act
+            var result = page.Instance.SortFlashcards(flashcards,
+                FlashcardList.SortOption.LastOpenedNewestFirst).ToList();
+
+            // Assert
+            Assert.That(result[0].Id, Is.EqualTo("2"));
+            Assert.That(result[1].Id, Is.EqualTo("1"));
+        }
+
+        /// <summary>
+        /// Tests that SortFlashcards sorts flashcards by LastOpened date (oldest first)
+        /// </summary>
+        [Test]
+        public void SortFlashcards_Valid_LastOpenedOldestFirst_Should_Sort_Correctly()
+        {
+            // Arrange
+            // Create a list of flashcards with LastOpenedDates
+            var flashcards = new List<FlashcardModel>
+            {
+                new FlashcardModel { Id = "1" },
+                new FlashcardModel { Id = "2" }
+            };
+
+            // Dictionary for last opened dates
+            var lastOpenedDates = new Dictionary<string, DateTime?>
+            {
+                { "1", DateTime.UtcNow.AddDays(-1) }, // Opened yesterday
+                { "2", DateTime.UtcNow } // Opened today
+            };
+
+            // Render FlashcardList component
+            var page = RenderComponent<FlashcardList>();
+            page.Instance.LastOpenedDates = lastOpenedDates;
+
+            // Act
+            var result = page.Instance.SortFlashcards(flashcards,
+                FlashcardList.SortOption.LastOpenedOldestFirst).ToList();
+
+            // Assert
+            Assert.That(result[0].Id, Is.EqualTo("1"));
+            Assert.That(result[1].Id, Is.EqualTo("2"));
+        }
+
+        /// <summary>
+        /// Tests that SortFlashcards handles null LastOpenedDates gracefully
+        /// </summary>
+        [Test]
+        public void SortFlashcards_Valid_LastOpened_With_Null_Dates_Should_Handle_Gracefully()
+        {
+            // Arrange
+            // Create a list of flashcards with some null LastOpenedDates
+            var flashcards = new List<FlashcardModel>
+            {
+                new FlashcardModel { Id = "1" },
+                new FlashcardModel { Id = "2" }
+            };
+
+            // Dictionary for last opened dates
+            var lastOpenedDates = new Dictionary<string, DateTime?>
+            {
+                { "1", null }, // Never opened
+                { "2", DateTime.UtcNow } // Opened today
+            };
+
+            // Render FlashcardList component
+            var page = RenderComponent<FlashcardList>();
+            page.Instance.LastOpenedDates = lastOpenedDates;
+
+            // Act
+            var result = page.Instance.SortFlashcards(flashcards,
+                FlashcardList.SortOption.LastOpenedNewestFirst).ToList();
+
+            // Assert
+            Assert.That(result[0].Id, Is.EqualTo("2")); // Opened today
+            Assert.That(result[1].Id, Is.EqualTo("1")); // Never opened (null treated as oldest)
+        }
+
+        #endregion SortFlashcards
     }
 }
