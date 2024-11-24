@@ -133,7 +133,7 @@
     FlashcardModel selectedFlashcard;
 
     // Dictionary to store the last opened dates of flashcards by their IDs
-    public Dictionary<string, DateTime?> LastOpenedDates { get; private set; } = new();
+    public Dictionary<string, DateTime?> LastOpenedDates { get; set; } = new();
 
     // Current sort criteria, no sorting by default
     private SortOption selectedSortCriteria = SortOption.NoSorting;
