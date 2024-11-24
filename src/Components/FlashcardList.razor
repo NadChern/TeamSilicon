@@ -8,7 +8,6 @@
 @inject NavigationManager MyNavigationManager
 
 
-
 <div class="controls">
 
     <div class="control-item">
@@ -23,11 +22,11 @@
                     @category.Id
                 </option>
             }
+
         </select>
     </div>
 
     <div class="control-item">
-        <!-- Sorting Criteria -->
         <label class="select-label" for="sortCriteria">Sort By</label>
         <select class="select-category" id="sortCriteria" @onchange="HandleSortCriteriaChange">
             <option value="@SortOption.NoSorting">Without sorting</option>
@@ -42,11 +41,12 @@
 </div>
 
 <div>
-   <div class="masonry-grid">
+    <div class="masonry-grid">
         @if (HasNoFlashcards())
         {
             <p>No flashcards found with selected Category</p>
         }
+
         @foreach (var flashcard in GetFilteredAndSortedFlashcards())
         {
             bool isFlipped = IsFlipped(flashcard.Id);
@@ -65,6 +65,7 @@
                         {
                             <img src="icons/dog-paw.svg" alt="dog-paw" class="difficulty-image"/>
                         }
+
                     </div>
                 </div>
 
@@ -79,6 +80,7 @@
                         {
                             <span class="text-question">@flashcard.Question</span>
                         }
+
                     </p>
                 </div>
 
@@ -98,12 +100,14 @@
                     {
                         <a href="@flashcard.Url" target="_blank">More info</a>
                     }
+
                     @if (isFlipped)
                     {
                         <button class="btn btn-info btn-sm flashcard-button" @onclick="() => RedirectToUpdatePage(flashcard.Id)">
                             Update
                         </button>
                     }
+
                 </div>
             </div>
         }
@@ -113,6 +117,7 @@
 
 @code {
 
+    // Sorting option as an enum 
     public enum SortOption
     {
         NoSorting,
@@ -130,13 +135,13 @@
     // Dictionary to store the last opened dates of flashcards by their IDs
     public Dictionary<string, DateTime?> LastOpenedDates { get; private set; } = new();
 
-    // No sorting by default
-    private SortOption selectedSortCriteria = SortOption.NoSorting; 
-    
-    // No filtering by default
-    public string selectedCategory = ""; 
-   
-    // Id of the selected card to manage state
+    // Current sort criteria, no sorting by default
+    private SortOption selectedSortCriteria = SortOption.NoSorting;
+
+    // Currently selected category for filtering, no filtering by default
+    public string selectedCategory = "";
+
+    // Id of the selected card to manage flipped state
     public string selectedCardId;
 
     // Track whether answer side is displayed
@@ -155,6 +160,8 @@
         if (firstRender)
         {
             await LoadFlashcardDataFromLocalStorage();
+
+            // Refresh UI
             StateHasChanged();
         }
     }
@@ -166,7 +173,8 @@
         var flashcardData = await FlashcardStorage.GetAllAsync();
 
         // Populate the LastOpenedDates dictionary
-        LastOpenedDates = flashcardData.ToDictionary(f => f.CardId, f => (DateTime?)f.LastOpenedDate);
+        LastOpenedDates = flashcardData.ToDictionary(f => 
+            f.CardId, f => (DateTime?)f.LastOpenedDate);
 
         // Mark data as loaded
         _isDataLoaded = true;
@@ -179,6 +187,8 @@
         {
             // last opened date
             var date = LastOpenedDates[cardId];
+
+            // If card was opened, return the date
             if (date.HasValue)
             {
                 return "Opened: " + date.Value.ToLocalTime().ToString("g");
@@ -188,12 +198,13 @@
         return "";
     }
 
-    // Fetches and filters flashcards based on the selected category ID
+    // Filters flashcards based on the selected category ID
     public IEnumerable<FlashcardModel> GetFilteredFlashcards()
     {
         // Retrieves all flashcards from FlashcardService
         var allFlashcards = FlashcardService.GetAllData();
 
+        // If category is selected, filter flashcards by category ID
         if (!string.IsNullOrEmpty(categoryId))
         {
             return allFlashcards.Where(f =>
@@ -203,55 +214,58 @@
         return allFlashcards;
     }
 
-
+    // Sorts flashcards based on selected sorting option
     public IEnumerable<FlashcardModel> SortFlashcards(IEnumerable<FlashcardModel> flashcards, SortOption sortCriteria)
     {
         return sortCriteria switch
         {
-            // Ascending (Easy → Hard), Descending (Hard → Easy)
+            // No sorting applied
             SortOption.NoSorting => flashcards,
-            SortOption.DifficultyEasyToHard => flashcards.OrderBy(f => f.DifficultyLevel), 
-            SortOption.DifficultyHardToEasy => flashcards.OrderByDescending(f => f.DifficultyLevel), 
 
-            // Ascending (Low → High), Descending (High → Low)
-            SortOption.OpenCountLeastToMost => flashcards.OrderBy(f => f.OpenCount), 
-            SortOption.OpenCountMostToLeast => flashcards.OrderByDescending(f => f.OpenCount), 
+            // Sorting by difficulty level    
+            SortOption.DifficultyEasyToHard => flashcards.OrderBy(f => f.DifficultyLevel),
+            SortOption.DifficultyHardToEasy => flashcards.OrderByDescending(f => f.DifficultyLevel),
+
+            // Sorting by OpenCount
+            SortOption.OpenCountLeastToMost => flashcards.OrderBy(f => f.OpenCount),
+            SortOption.OpenCountMostToLeast => flashcards.OrderByDescending(f => f.OpenCount),
 
 
-            // Ascending (from oldest to newest), Descending (New → Old)
-            // DateTime.MaxValue places unopened cards at the end in ascending order.
-            // DateTime.MaxValue places unopened cards at the beginning in descending order.
+            // Sorting by LastOpenedDate
+            // DateTime.MaxValue places unopened cards at the end in ascending order,
+            // and at the beginning in descending order.
             SortOption.LastOpenedNewestFirst => flashcards.OrderByDescending(f =>
-                LastOpenedDates.ContainsKey(f.Id) ? LastOpenedDates[f.Id] : DateTime.MaxValue), 
+                LastOpenedDates.ContainsKey(f.Id) ? LastOpenedDates[f.Id] : DateTime.MaxValue),
             SortOption.LastOpenedOldestFirst =>
                 flashcards.OrderBy(f =>
-                    LastOpenedDates.ContainsKey(f.Id) ? LastOpenedDates[f.Id] : DateTime.MaxValue) 
+                    LastOpenedDates.ContainsKey(f.Id) ? LastOpenedDates[f.Id] : DateTime.MaxValue)
         };
     }
 
+    // Combines filtering and sorting logic to produce final collection of flashcards
     public IEnumerable<FlashcardModel> GetFilteredAndSortedFlashcards()
     {
-        // First, filter flashcards by category (if any category is selected)
+        // Filter flashcards by category (if any category is selected)
         var filteredFlashcards = FlashcardService.GetFilteredFlashcardsByCategory(selectedCategory);
 
-        // Then, sort flashcards by the selected criteria and direction
+        // Sort flashcards by selected criteria and direction
         return SortFlashcards(filteredFlashcards, selectedSortCriteria);
     }
 
-    private void HandleSortCriteriaChange(ChangeEventArgs e)
+    // Handles the event when the sort criteria is changed in the UI dropdown
+    public void HandleSortCriteriaChange(ChangeEventArgs e)
     {
         selectedSortCriteria = Enum.Parse<SortOption>(e.Value.ToString());
-        StateHasChanged(); // Triggers a re-render of the UI
+        StateHasChanged();
     }
 
-  private void HandleCategoryFilterChange(ChangeEventArgs e)
+    // Handles the event when the category filter is changed in the UI dropdown.
+    public void HandleCategoryFilterChange(ChangeEventArgs e)
     {
         selectedCategory = e.Value.ToString();
         MyNavigationManager.NavigateTo("/Flashcards/" + selectedCategory, replace: true);
         StateHasChanged();
     }
-
-
 
     // Get color of the category
     public string GetCategoryColor(string topicId)
@@ -263,8 +277,8 @@
         return categoryColor;
     }
 
-    // Called whenever parameters of the component change, such as a new URL
-    // This method extracts the category ID from the URL path
+    // Called whenever parameters of the component change, such as a new URL.
+    // Extracts the category ID from the URL path
     protected override void OnParametersSet()
     {
         // Retrieves current URL path
@@ -323,11 +337,56 @@
     public bool HasNoFlashcards() => !GetFilteredFlashcards().Any();
 
     // Determines if a specific card is currently flipped to answer side
-    public bool IsFlipped(string cardId) => selectedCardId == cardId && showAnswer;
+    public bool IsFlipped(string cardId)
+    {
+        // Check if current card is selected card
+        if (selectedCardId == cardId)
+        {
+            // Check if answer of selected card is displayed
+            if (showAnswer)
+            {
+                return true;
+            }
+        }
 
-    // Checks if the "Flipped" label should be displayed based on whether  card is flipped and OpenCount
-    public bool ShouldDisplayFlippedLabel(bool isFlipped, int openCount) => isFlipped == false && openCount > 0;
+        // Card is not flipped
+        return false;
+    }
+
+    // Checks if the "Flipped" label should be displayed based on whether card is flipped and OpenCount
+    public bool ShouldDisplayFlippedLabel(bool isFlipped, int openCount)
+    {
+        // Check if card is not flipped to answer side
+        if (isFlipped == false)
+        {
+            // Check if card opened at least once
+            if (openCount > 0)
+            {
+                // Display flipped label
+                return true;
+            }
+        }
+
+        // Card is flipped or has never been opened
+        return false;
+    }
 
     // Checks if a "More info" link should be displayed when answer side is shown, URL is provided
-    public bool CanShowMoreInfoLink(bool isFlipped, string url) => isFlipped && !string.IsNullOrEmpty(url);
+    public bool CanShowMoreInfoLink(bool isFlipped, string url)
+    {
+        // Check if card is flipped to answer side
+        if (isFlipped)
+        {
+            // Check if valid URL is provided
+            if (!string.IsNullOrEmpty(url))
+            {
+                // "More info" link can be displayed
+                return true;
+            }
+        }
+
+        // Either card is not flipped or no valid URL is provided
+        return false;
+    }
+
 }
