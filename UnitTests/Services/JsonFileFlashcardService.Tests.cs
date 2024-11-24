@@ -16,7 +16,7 @@ namespace UnitTests.Services
         /// Instance of JsonFileFlashcardService.
         /// </summary>
         private JsonFileFlashcardService flashcardService;
- 
+
         #region GetAllData
 
         /// <summary>
@@ -212,7 +212,7 @@ namespace UnitTests.Services
         {
             // Arrange
             flashcardService = TestHelper.FlashcardService;
-            var invalidId = "00000000-0000-0000-0000-000000000000" ; // Non-existing flashcard ID
+            var invalidId = "00000000-0000-0000-0000-000000000000"; // Non-existing flashcard ID
 
             // Act
             var result = flashcardService.RemoveFlashcard(invalidId);
@@ -222,7 +222,7 @@ namespace UnitTests.Services
         }
 
         #endregion RemoveFlashcard
-    
+
         #region CreateData
 
         /// <summary>
@@ -251,7 +251,7 @@ namespace UnitTests.Services
             // Assert - Verify that the ID is unique and greater than 0
             ClassicAssert.IsFalse(string.IsNullOrEmpty(createdFlashcard.Id));
         }
-        
+
         /// <summary>
         /// Test to verify that CreateData initializes OpenCount to 0 for the new flashcard.
         /// </summary>
@@ -274,7 +274,7 @@ namespace UnitTests.Services
             // Assert 
             ClassicAssert.AreEqual(0, createdFlashcard.OpenCount);
         }
-        
+
         /// <summary>
         /// Test to verify that CreateData adds a flashcard to the dataset.
         /// </summary>
@@ -301,7 +301,7 @@ namespace UnitTests.Services
         }
 
         #endregion CreateData
-        
+
         #region ValidateUrlAsync
 
         /// <summary>
@@ -385,5 +385,87 @@ namespace UnitTests.Services
         }
 
         #endregion ValidateUrlAsync
+
+        #region GetFilteredFlashcardsByCategory
+
+        /// <summary>
+        /// Test to verify that GetFilteredFlashcardsByCategory returns all flashcards when no category is specified.
+        /// </summary>
+        [Test]
+        public void GetFilteredFlashcardsByCategory_NoCategory_Should_Return_All_Flashcards()
+        {
+            // Arrange
+            flashcardService = TestHelper.FlashcardService;
+
+            // Act
+            var result = flashcardService.GetFilteredFlashcardsByCategory(null);
+
+            // Assert 
+            ClassicAssert.AreEqual(false, result == null);
+            ClassicAssert.AreEqual(flashcardService.GetAllData().Count(), result.Count());
+        }
+
+        /// <summary>
+        /// Test to verify that GetFilteredFlashcardsByCategory returns all flashcards when an empty category is specified.
+        /// </summary>
+        [Test]
+        public void GetFilteredFlashcardsByCategory_Empty_Category_Should_Return_All_Flashcards()
+        {
+            // Arrange
+            flashcardService = TestHelper.FlashcardService;
+
+            // Act
+            var result = flashcardService.GetFilteredFlashcardsByCategory("");
+
+            // Assert 
+            ClassicAssert.AreEqual(false, result == null);
+            ClassicAssert.AreEqual(flashcardService.GetAllData().Count(), result.Count());
+        }
+
+        /// <summary>
+        /// Test to verify that GetFilteredFlashcardsByCategory returns only flashcards matching a valid category.
+        /// </summary>
+        [Test]
+        public void GetFilteredFlashcardsByCategory_Valid_Category_Should_Return_Matching_Flashcards()
+        {
+            // Arrange
+            flashcardService = TestHelper.FlashcardService;
+
+            // Stores valid category
+            var validCategory = "Python";
+
+            // Expected number of cards for the category
+            var expectedCount = flashcardService.GetAllData().Count(f => f.CategoryId == validCategory);
+
+            // Act
+            var result = flashcardService.GetFilteredFlashcardsByCategory(validCategory);
+
+            // Assert 
+            ClassicAssert.AreEqual(false, result == null);
+            ClassicAssert.AreEqual(expectedCount, result.Count());
+            ClassicAssert.IsTrue(result.All(f => f.CategoryId == validCategory));
+        }
+
+        /// <summary>
+        /// Test to verify that GetFilteredFlashcardsByCategory returns an empty collection for an invalid category.
+        /// </summary>
+        [Test]
+        public void GetFilteredFlashcardsByCategory_Invalid_Category_Should_Return_Empty_Collection()
+        {
+            // Arrange
+            flashcardService = TestHelper.FlashcardService;
+
+            // Use a category that does not exist in your dataset
+            var invalidCategory = "InvalidCategory";
+
+            // Act
+            var result = flashcardService.GetFilteredFlashcardsByCategory(invalidCategory);
+
+            // Assert - Verify that the returned collection is empty
+            ClassicAssert.AreEqual(false, result == null);
+            ClassicAssert.AreEqual(0, result.Count());
+        }
+
+        #endregion GetFilteredFlashcardsByCategory
     }
 }
