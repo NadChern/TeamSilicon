@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+
 
 namespace ContosoCrafts.WebSite.Services
 {
@@ -140,6 +142,26 @@ namespace ContosoCrafts.WebSite.Services
             return true; // Update successful
         }
 
+        
+        
+        public IEnumerable<FlashcardModel> GetFilteredFlashcardsByCategory(string category)
+    {
+        // Retrieves all flashcards from FlashcardService
+        var allFlashcards = GetAllData();
+
+        // If no category is selected, return all flashcards
+        if (string.IsNullOrEmpty(category))
+        {
+            return allFlashcards;
+        }
+
+        return allFlashcards.Where(f =>
+            f.CategoryId.Equals(category, StringComparison.OrdinalIgnoreCase));
+    }
+
+   
+ 
+        
         /// <summary>
         /// Saves the flashcard data to the JSON file.
         /// </summary>
