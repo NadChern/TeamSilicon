@@ -222,6 +222,7 @@ namespace ContosoCrafts.WebSite.Services
                     // Check if the response status code is a success (200-299 range)
                     return response.IsSuccessStatusCode;
                 }
+                
                 catch
                 {
                     // Treat any error as a non-existent URL
