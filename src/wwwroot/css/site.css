@@ -704,6 +704,15 @@ tr:hover {
         text-align: center;
     }
 
+.AU-title-font { /* from general with slight adjustments */
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #222;
+    text-align: left;
+    margin: 1rem 0;
+}
+
 .AU-con-font { /* from general with slight adjustments */
     font-family: 'Roboto', Arial, sans-serif;
     font-size: 1.5rem;
@@ -723,6 +732,76 @@ tr:hover {
     text-align: center;
     margin: 0.5rem 0 1rem 0;
 }
+
+.AU-about-container {
+    background-color: #B3E5FC;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Carousel Container */
+.AU-carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin-bottom: 20px;
+}
+
+/* Carousel Content */
+.AU-carousel-content {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 200%; /* Double the width for 2 items */
+}
+
+/* Individual Carousel Items */
+.AU-carousel-item {
+    flex: 0 0 50%; /* Each item takes half the width */
+    padding: 20px;
+    background-color: #B3E5FC; /* Light blue background */
+    color: #333; /* Dark grey text */
+}
+
+/* Left Carousel Button */
+.AU-carousel-button-left {
+    position: absolute;
+    top: 50%; /* Vertically centered */
+    left: 10px; /* Positioned 10px from the left edge */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    background: none; /* No background */
+    border: none; /* No border */
+    font-size: 24px; /* Adjust button size */
+    color: black; /* Button text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    z-index: 10; /* Ensure it's above other elements */
+    transform: translateY(-50%) scaleY(1.5); /* Stretch vertically by 1.5 times */
+}
+
+/* Right Carousel Button */
+.AU-carousel-button-right {
+    position: absolute;
+    top: 50%; /* Vertically centered */
+    right: 10px; /* Positioned 10px from the right edge */
+    transform: translateY(-50%); /* Adjust for vertical centering */
+    background: none; /* No background */
+    border: none; /* No border */
+    font-size: 24px; /* Adjust button size */
+    color: black; /* Button text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    z-index: 10; /* Ensure it's above other elements */
+    transform: translateY(-50%) scaleY(1.5); /* Stretch vertically by 1.5 times */
+}
+
+/* Hover Effect for Both Buttons */
+.AU-carousel-button-left:hover,
+.AU-carousel-button-right:hover {
+    color: #555; /* Slightly darker color on hover */
+}
+
 
 /* Privacy.cshtml styling
  ----------------------------------------------------*/
