@@ -6,16 +6,72 @@
     ViewData["Subtitle"] = "Authors";
 }
 
-<!-- Title Section -->
-<h1 class="title-font">@ViewData["Title"]</h1>
-
 <!-- Content Section -->
-<p class="AU-con-font">
-    This web application is designed to help computer science students prepare for technical
-    interviews through interactive flashcards. We offer a wide range of topics related to computer science.
-    Students can customize their learning experience by adding flashcard sets to their personal learning decks,
-    allowing them to prepare for any interview with confidence.
-</p>
+<div class="AU-carousel-container">
+    <!-- Carousel Content -->
+    <div class="AU-carousel-content">
+        <!-- About Us Section -->
+        <div class="AU-carousel-item">
+            <h1 class="AU-title-font">About us</h1>
+            <p class="AU-con-font">
+                This web application is designed to help computer science students prepare for technical
+                interviews through interactive flashcards. We offer a wide range of topics related to computer science.
+                Students can customize their learning experience by adding flashcard sets to their personal learning decks,
+                allowing them to prepare for any interview with confidence.
+            </p>
+        </div>
+
+        <!-- Why Us Section -->
+        <div class="AU-carousel-item">
+            <h1 class="AU-title-font">Why Us</h1>
+            <p class="AU-con-font">
+                [Insert text here]
+            </p>
+        </div>
+    </div>
+
+    <!-- Carousel Controls -->
+    <button class="AU-carousel-button-left" onclick="moveCarousel(-1)">&lt;</button>
+    <button class="AU-carousel-button-right" onclick="moveCarousel(1)">&gt;</button>
+</div>
+
+<!-- Carousel Script -->
+<script>
+    let currentIndex = 0;
+
+    function moveCarousel(direction) {
+        const carouselContent = document.querySelector('.AU-carousel-content');
+        const totalItems = carouselContent.children.length;
+        const itemWidth = carouselContent.children[0].offsetWidth;
+
+        // Update the current index based on the direction
+        currentIndex = (currentIndex + direction + totalItems) % totalItems;
+
+        // Calculate the offset for the transform
+        const offset = -currentIndex * itemWidth;
+        carouselContent.style.transform = `translateX(${offset}px)`;
+
+        // Update visibility of the buttons based on current index
+        updateButtonVisibility();
+    }
+
+    function updateButtonVisibility() {
+        const leftButton = document.querySelector('.AU-carousel-button-left');
+        const rightButton = document.querySelector('.AU-carousel-button-right');
+
+        // Show or hide buttons based on current index
+        if (currentIndex === 0) {
+            leftButton.style.display = 'none'; // Hide the left button on "About Us"
+            rightButton.style.display = 'inline-block'; // Show the right button
+        } else if (currentIndex === 1) {
+            leftButton.style.display = 'inline-block'; // Show the left button
+            rightButton.style.display = 'none'; // Hide the right button on "Why Us"
+        }
+    }
+
+    // Call this once initially to set button visibility on page load
+    document.addEventListener('DOMContentLoaded', updateButtonVisibility);
+</script>
 
 <!-- Authors Section -->
 <h2 class="AU-sub-font">@ViewData["Subtitle"]</h2>
