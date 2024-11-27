@@ -6,7 +6,7 @@
     "Answer": "Encapsulation, inheritance, polymorphism, and abstraction. ",
     "Difficulty": 1,
     "Url": "https://www.freecodecamp.org/news/object-oriented-programming-concepts-21bb035f7260/",
-    "OpenCount": 3
+    "OpenCount": 5
   },
   {
     "Id": "4cce8136-84c3-4e69-abfb-51fedae8432b",
@@ -150,6 +150,15 @@
     "Answer": "Value types store actual data, while reference types store a reference to data. Value types are independent, so changes to one don\u2019t affect others. Reference types share memory, so changes to one reference affect all others pointing to the same data.",
     "Difficulty": 1,
     "Url": "https://www.c-sharpcorner.com/article/value-types-vs-reference-types-in-c-sharp/",
-    "OpenCount": 2
+    "OpenCount": 4
+  },
+  {
+    "Id": "35a3fcfb-e059-4705-be95-cb4045c48036",
+    "CategoryId": "CSharp",
+    "Question": "What is the difference between a struct and a class in C#?",
+    "Answer": "A struct is a value type stored on the stack, while a class is a reference type stored on the heap. Structs are generally faster for small, simple data structures due to stack allocation, while classes are more efficient for larger, complex objects.",
+    "Difficulty": 1,
+    "Url": "https://www.geeksforgeeks.org/difference-between-class-and-structure-in-c-sharp/",
+    "OpenCount": 0
   }
 ]
