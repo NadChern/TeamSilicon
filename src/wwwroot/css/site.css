@@ -251,6 +251,11 @@ ul {
     font-size: 14px;
 }
 
+.last-opened-date {
+    font-weight: bold;
+    color: #2d42ba;
+}
+
 .category {
     display: flex;
     align-items: center;
