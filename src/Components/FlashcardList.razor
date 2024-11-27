@@ -76,7 +76,7 @@
                             <span class="text-answer">@flashcard.Answer </span>
                         }
 
-                        @if (!isFlipped)
+                        @if (isFlipped == false)
                         {
                             <span class="text-question">@flashcard.Question</span>
                         }
@@ -136,7 +136,7 @@
     public Dictionary<string, DateTime?> LastOpenedDates { get; set; } = new();
 
     // Current sort criteria, no sorting by default
-    private SortOption selectedSortCriteria = SortOption.NoSorting;
+    public SortOption selectedSortCriteria = SortOption.NoSorting;
 
     // Currently selected category for filtering, no filtering by default
     public string selectedCategory = "";
