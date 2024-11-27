@@ -381,16 +381,16 @@ namespace UnitTests.Components
 
             // Act
             // Locate the card element in the DOM using its unique ID
-            var cardElement = page.Find($"div[data-id='{cardId}']"); 
+            var cardElement = page.Find($"div[data-id='{cardId}']");
 
             // Simulate a click on the card to reveal its options
-            cardElement.Click(); 
+            cardElement.Click();
 
             // Locate the Update button within the card element
-            var updateButton = page.Find($"div[data-id='{cardId}'] button"); 
+            var updateButton = page.Find($"div[data-id='{cardId}'] button");
 
             // Simulate a click on the Update button
-            updateButton.Click(); 
+            updateButton.Click();
 
             // Getting the current Url after click Update
             var navigationManager = Services.GetRequiredService<FakeNavigationManager>();
@@ -820,5 +820,107 @@ namespace UnitTests.Components
         }
 
         #endregion SortFlashcards
+
+        #region HandleSortCriteriaChange
+
+        /// <summary>
+        /// Tests that changing sort criteria updates the sorting and re-renders the flashcards correctly.
+        /// </summary>
+        [Test]
+        public void HandleSortCriteriaChange_Valid_Should_Update_Sorting()
+        {
+            // Arrange
+            // Render FlashcardList component for testing
+            var page = RenderComponent<FlashcardList>();
+
+            // Act
+            // Locate the sort dropdown
+            var dropdown = page.Find("#sortCriteria");
+
+            // Simulate sorting change
+            dropdown.Change(FlashcardList.SortOption.DifficultyEasyToHard.ToString());
+
+            // Get sorted flashcards
+            var sortedFlashcards = page.Instance.GetFilteredAndSortedFlashcards().ToList();
+
+            // Assert
+            Assert.That(page.Instance.selectedSortCriteria, Is.EqualTo(FlashcardList.SortOption.DifficultyEasyToHard));
+            Assert.That(sortedFlashcards, Is.Ordered.By("DifficultyLevel"));
+        }
+
+        /// <summary>
+        /// Tests that the default state of the sort criteria dropdown is set to "NoSorting".
+        /// </summary>
+        [Test]
+        public void HandleSortCriteriaChange_Valid_Default_Should_HaveNoSorting()
+        {
+            // Arrange
+            var page = RenderComponent<FlashcardList>();
+
+            // Act
+            // Locate sort criteria dropdown
+            var dropdown = page.Find("#sortCriteria"); 
+            
+            // Get the first option
+            var defaultOption = dropdown.QuerySelector("option"); 
+
+            // Assert
+            Assert.That(defaultOption?.GetAttribute("value"),
+                Is.EqualTo(FlashcardList.SortOption.NoSorting.ToString())); 
+            Assert.That(page.Instance.selectedSortCriteria, Is.EqualTo(FlashcardList.SortOption.NoSorting));
+        }
+
+        #endregion
+
+        #region HandleCategoryFilterChange
+
+        /// <summary>
+        /// Tests that changing the category filter updates the filtered flashcards and re-renders the component.
+        /// </summary>
+        [Test]
+        public void HandleCategoryFilterChange_Valid_Should_Update_Category()
+        {
+            // Arrange
+            // Render FlashcardList component for testing
+            var page = RenderComponent<FlashcardList>();
+
+            // Mock category
+            var testCategory = "Python";
+
+            // Act
+            // Locate the category filter dropdown
+            var dropdown = page.Find("#categoryFilter");
+            dropdown.Change(testCategory);
+
+            // Gets the flashcards filtered and sorted according to the current settings
+            var filteredFlashcards = page.Instance.GetFilteredAndSortedFlashcards().ToList();
+
+            // Assert
+            Assert.That(page.Instance.selectedCategory, Is.EqualTo(testCategory));
+            Assert.That(filteredFlashcards.All(f => f.CategoryId == testCategory), Is.True);
+        }
+
+        /// <summary>
+        /// Tests that the default state of the category filter dropdown is set to "All Categories".
+        /// </summary>
+        [Test]
+        public void HandleCategoryFilterChange_Valid_Default_Should_Show_AllCategories()
+        {
+            // Arrange
+            var page = RenderComponent<FlashcardList>();
+
+            // Act
+            // Locate category filter dropdown
+            var dropdown = page.Find("#categoryFilter");
+
+            // Find the selected option
+            var defaultOption = dropdown.QuerySelector("option[selected]");
+
+            // Assert
+            Assert.That(defaultOption?.TextContent.Trim(), Is.EqualTo("All Categories"));
+            Assert.That(page.Instance.selectedCategory, Is.Null.Or.Empty);
+        }
+
+        #endregion
     }
 }
