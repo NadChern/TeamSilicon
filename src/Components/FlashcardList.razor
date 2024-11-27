@@ -1,5 +1,6 @@
 @using ContosoCrafts.WebSite.Models
 @using ContosoCrafts.WebSite.Services
+@using Humanizer
 @inject JsonFileFlashcardService FlashcardService
 @inject JsonFileCategoryService CategoryService
 @inject LocalStorageFlashcardService FlashcardStorage
@@ -92,7 +93,12 @@
                             <span class="badge rounded-pill custom-badge ms-auto">@flashcard.OpenCount</span>
                         </div>
                         <div class="last-opened">
-                            <span> @GetLastOpenedDate(flashcard.Id) </span>
+                            @if (GetLastOpenedDate(flashcard.Id) != null)
+                            {
+                                  <span>Opened: </span>
+                                  <span class="last-opened-date"> @GetLastOpenedDate(flashcard.Id) </span>
+                            }
+                          
                         </div>
                     }
 
@@ -191,13 +197,13 @@
             // If card was opened, return the date
             if (date.HasValue)
             {
-                return "Opened: " + date.Value.ToLocalTime().ToString("g");
+                return date.Value.ToLocalTime().Humanize();
             }
         }
 
-        return "";
+        return null;
     }
-
+    
     // Filters flashcards based on the selected category ID
     public IEnumerable<FlashcardModel> GetFilteredFlashcards()
     {
@@ -329,10 +335,21 @@
     public async Task HandleClickOnCard(string cardId)
     {
         await FlashcardStorage.UpdateAsync(cardId);
-        LastOpenedDates[cardId] = DateTime.UtcNow;
+        
+        if (LastOpenedDates.ContainsKey(cardId) == false)
+        {
+            LastOpenedDates.Add(cardId, DateTime.Now);
+        }
+        
+       if (LastOpenedDates.ContainsKey(cardId))
+        {
+            LastOpenedDates[cardId] = DateTime.UtcNow;
+        }
+    
         ToggleCard(cardId);
     }
-
+    
+   
     // Checks if there are no flashcards in filtered set
     public bool HasNoFlashcards() => !GetFilteredFlashcards().Any();
 
