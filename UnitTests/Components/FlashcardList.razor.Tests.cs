@@ -314,32 +314,106 @@ namespace UnitTests.Components
         #region HandleClickOnCard
 
         /// <summary>
-        /// Tests that HandleClickOnCard updates the last opened date
-        /// and toggles the card display.
+        /// Tests that HandleClickOnCard updates the last opened date for an existing card.
         /// </summary>
         [Test]
-        public async Task HandleClickOnCard_Valid_Should_Update_LastOpenedDate_And_ToggleCard()
+        public async Task HandleClickOnCard_Valid_Existing_Card_Should_Update_LastOpenedDate()
         {
             // Arrange
             var page = RenderComponent<FlashcardList>();
 
             // Test card Id
-            var cardId = "e0264da2-8c97-426a-8af2-0fb1bb64c243";
+            var cardId = "existing-card-id";
 
             // Initial last opened date
             var initialDate = DateTime.UtcNow.AddDays(-1);
 
             // Simulate the card being already in the LastOpenedDates dictionary
-            await TestHelper.LocalStorageFlashcardService.UpdateAsync(cardId);
             page.Instance.LastOpenedDates[cardId] = initialDate;
 
             // Act
             await page.Instance.HandleClickOnCard(cardId);
 
             // Assert
-            ClassicAssert.IsTrue(page.Instance.IsFlipped(cardId));
+            Assert.That(page.Instance.LastOpenedDates[cardId], Is.GreaterThan(initialDate));
+            Assert.That(page.Instance.IsFlipped(cardId), Is.True);
         }
 
+        /// <summary>
+        /// Tests that HandleClickOnCard adds a new entry to LastOpenedDates if the card does not exist.
+        /// </summary>
+        [Test]
+        public async Task HandleClickOnCard_Valid_NewCard_Should_Add_LastOpenedDate()
+        {
+            // Arrange
+            var page = RenderComponent<FlashcardList>();
+
+            // Test card Id
+            var cardId = "new-card-id";
+
+            // Ensure the card is not in the dictionary
+            Assert.That(page.Instance.LastOpenedDates.ContainsKey(cardId), Is.False);
+
+            // Act
+            await page.Instance.HandleClickOnCard(cardId);
+
+            // Assert
+            Assert.That(page.Instance.LastOpenedDates.ContainsKey(cardId), Is.True);
+            Assert.That(page.Instance.LastOpenedDates[cardId], Is.Not.Null);
+            Assert.That(page.Instance.IsFlipped(cardId), Is.True);
+        }
+        
+        /// <summary>
+        /// Tests that HandleClickOnCard toggles the display of the card.
+        /// </summary>
+        [Test]
+        public async Task HandleClickOnCard_Valid_Should_Toggle_Card_Display()
+        {
+            // Arrange
+            var page = RenderComponent<FlashcardList>();
+
+            // Test card Id
+            var cardId = "test-card-id";
+
+            // Add the card to LastOpenedDates
+            page.Instance.LastOpenedDates[cardId] = DateTime.UtcNow;
+
+            // Act
+            await page.Instance.HandleClickOnCard(cardId);
+
+            // Assert
+            Assert.That(page.Instance.IsFlipped(cardId), Is.True);
+        }
+        
+        /// <summary>
+        /// Tests that HandleClickOnCard does not add duplicate entries for existing cards.
+        /// </summary>
+        [Test]
+        public async Task HandleClickOnCard_Valid_Existing_Card_Should_Not_Add_Duplicate_Entry()
+        {
+            // Arrange
+            var page = RenderComponent<FlashcardList>();
+
+            // Test card Id
+            var cardId = "existing-card-id";
+
+            // Initial last opened date
+            var initialDate = DateTime.UtcNow.AddDays(-1);
+
+            // Simulate the card being already in the LastOpenedDates dictionary
+            page.Instance.LastOpenedDates[cardId] = initialDate;
+
+            // Act
+            await page.Instance.HandleClickOnCard(cardId);
+
+            // Assert
+            // Verify that the card still has only one entry in the dictionary
+            Assert.That(page.Instance.LastOpenedDates.Count(kvp => kvp.Key == cardId), Is.EqualTo(1));
+
+            // Verify that the last opened date is updated to a new value
+            Assert.That(page.Instance.LastOpenedDates[cardId], Is.GreaterThan(initialDate));
+        }
+        
         #endregion HandleClickOnCard
 
         #region RedirectToUpdatePage
@@ -820,7 +894,7 @@ namespace UnitTests.Components
             Assert.That(result[1].Id, Is.EqualTo("1")); // Never opened (null treated as oldest)
         }
 
-        
+
         /// <summary>
         /// Tests that SortFlashcards handles missing LastOpenedDates for some flashcards (newest first).
         /// </summary>
@@ -831,17 +905,17 @@ namespace UnitTests.Components
             // List of flashcards to be sorted
             var flashcards = new List<FlashcardModel>
             {
-                new FlashcardModel { Id = "1" }, 
-                new FlashcardModel { Id = "2" }, 
-                new FlashcardModel { Id = "3" }  
+                new FlashcardModel { Id = "1" },
+                new FlashcardModel { Id = "2" },
+                new FlashcardModel { Id = "3" }
             };
 
             // Dictionary of LastOpenedDates
             var lastOpenedDates = new Dictionary<string, DateTime?>
             {
                 // No entry for "2", meaning it's treated as DateTime.MaxValue
-                { "1", DateTime.UtcNow.AddDays(-2) }, 
-                { "3", DateTime.UtcNow.AddDays(-1) }  
+                { "1", DateTime.UtcNow.AddDays(-2) },
+                { "3", DateTime.UtcNow.AddDays(-1) }
             };
 
             // Render FlashcardList component
@@ -850,16 +924,16 @@ namespace UnitTests.Components
 
             // Act
             // Sort the flashcards by LastOpenedNewestFirst
-            var result = page.Instance.SortFlashcards(flashcards, 
+            var result = page.Instance.SortFlashcards(flashcards,
                 FlashcardList.SortOption.LastOpenedNewestFirst).ToList();
 
             // Assert
             // Missing date treated as newest
-            Assert.That(result[0].Id, Is.EqualTo("2")); 
-            Assert.That(result[1].Id, Is.EqualTo("3")); 
-            Assert.That(result[2].Id, Is.EqualTo("1")); 
+            Assert.That(result[0].Id, Is.EqualTo("2"));
+            Assert.That(result[1].Id, Is.EqualTo("3"));
+            Assert.That(result[2].Id, Is.EqualTo("1"));
         }
-        
+
         /// <summary>
         /// Tests that SortFlashcards handles missing LastOpenedDates for some flashcards (oldest first).
         /// </summary>
@@ -870,16 +944,16 @@ namespace UnitTests.Components
             // List of flashcards to be sorted
             var flashcards = new List<FlashcardModel>
             {
-                new FlashcardModel { Id = "1" }, 
-                new FlashcardModel { Id = "2" }, 
-                new FlashcardModel { Id = "3" }  
+                new FlashcardModel { Id = "1" },
+                new FlashcardModel { Id = "2" },
+                new FlashcardModel { Id = "3" }
             };
 
             // Dictionary of LastOpenedDates
             var lastOpenedDates = new Dictionary<string, DateTime?>
             {
                 { "1", DateTime.UtcNow.AddDays(-2) }, // Opened two days ago
-                { "3", DateTime.UtcNow.AddDays(-1) }  // Opened yesterday
+                { "3", DateTime.UtcNow.AddDays(-1) } // Opened yesterday
             };
 
             //  Render FlashcardList component
@@ -887,15 +961,15 @@ namespace UnitTests.Components
             page.Instance.LastOpenedDates = lastOpenedDates;
 
             // Act
-            var result = page.Instance.SortFlashcards(flashcards, 
+            var result = page.Instance.SortFlashcards(flashcards,
                 FlashcardList.SortOption.LastOpenedOldestFirst).ToList();
 
             // Assert
-            Assert.That(result[0].Id, Is.EqualTo("1")); 
-            Assert.That(result[1].Id, Is.EqualTo("3")); 
-            Assert.That(result[2].Id, Is.EqualTo("2")); 
+            Assert.That(result[0].Id, Is.EqualTo("1"));
+            Assert.That(result[1].Id, Is.EqualTo("3"));
+            Assert.That(result[2].Id, Is.EqualTo("2"));
         }
-        
+
         #endregion SortFlashcards
 
         #region HandleSortCriteriaChange
@@ -936,14 +1010,14 @@ namespace UnitTests.Components
 
             // Act
             // Locate sort criteria dropdown
-            var dropdown = page.Find("#sortCriteria"); 
-            
+            var dropdown = page.Find("#sortCriteria");
+
             // Get the first option
-            var defaultOption = dropdown.QuerySelector("option"); 
+            var defaultOption = dropdown.QuerySelector("option");
 
             // Assert
             Assert.That(defaultOption?.GetAttribute("value"),
-                Is.EqualTo(FlashcardList.SortOption.NoSorting.ToString())); 
+                Is.EqualTo(FlashcardList.SortOption.NoSorting.ToString()));
             Assert.That(page.Instance.selectedSortCriteria, Is.EqualTo(FlashcardList.SortOption.NoSorting));
         }
 
