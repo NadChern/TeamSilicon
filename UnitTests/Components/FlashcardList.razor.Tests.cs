@@ -12,6 +12,7 @@ using NUnit.Framework.Legacy;
 using Bunit.TestDoubles;
 using ContosoCrafts.WebSite.Models;
 using Moq;
+using Humanizer;
 
 namespace UnitTests.Components
 {
@@ -508,7 +509,7 @@ namespace UnitTests.Components
         /// Tests that GetLastOpenedDate returns a formatted string if a date exists.
         /// </summary>
         [Test]
-        public void GetLastOpenedDate_Should_Return_Correct_String_If_Date_Exists()
+        public void GetLastOpenedDate_Date_Exists_Should_Return_Correct_String()
         {
             // Arrange
             // ID of the test flashcard 
@@ -518,7 +519,7 @@ namespace UnitTests.Components
             var lastOpenedDate = DateTime.UtcNow;
 
             // Expected formatted string that includes the "Opened:" prefix and a formatted version of the last opened date
-            var expectedDate = "Opened: " + lastOpenedDate.ToLocalTime().ToString("g");
+            var expectedDate = lastOpenedDate.ToLocalTime().Humanize();
 
             // Render the FlashcardList component for testing
             var page = RenderComponent<FlashcardList>();
@@ -535,7 +536,7 @@ namespace UnitTests.Components
         /// Tests that GetLastOpenedDate returns an empty string if no date exists.
         /// </summary>
         [Test]
-        public void GetLastOpenedDate_Should_Return_Empty_String_If_Date_Does_Not_Exist()
+        public void GetLastOpenedDate_Date_Does_Not_Exist_Should_Return_Null()
         {
             // Arrange
             var cardId = "non-existent-card-id";
@@ -547,14 +548,14 @@ namespace UnitTests.Components
             var result = page.Instance.GetLastOpenedDate(cardId);
 
             // Assert
-            ClassicAssert.AreEqual("", result);
+            Assert.That(result, Is.Null);
         }
 
         /// <summary>
         /// Tests that GetLastOpenedDate returns an empty string if the date is null.
         /// </summary>
         [Test]
-        public void GetLastOpenedDate_Should_Return_Empty_String_If_Date_Is_Null()
+        public void GetLastOpenedDate_Date_Exists_Null_Assigned_Should_Return_Null()
         {
             // Arrange
             var cardId = "test-card-id";
@@ -567,7 +568,7 @@ namespace UnitTests.Components
             var result = page.Instance.GetLastOpenedDate(cardId);
 
             // Assert
-            ClassicAssert.AreEqual("", result);
+            Assert.That(result, Is.Null);
         }
 
         /// <summary>
