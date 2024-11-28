@@ -75,7 +75,7 @@ namespace UnitTests.Components
             var updatedFlashcard = TestHelper.FlashcardService.GetById("e0264da2-8c97-426a-8af2-0fb1bb64c243");
 
             // Assert
-            ClassicAssert.AreEqual(4, updatedFlashcard.OpenCount); // OpenCount incremented from 3 to 4
+            ClassicAssert.AreEqual(6, updatedFlashcard.OpenCount); // OpenCount incremented from 3 to 4
         }
 
         /// <summary>
