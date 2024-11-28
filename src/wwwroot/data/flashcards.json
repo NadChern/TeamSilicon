@@ -60,16 +60,16 @@
     "Answer": "A nullable type allows value types to hold null values. It\u0027s used with \u0027?\u0027 (e.g., int? x = null) to represent an undefined or absent value.",
     "Difficulty": 2,
     "Url": "",
-    "OpenCount": 0
+    "OpenCount": 1
   },
   {
     "Id": "f366e99b-eab4-42c8-b517-ff282074de7e",
     "CategoryId": "CPlusPlus",
     "Question": "What is the difference between a pointer and a reference in C\u002B\u002B?",
-    "Answer": "A pointer stores the memory address of a variable, while a reference is an alias to an existing variable. Pointers can be reassigned, but references cannot.",
+    "Answer": "A pointer stores the memory address of a variable, while a reference is an alias to an existing variable. Pointers can be reassigned, but references cannot. ",
     "Difficulty": 3,
-    "Url": "",
-    "OpenCount": 1
+    "Url": "https://www.geeksforgeeks.org/pointers-vs-references-cpp/?ref=gcse_outind",
+    "OpenCount": 2
   },
   {
     "Id": "18dabdbd-c1af-4e7c-88e2-3e860720cbc3",
@@ -123,7 +123,7 @@
     "Answer": "An interface defines a contract with no implementation, while an abstract class can contain both abstract and concrete methods. A class can implement multiple interfaces, but it can only inherit from a single abstract class.",
     "Difficulty": 2,
     "Url": "https://www.geeksforgeeks.org/difference-between-abstract-class-and-interface-in-c-sharp/",
-    "OpenCount": 1
+    "OpenCount": 2
   },
   {
     "Id": "b0da6786-bb90-4009-852a-9c20733d88b1",
@@ -132,7 +132,7 @@
     "Answer": "The \u0027using\u0027 statement ensures that unmanaged resources, like file handles or database connections, are properly disposed of when no longer needed. It simplifies resource management by automatically calling Dispose.",
     "Difficulty": 2,
     "Url": "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-statement",
-    "OpenCount": 1
+    "OpenCount": 2
   },
   {
     "Id": "f777a4e9-1c2f-4710-8def-8bb21347488d",
@@ -160,5 +160,14 @@
     "Difficulty": 1,
     "Url": "https://www.geeksforgeeks.org/difference-between-class-and-structure-in-c-sharp/",
     "OpenCount": 0
+  },
+  {
+    "Id": "f75a21ba-5f57-48ca-8bb3-6a83af490ee0",
+    "CategoryId": "CPlusPlus",
+    "Question": "What are the three ways to pass arguments to a function in C\u002B\u002B?",
+    "Answer": "By Value: copies the argument; changes don\u2019t affect the original.\r\nBy Reference: uses a reference; changes affect the original.\r\nBy Pointer: passes a memory address; changes affect the original and allows null.",
+    "Difficulty": 2,
+    "Url": "https://www.geeksforgeeks.org/parameter-passing-techniques-in-cpp/",
+    "OpenCount": 1
   }
 ]
