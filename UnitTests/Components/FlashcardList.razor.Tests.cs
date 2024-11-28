@@ -173,7 +173,7 @@ namespace UnitTests.Components
         /// Tests that ShouldDisplayFlippedLabel returns false when the card is flipped.
         /// </summary>
         [Test]
-        public void ShouldDisplayFlippedLabel_When_IsFlipped_Is_True_Should_Return_False()
+        public void ShouldDisplayFlippedLabel_Valid_IsFlipped_Is_True_Should_Return_False()
         {
             // Arrange
             var page = RenderComponent<FlashcardList>();
@@ -285,7 +285,7 @@ namespace UnitTests.Components
         /// Tests that deleting all cards from a category will display no flashcards message
         /// </summary>
         [Test]
-        public void FlashcardList_Empty_Category_Should_Display_No_Flashcards_Message()
+        public void FlashcardList_Valid_Empty_Category_Should_Display_No_Flashcards_Message()
         {
             // Arrange
             var flashcardService = TestHelper.FlashcardService;
@@ -318,7 +318,7 @@ namespace UnitTests.Components
         /// and toggles the card display.
         /// </summary>
         [Test]
-        public async Task HandleClickOnCard_Should_Update_LastOpenedDate_And_ToggleCard()
+        public async Task HandleClickOnCard_Valid_Should_Update_LastOpenedDate_And_ToggleCard()
         {
             // Arrange
             var page = RenderComponent<FlashcardList>();
@@ -348,7 +348,7 @@ namespace UnitTests.Components
         /// Tests that RedirectToUpdatePage navigates to the correct URL.
         /// </summary>
         [Test]
-        public void RedirectToUpdatePage_Should_Navigate_To_Correct_Url()
+        public void RedirectToUpdatePage_Valid_Should_Navigate_To_Correct_Url()
         {
             // Arrange
             var page = RenderComponent<FlashcardList>();
@@ -820,6 +820,82 @@ namespace UnitTests.Components
             Assert.That(result[1].Id, Is.EqualTo("1")); // Never opened (null treated as oldest)
         }
 
+        
+        /// <summary>
+        /// Tests that SortFlashcards handles missing LastOpenedDates for some flashcards (newest first).
+        /// </summary>
+        [Test]
+        public void SortFlashcards_Valid_LastOpenedDates_MissingKey_NewestFirst_Should_Handle_Fallback()
+        {
+            // Arrange
+            // List of flashcards to be sorted
+            var flashcards = new List<FlashcardModel>
+            {
+                new FlashcardModel { Id = "1" }, 
+                new FlashcardModel { Id = "2" }, 
+                new FlashcardModel { Id = "3" }  
+            };
+
+            // Dictionary of LastOpenedDates
+            var lastOpenedDates = new Dictionary<string, DateTime?>
+            {
+                // No entry for "2", meaning it's treated as DateTime.MaxValue
+                { "1", DateTime.UtcNow.AddDays(-2) }, 
+                { "3", DateTime.UtcNow.AddDays(-1) }  
+            };
+
+            // Render FlashcardList component
+            var page = RenderComponent<FlashcardList>();
+            page.Instance.LastOpenedDates = lastOpenedDates;
+
+            // Act
+            // Sort the flashcards by LastOpenedNewestFirst
+            var result = page.Instance.SortFlashcards(flashcards, 
+                FlashcardList.SortOption.LastOpenedNewestFirst).ToList();
+
+            // Assert
+            // Missing date treated as newest
+            Assert.That(result[0].Id, Is.EqualTo("2")); 
+            Assert.That(result[1].Id, Is.EqualTo("3")); 
+            Assert.That(result[2].Id, Is.EqualTo("1")); 
+        }
+        
+        /// <summary>
+        /// Tests that SortFlashcards handles missing LastOpenedDates for some flashcards (oldest first).
+        /// </summary>
+        [Test]
+        public void SortFlashcards_Valid_LastOpenedDates_MissingKey_OldestFirst_Should_Handle_Fallback()
+        {
+            // Arrange
+            // List of flashcards to be sorted
+            var flashcards = new List<FlashcardModel>
+            {
+                new FlashcardModel { Id = "1" }, 
+                new FlashcardModel { Id = "2" }, 
+                new FlashcardModel { Id = "3" }  
+            };
+
+            // Dictionary of LastOpenedDates
+            var lastOpenedDates = new Dictionary<string, DateTime?>
+            {
+                { "1", DateTime.UtcNow.AddDays(-2) }, // Opened two days ago
+                { "3", DateTime.UtcNow.AddDays(-1) }  // Opened yesterday
+            };
+
+            //  Render FlashcardList component
+            var page = RenderComponent<FlashcardList>();
+            page.Instance.LastOpenedDates = lastOpenedDates;
+
+            // Act
+            var result = page.Instance.SortFlashcards(flashcards, 
+                FlashcardList.SortOption.LastOpenedOldestFirst).ToList();
+
+            // Assert
+            Assert.That(result[0].Id, Is.EqualTo("1")); 
+            Assert.That(result[1].Id, Is.EqualTo("3")); 
+            Assert.That(result[2].Id, Is.EqualTo("2")); 
+        }
+        
         #endregion SortFlashcards
 
         #region HandleSortCriteriaChange
