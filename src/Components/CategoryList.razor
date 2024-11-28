@@ -5,12 +5,13 @@
 @inject JsonFileCategoryService CategoryService
 @inject JsonFileFlashcardService FlashcardService
 @inject NavigationManager NavigationManager
+
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Cute+Font&family=Londrina+Sketch&display=swap" rel="stylesheet">
 
 <!-- Masonry grid to display category cards -->
 <div class="CL-masonry-grid">
-    @foreach (var category in CategoryService.GetAllData()) // Loop through all categories
+    @foreach (var category in CategoryService.GetAllData()) 
     {
         <div class="CL-card" style="background-color: @category.CategoryColor;">
             <div @onclick="() => NavigateToCategory(category.Id)"
@@ -48,11 +49,14 @@
         // Use switch statement to manage heart state
         switch (activeHearts.Contains(categoryId))
         {
-            case true: // If heart is active, remove it from the set
+            // If heart is active, remove it from the set
+            case true: 
                 activeHearts.Remove(categoryId);
                 Console.WriteLine($"Heart removed for category: {categoryId}");
                 break;
-            case false: // If heart is inactive, add it to the set
+                
+            // If heart is inactive, add it to the set    
+            case false: 
                 activeHearts.Add(categoryId);
                 Console.WriteLine($"Heart added for category: {categoryId}");
                 break;
@@ -60,13 +64,13 @@
 
         // Trigger grow animation
         growingHearts.Add(categoryId);
-        InvokeAsync(StateHasChanged); // Ensure the UI updates
+        InvokeAsync(StateHasChanged); 
 
         // Remove grow class after 200ms to allow animation reset
         Task.Delay(200).ContinueWith(_ =>
         {
             growingHearts.Remove(categoryId);
-            InvokeAsync(StateHasChanged); // Update UI again
+            InvokeAsync(StateHasChanged); 
         });
     }
 
