@@ -729,14 +729,16 @@ tr:hover {
     line-height: 1.8;
 }
 
-.AU-sub-font { /* from general with slight adjustments */
+/* Authors Heading */
+.AU-sub-font {
     font-family: 'Roboto', Arial, sans-serif;
     font-size: 1.7rem;
     font-weight: 500;
     color: #555;
     text-align: center;
-    margin: 0.5rem 0 1rem 0;
+    margin: 70px 0 0px; /* Increase space above, reduce space below */
 }
+
 
 .AU-about-container {
     background-color: #B3E5FC;
@@ -807,6 +809,78 @@ tr:hover {
     color: #555; /* Slightly darker color on hover */
 }
 
+/* Author Cards Container */
+.AU-author-container {
+    display: flex;
+    justify-content: center; /* Center the cards within the container */
+    flex-wrap: nowrap; /* Prevent wrapping */
+    gap: 40px; /* Space between cards */
+    margin: 0 auto;
+    max-width: 1200px; /* Manually set to fit three cards and gaps */
+    padding: 50px 20px; /* Add more padding above and below */
+    background-color: #F5F9FF; /* Optional: light background for the container */
+    border-radius: 10px; /* Rounded corners */
+    overflow-x: auto; /* Enable horizontal scrolling if needed on smaller screens */
+    position: relative; /* Ensure the container respects card positioning */
+}
+
+/* Author Card Styling */
+.AU-author-card {
+    width: 350px;
+    height: 650px;
+    background-color: #B3E5FC; /* Light background for the card */
+    border-radius: 15px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    overflow: hidden;
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+/* Hover Effect */
+.AU-author-card:hover {
+    transform: translateY(-20px); /* Slight lift on hover */
+}
+
+/* Author Image */
+.AU-author-card img {
+    width: 100%;
+    height: 350px; /* Taller image */
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow for the image */
+}
+
+/* Author Name */
+.AU-author-card h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #222;
+    margin: 15px 0 10px;
+}
+
+/* Author Biography */
+.AU-author-card p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+    text-align: justify;
+    margin: 0;
+}
+
+.AU-social-links img.AU-icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Social Links Container */
+.AU-social-links {
+    margin-top: 5px; /* Reduce spacing above the icons to bring them closer to the name */
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center; /* Center icons horizontally */
+    gap: 15px; /* Space between the icons */
+}
 
 /* Privacy.cshtml styling
  ----------------------------------------------------*/
