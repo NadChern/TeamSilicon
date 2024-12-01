@@ -50,7 +50,7 @@
     "Question": "What is the difference between a list and a tuple in Python?",
     "Answer": "A List is Mutable (can be modified after creation) and defined with square brackets []. A tuple is Immutable (cannot be modified after creation) and defined with parentheses ().",
     "Difficulty": 1,
-    "Url": "",
+    "Url": "https://www.geeksforgeeks.org/python-difference-between-list-and-tuple/",
     "OpenCount": 1
   },
   {
@@ -169,5 +169,23 @@
     "Difficulty": 2,
     "Url": "https://www.geeksforgeeks.org/parameter-passing-techniques-in-cpp/",
     "OpenCount": 1
+  },
+  {
+    "Id": "5c80c518-d84a-497e-b638-7a5543318bf4",
+    "CategoryId": "Python",
+    "Question": "How do you add an item to a Python list?",
+    "Answer": "Use the append() method. Example: my_list.append(item).",
+    "Difficulty": 1,
+    "Url": "https://www.geeksforgeeks.org/python-list-append-method/",
+    "OpenCount": 0
+  },
+  {
+    "Id": "f27042f4-6dab-4615-a656-dd612fe521e4",
+    "CategoryId": "Python",
+    "Question": "How do you find the length of a list in Python?",
+    "Answer": "Use the len() function. Example: len(my_list).",
+    "Difficulty": 1,
+    "Url": "https://www.geeksforgeeks.org/python-len-function/",
+    "OpenCount": 0
   }
 ]
