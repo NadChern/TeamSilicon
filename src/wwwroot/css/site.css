@@ -583,6 +583,15 @@ tr:hover {
     overflow: hidden;
 }
 
+/* Character Count Styling */
+.char-count {
+    position: absolute;
+    bottom: -2px; /* Adjust based on padding/margin of your input */
+    right: 10px; /* Adjust based on padding/margin of your input */
+    font-size: 0.9rem; /* Smaller font size for unobtrusiveness */
+    color: #666; /* Subtle color */
+}
+
 /* CategoryList.razor styling
 ----------------------------------------------------*/
 /* Define the masonry grid layout */
