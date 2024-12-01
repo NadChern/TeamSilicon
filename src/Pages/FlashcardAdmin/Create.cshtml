@@ -23,19 +23,21 @@
         </div>
 
         <!-- Question, cannot be empty -->
-        <div>
-            <label asp-for="Flashcard.Question">Question</label>
+        <div style="position: relative;">
+            <label for="Question">Question</label>
             <small>Max 100 characters</small>
             <span asp-validation-for="Flashcard.Question" class="text-danger font-weight-bold"></span>
-            <input type="text" asp-for="Flashcard.Question" maxlength="100" placeholder="Type a concise, specific question"/>
+            <input type="text" id="Question" name="Flashcard.Question" value="@Model.Flashcard.Question" maxlength="100" placeholder="Enter your question here" style="width: 100%;" oninput="updateCharCount(this, 'question-char-count', 100)" />
+            <div class="char-count" id="question-char-count">0/100</div>
         </div>
 
         <!-- Answer, cannot be empty -->
-        <div>
-            <label asp-for="Flashcard.Answer">Answer</label>
+        <div style="position: relative; margin-top: 20px;">
+            <label for="Answer">Answer</label>
             <small>Max 250 characters</small>
             <span asp-validation-for="Flashcard.Answer" class="text-danger font-weight-bold"></span>
-            <textarea class= "answer" asp-for="Flashcard.Answer" rows="3" maxlength="250" placeholder="Keep your answer brief and to the point"></textarea>
+            <textarea id="Answer" name="Flashcard.Answer" rows="3" style="width: 100%; resize: none;" maxlength="250" placeholder="Enter your answer here" oninput="updateCharCount(this, 'answer-char-count', 250)">@Model.Flashcard.Answer</textarea>
+            <div class="char-count" id="answer-char-count">0/250</div>
         </div>
 
         <!-- Difficulty Level Numeric Input-->
@@ -80,4 +82,20 @@
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script>
+        function updateCharCount(input, countId, maxLength) {
+            const currentLength = input.value.length;
+            document.getElementById(countId).textContent = `${currentLength}/${maxLength}`;
+        }
+
+        // Initialize the character count on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            const questionInput = document.getElementById('Question');
+            const answerInput = document.getElementById('Answer');
+
+            updateCharCount(questionInput, 'question-char-count', 100);
+            updateCharCount(answerInput, 'answer-char-count', 250);
+        });
+    </script>
 }
