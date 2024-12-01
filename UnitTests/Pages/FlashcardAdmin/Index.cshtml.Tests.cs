@@ -2,6 +2,9 @@
 using ContosoCrafts.WebSite.Pages.FlashcardAdmin;
 using ContosoCrafts.WebSite.Services;
 using System.Linq;
+using ContosoCrafts.WebSite.Models;
+using Moq;
+using System.Collections.Generic;
 
 namespace UnitTests.Pages.FlashcardAdmin
 {
@@ -10,6 +13,7 @@ namespace UnitTests.Pages.FlashcardAdmin
     /// </summary>
     public class IndexModelTests
     {
+
         // Mocked instance of the JsonFileFlashcardService
         private readonly JsonFileFlashcardService _flashcardService;
 
@@ -193,6 +197,25 @@ namespace UnitTests.Pages.FlashcardAdmin
             {
                 Assert.That(resultFlashcards[i].Url, Is.EqualTo(expectedFlashcards[i].Url));
             }
+        }
+        /// <summary>
+        /// Verifies that searching for a specific term returns flashcards with that term in it
+        /// </summary>
+        [Test]
+        public void OnGet_Valid_SearchTerm_Should_Return_Correct_Flashcards()
+        {
+            // Arrange
+            var indexModel = new IndexModel(TestHelper.FlashcardService);
+
+            // Set the search term to "python"
+            indexModel.SearchTerm = "python";
+
+            // Act
+            indexModel.OnGet();
+            var resultCount = indexModel.Flashcards.Count();
+
+            // Assert
+            Assert.That(resultCount, Is.EqualTo(5)); // Expecting 5 flashcards with "python"
         }
 
         #endregion OnGet Tests
