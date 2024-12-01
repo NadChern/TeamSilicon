@@ -6,6 +6,17 @@
 }
 
 <div class="stylebox">
+    <form method="get" action="/FlashcardAdmin/Index">
+        <div class="CI-search-container">
+            <div class="CI-search-bar-wrapper">
+                <input type="text" name="SearchTerm" value="@Model.SearchTerm" placeholder="Search questions..." class="CI-search-input" />
+            </div>
+            <div class="CI-search-btn-wrapper">
+                <button type="submit" class="CI-search-btn">Search</button>
+            </div>
+        </div>
+    </form>
+
     <div class="create-btn">
         <a asp-page="/FlashcardAdmin/Create" class="read-btn">
             Create card
