@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Services;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
 {
@@ -32,14 +34,29 @@ namespace ContosoCrafts.WebSite.Pages.FlashcardAdmin
         public IEnumerable<FlashcardModel> Flashcards { get; private set; }
 
         /// <summary>
-        /// Handles HTTP GET requests to retrieve all flashcards and assigns them
-        /// to Flashcards property
+        /// Search term from the search bar
+        /// </summary>
+        [BindProperty(SupportsGet = true)]
+        public string SearchTerm { get; set; }
+
+        /// <summary>
+        /// Retrieves all flashcards and filters them based on the search term, if provided.
         /// </summary>
         public void OnGet()
         {
-            
-            // Fetch all flashcards from service, store them in Flashcards property
-            Flashcards = FlashcardService.GetAllData();
+            // Fetch all flashcards from the service
+            var allFlashcards = FlashcardService.GetAllData();
+
+            // Filter flashcards only if a search term is provided
+            if (SearchTerm?.Length > 0)
+            {
+                Flashcards = allFlashcards.Where(card =>
+                    card.Question.Contains(SearchTerm, System.StringComparison.OrdinalIgnoreCase));
+                return;
+            }
+
+            // Assign all flashcards to the Flashcards property when no search term is present
+            Flashcards = allFlashcards;
         }
     }
 }
