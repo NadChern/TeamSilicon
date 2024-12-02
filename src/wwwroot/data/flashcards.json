@@ -67,7 +67,7 @@
     "CategoryId": "CPlusPlus",
     "Question": "What is the difference between a pointer and a reference in C\u002B\u002B?",
     "Answer": "A pointer stores the memory address of a variable, while a reference is an alias to an existing variable. Pointers can be reassigned, but references cannot. ",
-    "Difficulty": 3,
+    "Difficulty": 2,
     "Url": "https://www.geeksforgeeks.org/pointers-vs-references-cpp/?ref=gcse_outind",
     "OpenCount": 2
   },
@@ -205,5 +205,50 @@
     "Difficulty": 1,
     "Url": "https://www.geeksforgeeks.org/access-modifiers-in-c/?ref=header_outind ",
     "OpenCount": 1
+  },
+  {
+    "Id": "714078be-6dc7-4545-8d64-c648d45b0f2c",
+    "CategoryId": "OOP",
+    "Question": "What is the difference between overloading and overriding?",
+    "Answer": "Overloading occurs in a single class with methods of same name but different parameters (compile-time polymorphism). Overriding occurs between parent and child classes, where child redefines a parent method with same signature (runtime polymorphism).",
+    "Difficulty": 2,
+    "Url": "https://www.geeksforgeeks.org/function-overloading-vs-function-overriding-in-cpp/ ",
+    "OpenCount": 0
+  },
+  {
+    "Id": "90e4d14a-6c88-4664-86aa-88362c05b9d7",
+    "CategoryId": "CPlusPlus",
+    "Question": "What is the Rule of Three/Five in C\u002B\u002B? ",
+    "Answer": "Rule of Three: Implement Destructor, Copy Constructor, and Copy Assignment Operator for proper resource management. \r\nRule of Five (C\u002B\u002B11): Add Move Constructor and Move Assignment Operator for efficient resource transfer. ",
+    "Difficulty": 3,
+    "Url": "https://www.geeksforgeeks.org/rule-of-five-in-cpp/?ref=ml_lbp ",
+    "OpenCount": 1
+  },
+  {
+    "Id": "6885e9f6-432a-4ad5-9254-4a4bb9a04bf0",
+    "CategoryId": "CPlusPlus",
+    "Question": "What is the difference between a shallow copy and a deep copy? ",
+    "Answer": "Shallow copy copies only object\u0027s memory references, not the actual data. Changes to original affect the copy if shared resources are modified. A deep copy duplicates actual data, creating independent objects. Changes to one don\u0027t affect the other.",
+    "Difficulty": 1,
+    "Url": "https://www.geeksforgeeks.org/difference-between-shallow-and-deep-copy-of-a-class/ ",
+    "OpenCount": 1
+  },
+  {
+    "Id": "fa90bbe5-1021-41c3-9ebe-600156b72e0a",
+    "CategoryId": "CPlusPlus",
+    "Question": "What is a smart pointer, and how does it differ from a raw pointer?",
+    "Answer": "Smart pointer manages the lifetime of dynamically allocated objects, automatically releasing memory when out of scope. Unlike raw pointers, smart pointers ensure safety (no leaks or dangling pointers), ownership semantics, and type safety.",
+    "Difficulty": 3,
+    "Url": "https://www.geeksforgeeks.org/smart-pointers-cpp/ ",
+    "OpenCount": 1
+  },
+  {
+    "Id": "bf7ce411-f8c4-454f-b9bb-e084142fa4f8",
+    "CategoryId": "CPlusPlus",
+    "Question": "What is the role of a destructor in C\u002B\u002B memory management?",
+    "Answer": "A destructor is a special function called automatically when an object goes out of scope or is deleted. It releases resources like dynamic memory or file handles, ensuring proper cleanup and preventing leaks. ",
+    "Difficulty": 1,
+    "Url": "https://www.geeksforgeeks.org/destructors-c/",
+    "OpenCount": 2
   }
 ]
