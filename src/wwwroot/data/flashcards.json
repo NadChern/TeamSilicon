@@ -81,22 +81,13 @@
     "OpenCount": 0
   },
   {
-    "Id": "71202431-03d1-409c-8b39-15c68df9b0d9",
-    "CategoryId": "DS",
-    "Question": "What is a distributed system?",
-    "Answer": "A distributed system is a collection of independent computers that appear to users as a single coherent system. These systems share resources and coordinate tasks to achieve common goals.",
-    "Difficulty": 2,
-    "Url": "",
-    "OpenCount": 1
-  },
-  {
     "Id": "f13c8078-ea8d-495e-9cf2-756736c5669a",
     "CategoryId": "DS",
     "Question": "What is a distributed system?",
     "Answer": "A distributed system is a collection of independent computers that appear to users as a single coherent system. These systems share resources and coordinate tasks to achieve common goals.",
     "Difficulty": 2,
     "Url": "",
-    "OpenCount": 1
+    "OpenCount": 2
   },
   {
     "Id": "3ff9fbc5-55de-48ed-a836-10e6846390dc",
@@ -105,7 +96,7 @@
     "Answer": "Key challenges include latency, fault tolerance, data consistency, and scalability.",
     "Difficulty": 2,
     "Url": "",
-    "OpenCount": 1
+    "OpenCount": 2
   },
   {
     "Id": "ee62425d-4bc7-4975-9f32-450515ea77c7",
@@ -114,7 +105,7 @@
     "Answer": "The CAP theorem states that in a distributed data store, it is impossible to simultaneously guarantee consistency, availability, and partition tolerance.",
     "Difficulty": 3,
     "Url": "",
-    "OpenCount": 1
+    "OpenCount": 2
   },
   {
     "Id": "b5ea9290-428e-4617-8977-4b5a06970fa8",
@@ -250,5 +241,59 @@
     "Difficulty": 1,
     "Url": "https://www.geeksforgeeks.org/destructors-c/",
     "OpenCount": 2
+  },
+  {
+    "Id": "47584fd7-1557-4469-a12f-033a889fccf2",
+    "CategoryId": "DS",
+    "Question": "What is the purpose and process of leader election in distributed systems, and how does it handle node failures?",
+    "Answer": "Leader election in distributed systems is a mechanism to appoint one node as the leader or coordinator among a group of nodes to ensure tasks are efficiently managed and coordinated. The process often uses algorithms like the Bully or Ring algorithms to choose the leader. In case of node failures, these algorithms ensure re-election, relying on communication between nodes to determine the next leader based on specific criteria like process IDs or priorities.",
+    "Difficulty": 3,
+    "Url": "https://en.wikipedia.org/wiki/Leader_election",
+    "OpenCount": 3
+  },
+  {
+    "Id": "b475bd45-7bc3-4963-bf08-f1718ed0940f",
+    "CategoryId": "DS",
+    "Question": "What mechanisms are used to achieve fault tolerance in distributed systems, and what are the trade-offs?",
+    "Answer": "Fault tolerance in distributed systems is achieved using mechanisms such as replication, where data is duplicated across nodes; checkpointing, which saves system state periodically; and redundancy, which ensures critical components have backups. Trade-offs include increased resource usage (e.g., storage and network overhead), potential latency issues due to synchronization, and complexity in maintaining consistency among replicas.",
+    "Difficulty": 3,
+    "Url": "https://www.geeksforgeeks.org/fault-tolerance-in-distributed-system/",
+    "OpenCount": 1
+  },
+  {
+    "Id": "11503794-c5a2-4c3d-91da-8a68580be398",
+    "CategoryId": "DS",
+    "Question": "What are the types of consensus algorithms used in distributed systems, and how do they ensure fault tolerance?",
+    "Answer": "Consensus algorithms like Paxos, Raft, and Byzantine Fault Tolerance (BFT) are used in distributed systems to ensure all nodes agree on a single value despite failures. Paxos achieves consensus by having a proposer suggest values to a quorum of acceptors, while Raft simplifies leader-based consensus for understandability. BFT addresses malicious node failures using advanced cryptographic techniques. These algorithms ensure fault tolerance by replicating state and handling network delays or node failures through retries and acknowledgments.",
+    "Difficulty": 4,
+    "Url": "https://en.wikipedia.org/wiki/Consensus_(computer_science)",
+    "OpenCount": 1
+  },
+  {
+    "Id": "93b76719-bd3f-4d87-a7fa-35c95b30fbcb",
+    "CategoryId": "DS",
+    "Question": "What is eventual consistency in distributed systems, and how does it differ from strong consistency models?",
+    "Answer": "Eventual consistency is a consistency model used in distributed systems that guarantees all replicas of a data item will converge to the same state over time, provided no new updates occur. Unlike strong consistency models, which ensure all nodes see the same data instantly, eventual consistency prioritizes availability and partition tolerance, often at the cost of temporary inconsistencies. It is commonly used in systems like Amazon DynamoDB and Cassandra to achieve high availability and performance in highly distributed environments.",
+    "Difficulty": 3,
+    "Url": "https://en.wikipedia.org/wiki/Eventual_consistency",
+    "OpenCount": 0
+  },
+  {
+    "Id": "59fb576f-8d57-4c7a-9e25-3602703f8716",
+    "CategoryId": "DS",
+    "Question": "Why are distributed systems used?",
+    "Answer": "Distributed systems are used to improve scalability, reliability, and resource sharing across multiple computers.",
+    "Difficulty": 1,
+    "Url": "https://en.wikipedia.org/wiki/Distributed_computing",
+    "OpenCount": 1
+  },
+  {
+    "Id": "91bd0d47-c4a4-4e65-9c2c-da7aadbe907f",
+    "CategoryId": "DS",
+    "Question": "What does replication mean in distributed systems?",
+    "Answer": "Replication means storing copies of data on multiple nodes to ensure reliability.",
+    "Difficulty": 1,
+    "Url": "https://en.wikipedia.org/wiki/Replication_(computing)",
+    "OpenCount": 1
   }
 ]
