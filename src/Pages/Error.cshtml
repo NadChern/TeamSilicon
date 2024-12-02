@@ -5,14 +5,29 @@
     ViewData["Title"] = "Error";
 }
 
-<h2 class="text-danger">Wait a minute!</h2>
+<div class="error-center-content">
+    <h4 class="error-text-danger">Wait a minute!</h4>
+    <h5 class="error-text-danger">Our helper doggie was working on your request, yet he couldn't understand.</h5>
 
-<h4 class="text-danger">Our helper doggie was working on your request, yet he couldn't understand.</h4>
+    <img src="img/error_mo.svg" alt="Error dog illustration" />
 
+    <div class="error-redirect">
+        Redirecting back to the homepage in <span class="error-countdown">5</span> seconds...
+    </div>
+</div>
 
-<img src="img/error_mo.svg" />
+@section Scripts {
+    <script>let countdownElement = document.querySelector('.error-countdown');
+        let seconds = 5;
 
-
-<p>
-    Don't give up! Click here for redirecting to the home page. Let him try again!
-</p>
+        // Countdown logic
+        const interval = setInterval(() => {
+            seconds--;
+            countdownElement.textContent = seconds;
+            if (seconds <= 0) {
+                clearInterval(interval);
+                // Redirect to homepage
+                window.location.href = "/";
+            }
+        }, 1000);</script>
+}
