@@ -18,7 +18,7 @@
                  class="CL-image" style="background-image: url('@category.Image');">
             </div>
             <div class="CL-card-count CL-cute-font-regular">
-                @($" Contians card number: {FlashcardService.GetCountByCategoryId(@category.Id)} ")
+                @($" {ShowLabel(category.Id)} ")
                 <!-- Heart icon with dynamic classes and click event -->
                 <span class="material-symbols-outlined CL-heart-icon @GetHeartClass(category.Id) @GetGrowClass(category.Id)"
                       @onclick="() => ToggleHeart(category.Id)">
@@ -50,13 +50,13 @@
         switch (activeHearts.Contains(categoryId))
         {
             // If heart is active, remove it from the set
-            case true: 
+            case true:
                 activeHearts.Remove(categoryId);
                 Console.WriteLine($"Heart removed for category: {categoryId}");
                 break;
-                
+
             // If heart is inactive, add it to the set    
-            case false: 
+            case false:
                 activeHearts.Add(categoryId);
                 Console.WriteLine($"Heart added for category: {categoryId}");
                 break;
@@ -64,13 +64,13 @@
 
         // Trigger grow animation
         growingHearts.Add(categoryId);
-        InvokeAsync(StateHasChanged); 
+        InvokeAsync(StateHasChanged);
 
         // Remove grow class after 200ms to allow animation reset
         Task.Delay(200).ContinueWith(_ =>
         {
             growingHearts.Remove(categoryId);
-            InvokeAsync(StateHasChanged); 
+            InvokeAsync(StateHasChanged);
         });
     }
 
@@ -96,4 +96,23 @@
     /// <param name="categoryId">The ID of the category.</param>
     void NavigateToCategory(string categoryId) =>
         NavigationManager.NavigateTo($"/Flashcards/{categoryId}", forceLoad: true);
+
+
+    /// <summary>
+    /// Showing label of card counts on each category card.
+    /// </summary>
+    /// <param name="categoryId">The ID of the category.</param>
+    string ShowLabel(string categoryId)
+    {
+        int count = FlashcardService.GetCountByCategoryId(categoryId);
+        switch (count)
+        {
+            case 0:
+                return "Currently no card";
+            case 1:
+                return "Contains 1 card";
+            default:
+                return "Contains " + count + " cards";
+        }
+    }
 }
