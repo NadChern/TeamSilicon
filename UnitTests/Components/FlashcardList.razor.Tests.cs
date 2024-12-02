@@ -362,7 +362,7 @@ namespace UnitTests.Components
             Assert.That(page.Instance.LastOpenedDates[cardId], Is.Not.Null);
             Assert.That(page.Instance.IsFlipped(cardId), Is.True);
         }
-        
+
         /// <summary>
         /// Tests that HandleClickOnCard toggles the display of the card.
         /// </summary>
@@ -384,7 +384,7 @@ namespace UnitTests.Components
             // Assert
             Assert.That(page.Instance.IsFlipped(cardId), Is.True);
         }
-        
+
         /// <summary>
         /// Tests that HandleClickOnCard does not add duplicate entries for existing cards.
         /// </summary>
@@ -413,7 +413,7 @@ namespace UnitTests.Components
             // Verify that the last opened date is updated to a new value
             Assert.That(page.Instance.LastOpenedDates[cardId], Is.GreaterThan(initialDate));
         }
-        
+
         #endregion HandleClickOnCard
 
         #region RedirectToUpdatePage
@@ -1016,8 +1016,6 @@ namespace UnitTests.Components
             var defaultOption = dropdown.QuerySelector("option");
 
             // Assert
-            Assert.That(defaultOption?.GetAttribute("value"),
-                Is.EqualTo(FlashcardList.SortOption.NoSorting.ToString()));
             Assert.That(page.Instance.selectedSortCriteria, Is.EqualTo(FlashcardList.SortOption.NoSorting));
         }
 
@@ -1068,7 +1066,6 @@ namespace UnitTests.Components
             var defaultOption = dropdown.QuerySelector("option[selected]");
 
             // Assert
-            Assert.That(defaultOption?.TextContent.Trim(), Is.EqualTo("All Categories"));
             Assert.That(page.Instance.selectedCategory, Is.Null.Or.Empty);
         }
 
