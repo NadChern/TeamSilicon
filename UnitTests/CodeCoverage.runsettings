@@ -37,6 +37,7 @@ Included items must then not match any entries in the exclude list to remain inc
 								<ModulePath>.*NUnit.*</ModulePath>
 								<ModulePath>.*moq.*</ModulePath>
 								<ModulePath>.*AspNetCoreGeneratedDocument.*</ModulePath>
+								<ModulePath>.*Humanizer.*</ModulePath> 
                 <ModulePath>.*bunit.core.*</ModulePath>
                 <ModulePath>.*bunit.web.*</ModulePath>
               </Exclude>
