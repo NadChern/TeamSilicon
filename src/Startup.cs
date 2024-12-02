@@ -9,13 +9,13 @@ using ContosoCrafts.WebSite.Services;
 
 namespace ContosoCrafts.WebSite
 {
-    
+
     /// <summary>
     /// Configures services and request pipeline for web application.
     /// </summary>
     public class Startup
     {
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Startup"/> class.
         /// </summary>
@@ -37,7 +37,7 @@ namespace ContosoCrafts.WebSite
         /// <param name="services">The collection of services to configure.</param>
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             // This method gets called by the runtime. Use this method to add services to the container.
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddServerSideBlazor();
@@ -57,23 +57,25 @@ namespace ContosoCrafts.WebSite
         /// <param name="env">The hosting environment information.</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
+
+            // Re-execute to a single Razor Page for all status codes
+            app.UseStatusCodePagesWithReExecute("/Error", "?statusCode={0}");
+
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
@@ -81,5 +83,6 @@ namespace ContosoCrafts.WebSite
                 endpoints.MapBlazorHub();
             });
         }
+
     }
 }
