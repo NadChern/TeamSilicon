@@ -10,6 +10,7 @@
     <Content Remove="Pages\Deck\**" />
     <EmbeddedResource Remove="Pages\Deck\**" />
     <None Remove="Pages\Deck\**" />
+    <Content Remove="wwwroot\img\" />
   </ItemGroup>
   
   <ItemGroup>
@@ -38,5 +39,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\icons\" />
+    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 </Project>
