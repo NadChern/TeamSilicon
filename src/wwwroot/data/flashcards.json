@@ -23,8 +23,8 @@
     "Question": "What is encapsulation and why is it important?",
     "Answer": "Encapsulation is the bundling of data (attributes) and methods (functions) into a single unit or class, restricting access to certain components. It protects object integrity and promotes modular, maintainable code.",
     "Difficulty": 1,
-    "Url": "https://www.geeksforgeeks.org/encapsulation-in-java/",
-    "OpenCount": 2
+    "Url": "https://www.geeksforgeeks.org/encapsulation-in-cpp/ ",
+    "OpenCount": 4
   },
   {
     "Id": "e01073ce-be37-464a-aa8d-cc7e80579815",
@@ -187,5 +187,23 @@
     "Difficulty": 1,
     "Url": "https://www.geeksforgeeks.org/python-len-function/",
     "OpenCount": 0
+  },
+  {
+    "Id": "aaf00498-2323-4245-b9bf-d4d21714f6f3",
+    "CategoryId": "OOP",
+    "Question": "How does abstraction differ from encapsulation? ",
+    "Answer": "Abstraction hides complexity, showing only essential features via abstract classes/interfaces. Encapsulation protects data by restricting access with access modifiers. Abstraction focuses on functionality, while encapsulation secures data.",
+    "Difficulty": 2,
+    "Url": "https://www.geeksforgeeks.org/difference-between-abstraction-and-encapsulation-in-java-with-examples/ ",
+    "OpenCount": 1
+  },
+  {
+    "Id": "a421e6ab-4282-4685-bb63-60138940485c",
+    "CategoryId": "OOP",
+    "Question": "What are access specifiers and when to use them? ",
+    "Answer": "Access specifiers control visibility of class members.\r\nPublic: accessible everywhere; use for public interfaces. \r\nPrivate: accessible only within class; use to hide implementation. \r\nProtected: accessible within class, subclasses; use for inheritance.",
+    "Difficulty": 1,
+    "Url": "https://www.geeksforgeeks.org/access-modifiers-in-c/?ref=header_outind ",
+    "OpenCount": 1
   }
 ]
