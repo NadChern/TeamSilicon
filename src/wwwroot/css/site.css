@@ -661,15 +661,15 @@ tr:hover {
 /* Default heart icon styling */
 .CL-heart-icon {
     cursor: pointer;
-    font-size: 24px;
     color: white;
     transition: transform 0.2s ease-in-out, color 0.3s ease; /* Smooth transition */
 }
 
 /* Styling for active heart */
-.CL-heart-icon.active {
-    color: red;
-}
+    .CL-heart-icon.active {
+        color: red;
+        font-variation-settings: 'FILL' 1;
+    }
 
 /* Scaling the heart icon when growing */
 .CL-heart-icon.grow {
