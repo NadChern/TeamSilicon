@@ -47,6 +47,8 @@ namespace ContosoCrafts.WebSite
             services.AddTransient<JsonFileFlashcardService>();
             services.AddBlazoredLocalStorage();
             services.AddScoped<LocalStorageFlashcardService>();
+            services.AddScoped<LocalStorageCategoryService>();
+
         }
 
         /// <summary>
