@@ -12,7 +12,7 @@ namespace UnitTests.Pages.Error
     public class ErrorTests
     {
         #region TestSetup
-        
+
         /// <summary>
         /// The page model being tested, an instance of ErrorModel.
         /// </summary>
@@ -39,7 +39,7 @@ namespace UnitTests.Pages.Error
         #endregion TestSetup
 
         #region OnGet
-        
+
         /// <summary>
         /// Tests that OnGet method correctly sets RequestId when an Activity is started.
         /// </summary>
@@ -77,6 +77,22 @@ namespace UnitTests.Pages.Error
             // Assert
             Assert.That(pageModel.ModelState.IsValid, Is.EqualTo(true));
             Assert.That(pageModel.RequestId, Is.EqualTo("trace"));
+            Assert.That(pageModel.ShowRequestId, Is.EqualTo(true));
+        }
+
+        /// <summary>
+        /// Tests that ShowRequestId is true if RequestId has a value.
+        /// </summary>
+        [Test]
+        public void OnGet_RequestId_NotEmpty_Should_Set_ShowRequestId_To_True()
+        {
+            // Arrange
+            pageModel.RequestId = "12345";
+
+            // Act
+            pageModel.OnGet();
+
+            // Assert
             Assert.That(pageModel.ShowRequestId, Is.EqualTo(true));
         }
 
