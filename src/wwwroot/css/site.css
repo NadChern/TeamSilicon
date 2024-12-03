@@ -690,6 +690,25 @@ tr:hover {
     font-variation-settings: 'FILL' 100, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
+.controls {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.control-item {
+    min-width: 200px;
+}
+
+.select-category {
+    background-color: #f5f5f5;
+    color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
 /* CardsIndex styling
  ----------------------------------------------------*/
 /* Search Container Styling */

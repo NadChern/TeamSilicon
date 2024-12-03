@@ -9,9 +9,20 @@
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Cute+Font&family=Londrina+Sketch&display=swap" rel="stylesheet">
 
-<!-- Masonry grid to display category cards -->
+<!-- Filter Controls -->
+<div class="controls">
+    <div class="control-item">
+        <label class="select-label" for="categoryFilter">Filter by:</label>
+        <select id="categoryFilter" class="select-category" @onchange="HandleFilterChange">
+            <option value="All" selected="@isAllCategories">All Categories</option>
+            <option value="Favorite" selected="@(isAllCategories == false)">My Favorite</option>
+        </select>
+    </div>
+</div>
+
+<!-- Masonry grid to display filtered category cards -->
 <div class="CL-masonry-grid">
-    @foreach (var category in CategoryService.GetAllData())
+    @foreach (var category in GetFilteredCategories())
     {
         <div class="CL-card" style="background-color: @category.CategoryColor;">
             <div @onclick="() => NavigateToCategory(category.Id)"
@@ -19,7 +30,6 @@
             </div>
             <div class="CL-card-count CL-cute-font-regular">
                 @($" {ShowLabel(category.Id)} ")
-                <!-- Heart icon with dynamic classes and click event -->
                 <span class="material-symbols-outlined CL-heart-icon @GetHeartClass(category.Id) @GetGrowClass(category.Id)"
                       @onclick="() => ToggleHeartAsync(category.Id)">
                     favorite
@@ -29,21 +39,21 @@
     }
 </div>
 
+
 @code {
     private HashSet<string> activeHearts = new();
     private HashSet<string> growingHearts = new();
-
     private bool _hasLoadedFromStorage = false;
+    private bool isAllCategories = true; // Default filter: Show all categories
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender && !_hasLoadedFromStorage)
         {
-            // 从本地存储加载数据
+            // Load favorite categories from local storage
             activeHearts = await LocalStorageService.GetFavoritesAsync();
             _hasLoadedFromStorage = true;
 
-            // 刷新 UI
             StateHasChanged();
         }
     }
@@ -87,5 +97,25 @@
             1 => "Contains 1 card",
             _ => "Contains " + count + " cards"
         };
+    }
+
+    void HandleFilterChange(ChangeEventArgs e)
+    {
+        isAllCategories = e.Value.ToString() == "All";
+        StateHasChanged();
+    }
+
+    IEnumerable<CategoryModel> GetFilteredCategories()
+    {
+        var allCategories = CategoryService.GetAllData();
+
+        // Return all categories if the filter is set to "All"
+        if (isAllCategories)
+        {
+            return allCategories;
+        }
+
+        // Return only favorite categories if the filter is set to "Favorite"
+        return allCategories.Where(c => activeHearts.Contains(c.Id));
     }
 }
