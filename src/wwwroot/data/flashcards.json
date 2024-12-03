@@ -295,5 +295,50 @@
     "Difficulty": 1,
     "Url": "https://en.wikipedia.org/wiki/Replication_(computing)",
     "OpenCount": 1
+  },
+  {
+    "Id": "991d7dff-5749-4c34-95ba-25e29c24d810",
+    "CategoryId": "Mobile",
+    "Question": "What are the key stages in the mobile app development process?",
+    "Answer": "The mobile app development process typically includes stages such as idea and conceptualization, market research, design, development, testing, deployment, and maintenance.",
+    "Difficulty": 2,
+    "Url": "https://www.keelis.com/blog/mobile-app-development-guide",
+    "OpenCount": 1
+  },
+  {
+    "Id": "04046573-269e-4116-9dac-2826b1c05509",
+    "CategoryId": "Mobile",
+    "Question": "What are some best practices for mobile app development?",
+    "Answer": "Best practices include conducting thorough market research, focusing on user-centric design, ensuring app security, performing rigorous testing, and planning for regular updates.",
+    "Difficulty": 2,
+    "Url": "https://www.geeksforgeeks.org/best-practices-for-mobile-app-development/",
+    "OpenCount": 0
+  },
+  {
+    "Id": "8447ac23-bb94-4447-82cb-82702653bffd",
+    "CategoryId": "Mobile",
+    "Question": "How do low-code and no-code platforms impact mobile app development?",
+    "Answer": "Low-code and no-code platforms simplify app development by allowing users to create applications with minimal coding, thereby accelerating the development process and reducing costs.",
+    "Difficulty": 2,
+    "Url": "https://www.lambdatest.com/learning-hub/mobile-app-development",
+    "OpenCount": 0
+  },
+  {
+    "Id": "d85c27c7-251c-447f-8425-bae5125842b1",
+    "CategoryId": "Mobile",
+    "Question": "Why is user experience (UX) important in mobile app development?",
+    "Answer": "A positive user experience is crucial as it enhances user satisfaction, increases engagement, and can lead to higher retention rates for the app.",
+    "Difficulty": 2,
+    "Url": "https://www.upwork.com/resources/mobile-application-development",
+    "OpenCount": 1
+  },
+  {
+    "Id": "84c799f4-2e4c-4f87-9ac4-f3f63fe16372",
+    "CategoryId": "Mobile",
+    "Question": "What role does security play in mobile app development?",
+    "Answer": "Security is vital in mobile app development to protect user data, ensure privacy, and maintain trust. Implementing robust security measures helps prevent breaches and cyberattacks.",
+    "Difficulty": 2,
+    "Url": "https://www.tmcnet.com/topics/articles/2024/11/27/461303-how-android-development-companies-tackle-app-security-data.htm",
+    "OpenCount": 0
   }
 ]
