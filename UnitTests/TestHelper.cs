@@ -58,6 +58,9 @@ namespace UnitTests
         // Service to manage local storage, used in unit tests
         public static LocalStorageFlashcardService LocalStorageFlashcardService;
 
+        // Service to manage categoryList local storage, used in unit tests
+        public static LocalStorageCategoryService LocalStorageCategoryService;
+
         /// <summary>
         /// Default Constructor
         /// </summary>
@@ -109,6 +112,9 @@ namespace UnitTests
 
             // Initialize LocalStorageFlashcardService with the mocked ILocalStorageService
             LocalStorageFlashcardService = new LocalStorageFlashcardService(mockLocalStorageService.Object);
+
+            // Initialize LocalStorageCategoryService with the mocked ILocalStorageService
+            LocalStorageCategoryService = new LocalStorageCategoryService(mockLocalStorageService.Object);
         }
     }
 }
