@@ -184,5 +184,49 @@ namespace UnitTests.Components
             // Assert: Verify the state was updated
             Assert.That(page.Instance.isAllCategories, Is.False);
         }
+
+        /// <summary>
+        /// Test if clicking on a category navigates to the correct URL.
+        /// </summary>
+        [Test]
+        public void CategoryList_Should_Navigate_To_Category_On_Click()
+        {
+            // Arrange
+            var navigationManager = Services.GetRequiredService<FakeNavigationManager>();
+            var page = RenderComponent<CategoryList>();
+            var categoryId = "OOP"; // Valid category ID
+
+            // Act
+            var categoryCard = page.Find($"div[style*='#003366'] .CL-image"); // Target the correct clickable div
+            categoryCard.Click(); // Simulate the click event
+
+            // Assert
+            Assert.That(navigationManager.Uri, Does.EndWith($"/Flashcards/{categoryId}"), "The URL should navigate to the correct category.");
+        }
+
+
+        /// <summary>
+        /// Test if toggling the heart icon adds or removes the active class.
+        /// </summary>
+        [Test]
+        public void CategoryList_ToggleHeart_Should_Add_Or_Remove_Active_Class()
+        {
+            // Arrange
+            var page = RenderComponent<CategoryList>();
+            var categoryId = "Python"; // Valid category ID
+            var heartIcon = page.Find($"div[style*='#D269E7'] .CL-heart-icon");
+
+            // Act
+            heartIcon.Click(); // Toggle heart on
+            var hasActiveClassAfterClick = heartIcon.ClassList.Contains("active");
+
+            heartIcon.Click(); // Toggle heart off
+            var hasActiveClassAfterSecondClick = heartIcon.ClassList.Contains("active");
+
+            // Assert
+            Assert.That(hasActiveClassAfterClick, Is.True, "The heart icon should have the 'active' class after being clicked once.");
+            Assert.That(hasActiveClassAfterSecondClick, Is.False, "The heart icon should not have the 'active' class after being clicked twice.");
+        }
+
     }
 }
