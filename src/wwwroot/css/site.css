@@ -925,8 +925,8 @@ tr:hover {
 .AU-author-container {
     display: flex;
     justify-content: center;
-    flex-wrap: nowrap;
-    gap: 40px;
+    flex-wrap: wrap;
+    gap: 20px;
     margin: 0 auto;
     max-width: 1200px; 
     padding: 50px 20px;
@@ -938,7 +938,7 @@ tr:hover {
 
 /* Author Card Styling */
 .AU-author-card {
-    width: 350px;
+    width: 340px;
     height: 650px;
     background-color: #B3E5FC;
     border-radius: 15px;
@@ -947,11 +947,13 @@ tr:hover {
     text-align: center;
     padding: 20px;
     transition: transform 0.3s ease;
+    margin-bottom: 20px;
 }
 
 /* Hover Effect */
 .AU-author-card:hover {
-    transform: translateY(-20px);
+        transform: scale(1.12);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Author Image */
@@ -992,6 +994,19 @@ tr:hover {
     display: flex;
     justify-content: center; 
     gap: 15px;
+}
+
+/* Media Query for Small Screens */
+@media (max-width: 768px) {
+    .AU-author-container {
+        flex-direction: column; /* Stack cards vertically */
+        align-items: center; /* Center cards */
+    }
+
+    .AU-author-card {
+        width: 90%; /* Reduce card width to fit smaller screens */
+        height: auto; /* Allow height to adjust dynamically */
+    }
 }
 
 /* Privacy.cshtml styling
