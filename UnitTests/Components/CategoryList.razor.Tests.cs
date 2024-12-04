@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bunit;
@@ -7,7 +5,6 @@ using NUnit.Framework;
 using ContosoCrafts.WebSite.Services;
 using ContosoCrafts.WebSite.Components;
 using Bunit.TestDoubles;
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Components.Web;
 using ContosoCrafts.WebSite.Models;
