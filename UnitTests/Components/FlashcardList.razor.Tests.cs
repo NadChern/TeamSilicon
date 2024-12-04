@@ -290,9 +290,21 @@ namespace UnitTests.Components
             // Arrange
             var flashcardService = TestHelper.FlashcardService;
 
-            var cardIdToDelete = "18dabdbd-c1af-4e7c-88e2-3e860720cbc3"; // Mobile card
+            // Id of "Mobile" flashcards
+            var MobileCard1 = "18dabdbd-c1af-4e7c-88e2-3e860720cbc3";
+            var MobileCard2 = "991d7dff-5749-4c34-95ba-25e29c24d810";
+            var MobileCard3 = "04046573-269e-4116-9dac-2826b1c05509";
+            var MobileCard4 = "8447ac23-bb94-4447-82cb-82702653bffd";
+            var MobileCard5 = "d85c27c7-251c-447f-8425-bae5125842b1";
+            var MobileCard6 = "84c799f4-2e4c-4f87-9ac4-f3f63fe16372";
 
-            flashcardService.RemoveFlashcard(cardIdToDelete);
+            // Deleting all "Mobile" flashcards
+            flashcardService.RemoveFlashcard(MobileCard1);
+            flashcardService.RemoveFlashcard(MobileCard2);
+            flashcardService.RemoveFlashcard(MobileCard3);
+            flashcardService.RemoveFlashcard(MobileCard4);
+            flashcardService.RemoveFlashcard(MobileCard5);
+            flashcardService.RemoveFlashcard(MobileCard6);
 
             // Render the FlashcardList component
             var page = RenderComponent<FlashcardList>();
