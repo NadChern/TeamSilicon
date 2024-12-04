@@ -4,7 +4,6 @@
 
 @inject JsonFileCategoryService CategoryService
 @inject JsonFileFlashcardService FlashcardService
-@inject LocalStorageCategoryService LocalStorageService
 @inject NavigationManager NavigationManager
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Cute+Font&family=Londrina+Sketch&display=swap" rel="stylesheet">
@@ -41,10 +40,12 @@
 
 
 @code {
+    [Inject]
+    public LocalStorageCategoryService LocalStorageService { get; set; }
     private HashSet<string> activeHearts = new();
     private HashSet<string> growingHearts = new();
     private bool _hasLoadedFromStorage = false;
-    private bool isAllCategories = true; // Default filter: Show all categories
+    public bool isAllCategories = true; // Default filter: Show all categories
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -58,7 +59,7 @@
         }
     }
 
-    async Task ToggleHeartAsync(string categoryId)
+    public async Task ToggleHeartAsync(string categoryId)
     {
         if (activeHearts.Contains(categoryId))
         {
@@ -85,7 +86,7 @@
     string GetGrowClass(string categoryId) =>
         growingHearts.Contains(categoryId) ? "grow" : string.Empty;
 
-    void NavigateToCategory(string categoryId) =>
+    public void NavigateToCategory(string categoryId) =>
         NavigationManager.NavigateTo($"/Flashcards/{categoryId}", forceLoad: true);
 
     string ShowLabel(string categoryId)
@@ -99,13 +100,13 @@
         };
     }
 
-    void HandleFilterChange(ChangeEventArgs e)
+    public void HandleFilterChange(ChangeEventArgs e)
     {
         isAllCategories = e.Value.ToString() == "All";
         StateHasChanged();
     }
 
-    IEnumerable<CategoryModel> GetFilteredCategories()
+    public IEnumerable<CategoryModel> GetFilteredCategories()
     {
         var allCategories = CategoryService.GetAllData();
 
