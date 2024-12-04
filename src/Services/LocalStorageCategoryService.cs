@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Blazored.LocalStorage;
 
@@ -10,9 +9,16 @@ namespace ContosoCrafts.WebSite.Services
     /// </summary>
     public class LocalStorageCategoryService
     {
+        // Service to interact with local storage.
         private readonly ILocalStorageService _localStorage;
+        
+        // Key used to store and retrieve favorite categories in local storage
         private const string StorageKey = "FavoriteCategories";
 
+        /// <summary>
+        /// Initializes a new instance of the LocalStorageCategoryService class
+        /// </summary>
+        /// <param name="localStorage"></param>
         public LocalStorageCategoryService(ILocalStorageService localStorage)
         {
             _localStorage = localStorage;
@@ -33,7 +39,9 @@ namespace ContosoCrafts.WebSite.Services
         /// <param name="categoryId">The ID of the category to add.</param>
         public async Task AddToFavoritesAsync(string categoryId)
         {
+            // Retrieve the current list of favorite categories
             var favorites = await GetFavoritesAsync();
+            
             favorites.Add(categoryId);
             await _localStorage.SetItemAsync(StorageKey, favorites);
         }
@@ -44,7 +52,9 @@ namespace ContosoCrafts.WebSite.Services
         /// <param name="categoryId">The ID of the category to remove.</param>
         public async Task RemoveFromFavoritesAsync(string categoryId)
         {
+            // Retrieve the current list of favorite categories
             var favorites = await GetFavoritesAsync();
+            
             favorites.Remove(categoryId);
             await _localStorage.SetItemAsync(StorageKey, favorites);
         }
@@ -56,7 +66,9 @@ namespace ContosoCrafts.WebSite.Services
         /// <returns>True if the category is a favorite; otherwise, false.</returns>
         public async Task<bool> IsFavoriteAsync(string categoryId)
         {
+            // Retrieve the current list of favorite categories
             var favorites = await GetFavoritesAsync();
+            
             return favorites.Contains(categoryId);
         }
     }
