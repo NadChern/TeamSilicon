@@ -1,5 +1,6 @@
 @using ContosoCrafts.WebSite.Models
 @using ContosoCrafts.WebSite.Services
+@* do not delete Microsoft.AspNeCore.Components.Web, handles navigation*@
 @using Microsoft.AspNetCore.Components.Web
 
 @inject JsonFileCategoryService CategoryService
@@ -40,13 +41,25 @@
 
 
 @code {
+    
     [Inject]
+    // Service for managing favorite categories in local storage
     public LocalStorageCategoryService LocalStorageService { get; set; }
+    
+    // Set of category IDs marked as favorites (active hearts)
     public HashSet<string> activeHearts = new();
+    
+    // Set of category IDs currently showing a "growing" animation
     public HashSet<string> growingHearts = new();
+    
+    // Flag to ensure local storage is loaded only once
     public bool _hasLoadedFromStorage = false;
-    public bool isAllCategories = true; // Default filter: Show all categories
+    
+    // Default filter: Show all categories
+    public bool isAllCategories = true; 
 
+    // Called after the component has rendered.
+    // Loads favorite categories from local storage on the first render.
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender && !_hasLoadedFromStorage)
@@ -58,7 +71,8 @@
             StateHasChanged();
         }
     }
-
+    
+    // Toggles the "favorite" state of a category and updates local storage
     public async Task ToggleHeartAsync(string categoryId)
     {
         if (activeHearts.Contains(categoryId))
@@ -66,6 +80,7 @@
             activeHearts.Remove(categoryId);
             await LocalStorageService.RemoveFromFavoritesAsync(categoryId);
         }
+        
         else
         {
             activeHearts.Add(categoryId);
@@ -80,17 +95,22 @@
         InvokeAsync(StateHasChanged);
     }
 
+    // Determines the CSS class for a heart icon based on its "favorite" state
     public string GetHeartClass(string categoryId) =>
         activeHearts.Contains(categoryId) ? "active" : string.Empty;
 
+    // Determines the CSS class for a heart icon based on its "growing" animation state
     public string GetGrowClass(string categoryId) =>
         growingHearts.Contains(categoryId) ? "grow" : string.Empty;
 
+    // Navigates to the page displaying flashcards for the selected category
     public void NavigateToCategory(string categoryId) =>
         NavigationManager.NavigateTo($"/Flashcards/{categoryId}", forceLoad: true);
 
+    // Displays a label for the category indicating the number of flashcards it contains
     public string ShowLabel(string categoryId)
     {
+        // Retrieve flashcard count
         int count = FlashcardService.GetCountByCategoryId(categoryId);
         return count switch
         {
@@ -100,14 +120,17 @@
         };
     }
 
+    // Handles changes to the category filter (All or Favorite)
     public void HandleFilterChange(ChangeEventArgs e)
     {
         isAllCategories = e.Value.ToString() == "All";
         StateHasChanged();
     }
 
+    // Retrieves the list of categories filtered based on the current filter state
     public IEnumerable<CategoryModel> GetFilteredCategories()
     {
+        // Retrieve all categories
         var allCategories = CategoryService.GetAllData();
 
         // Return all categories if the filter is set to "All"
