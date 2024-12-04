@@ -2,9 +2,6 @@
 using ContosoCrafts.WebSite.Pages.FlashcardAdmin;
 using ContosoCrafts.WebSite.Services;
 using System.Linq;
-using ContosoCrafts.WebSite.Models;
-using Moq;
-using System.Collections.Generic;
 
 namespace UnitTests.Pages.FlashcardAdmin
 {
