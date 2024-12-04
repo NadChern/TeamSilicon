@@ -830,10 +830,13 @@ tr:hover {
 .AU-carousel-container {
     position: relative;
     width: 100%;
+    height: 350px;
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    padding-bottom: 0;
+    background-color: #B3E5FC;
 }
 
 /* Carousel Content */
@@ -885,6 +888,34 @@ tr:hover {
 .AU-carousel-button-left:hover,
 .AU-carousel-button-right:hover {
     color: #555;
+}
+
+/* Indicators Wrapper */
+.AU-carousel-indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    margin-bottom: 7px;
+}
+
+/* Individual Indicator */
+.AU-indicator {
+    width: 12px;
+    height: 12px;
+    background-color: #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+    /* Active Indicator */
+    .AU-indicator.active {
+        background-color: #007BFF;
+    }
+
 /* Forgetting Curve Styling (AUFC)*/
 .AUFC-carousel-item {
     position: relative;
@@ -951,10 +982,10 @@ tr:hover {
 }
 
 /* Hover Effect */
-.AU-author-card:hover {
+    .AU-author-card:hover {
         transform: scale(1.12);
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-}
+    }
 
 /* Author Image */
 .AU-author-card img {
