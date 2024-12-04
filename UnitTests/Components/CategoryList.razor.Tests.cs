@@ -9,6 +9,7 @@ using ContosoCrafts.WebSite.Components;
 using Bunit.TestDoubles;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace UnitTests.Components
 {
@@ -80,21 +81,27 @@ namespace UnitTests.Components
         }
 
         /// <summary>
-        /// Ensures that GetFilteredCategories returns only favorite categories when the filter is set to "Favorite."
+        /// Ensures that clicking on a heart icon and filtering by "Favorite" returns only favorited categories.
         /// </summary>
         [Test]
-        public async Task GetFilteredCategories_Favorite_Should_Return_Only_Favorites()
+        public async Task Clicking_Heart_And_Filtering_Should_Show_Only_Favorited_Categories()
         {
-            // Arrange: Render the component and simulate adding a category to favorites
+            // Arrange:
             var page = RenderComponent<CategoryList>();
             var categoryId = "category-id-1";
-            await TestHelper.LocalStorageCategoryService.AddToFavoritesAsync(categoryId);
 
-            // Act: Change the filter to "Favorite" and fetch the filtered categories
-            page.Instance.isAllCategories = false;
+            // Simulate clicking the heart icon to favorite the category
+            var heartButton = page.Find($".CL-heart-icon");
+            await heartButton.ClickAsync(new MouseEventArgs());
+
+            // Act:
+            var dropdown = page.Find("#categoryFilter");
+            dropdown.Change("Favorite");
+
+            // Fetch the filtered categories
             var result = page.Instance.GetFilteredCategories().ToList();
 
-            // Assert: Verify the result contains only the favorited category
+            // Assert: 
             Assert.That(result.Any(c => c.Id == categoryId), Is.False);
         }
 
