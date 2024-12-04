@@ -245,8 +245,8 @@
   {
     "Id": "47584fd7-1557-4469-a12f-033a889fccf2",
     "CategoryId": "DS",
-    "Question": "What is the purpose and process of leader election in distributed systems, and how does it handle node failures?",
-    "Answer": "Leader election in distributed systems is a mechanism to appoint one node as the leader or coordinator among a group of nodes to ensure tasks are efficiently managed and coordinated. The process often uses algorithms like the Bully or Ring algorithms to choose the leader. In case of node failures, these algorithms ensure re-election, relying on communication between nodes to determine the next leader based on specific criteria like process IDs or priorities.",
+    "Question": "What is leader election in distributed systems and how does it handle node failures?",
+    "Answer": "Leader election appoints a coordinator to manage tasks. Algorithms like Bully and Ring are used. Failures trigger re-election, ensuring continuity by choosing a new leader based on criteria like process IDs.",
     "Difficulty": 3,
     "Url": "https://en.wikipedia.org/wiki/Leader_election",
     "OpenCount": 3
@@ -254,8 +254,8 @@
   {
     "Id": "b475bd45-7bc3-4963-bf08-f1718ed0940f",
     "CategoryId": "DS",
-    "Question": "What mechanisms are used to achieve fault tolerance in distributed systems, and what are the trade-offs?",
-    "Answer": "Fault tolerance in distributed systems is achieved using mechanisms such as replication, where data is duplicated across nodes; checkpointing, which saves system state periodically; and redundancy, which ensures critical components have backups. Trade-offs include increased resource usage (e.g., storage and network overhead), potential latency issues due to synchronization, and complexity in maintaining consistency among replicas.",
+    "Question": "What enables fault tolerance in distributed systems, and what are the trade-offs?",
+    "Answer": "Fault tolerance uses replication, checkpointing, and redundancy for reliability. Trade-offs include higher resource consumption, potential latency from synchronization, and consistency challenges among replicas.",
     "Difficulty": 3,
     "Url": "https://www.geeksforgeeks.org/fault-tolerance-in-distributed-system/",
     "OpenCount": 1
@@ -263,8 +263,8 @@
   {
     "Id": "11503794-c5a2-4c3d-91da-8a68580be398",
     "CategoryId": "DS",
-    "Question": "What are the types of consensus algorithms used in distributed systems, and how do they ensure fault tolerance?",
-    "Answer": "Consensus algorithms like Paxos, Raft, and Byzantine Fault Tolerance (BFT) are used in distributed systems to ensure all nodes agree on a single value despite failures. Paxos achieves consensus by having a proposer suggest values to a quorum of acceptors, while Raft simplifies leader-based consensus for understandability. BFT addresses malicious node failures using advanced cryptographic techniques. These algorithms ensure fault tolerance by replicating state and handling network delays or node failures through retries and acknowledgments.",
+    "Question": "What are consensus algorithms in distributed systems, and how do they ensure fault tolerance?",
+    "Answer": "Consensus algorithms like Paxos, Raft, and BFT ensure nodes agree on a value despite failures. They use replication, retries, and acknowledgments to handle network delays and maintain state consistency.",
     "Difficulty": 4,
     "Url": "https://en.wikipedia.org/wiki/Consensus_(computer_science)",
     "OpenCount": 1
@@ -272,8 +272,8 @@
   {
     "Id": "93b76719-bd3f-4d87-a7fa-35c95b30fbcb",
     "CategoryId": "DS",
-    "Question": "What is eventual consistency in distributed systems, and how does it differ from strong consistency models?",
-    "Answer": "Eventual consistency is a consistency model used in distributed systems that guarantees all replicas of a data item will converge to the same state over time, provided no new updates occur. Unlike strong consistency models, which ensure all nodes see the same data instantly, eventual consistency prioritizes availability and partition tolerance, often at the cost of temporary inconsistencies. It is commonly used in systems like Amazon DynamoDB and Cassandra to achieve high availability and performance in highly distributed environments.",
+    "Question": "What is eventual consistency and how does it differ from strong consistency in distributed systems?",
+    "Answer": "Eventual consistency ensures replicas converge to the same state over time, prioritizing availability over instant consistency. Strong consistency ensures all nodes see identical data instantly but sacrifices availability.",
     "Difficulty": 3,
     "Url": "https://en.wikipedia.org/wiki/Eventual_consistency",
     "OpenCount": 0
@@ -282,7 +282,7 @@
     "Id": "59fb576f-8d57-4c7a-9e25-3602703f8716",
     "CategoryId": "DS",
     "Question": "Why are distributed systems used?",
-    "Answer": "Distributed systems are used to improve scalability, reliability, and resource sharing across multiple computers.",
+    "Answer": "Distributed systems improve scalability, reliability, and resource sharing by distributing tasks across multiple computers.",
     "Difficulty": 1,
     "Url": "https://en.wikipedia.org/wiki/Distributed_computing",
     "OpenCount": 1
@@ -291,7 +291,7 @@
     "Id": "91bd0d47-c4a4-4e65-9c2c-da7aadbe907f",
     "CategoryId": "DS",
     "Question": "What does replication mean in distributed systems?",
-    "Answer": "Replication means storing copies of data on multiple nodes to ensure reliability.",
+    "Answer": "Replication stores copies of data across nodes, ensuring reliability, fault tolerance, and improved availability.",
     "Difficulty": 1,
     "Url": "https://en.wikipedia.org/wiki/Replication_(computing)",
     "OpenCount": 1
@@ -300,7 +300,7 @@
     "Id": "991d7dff-5749-4c34-95ba-25e29c24d810",
     "CategoryId": "Mobile",
     "Question": "What are the key stages in the mobile app development process?",
-    "Answer": "The mobile app development process typically includes stages such as idea and conceptualization, market research, design, development, testing, deployment, and maintenance.",
+    "Answer": "Key stages include idea conceptualization, market research, design, development, testing, deployment, and ongoing maintenance to ensure performance and user satisfaction.",
     "Difficulty": 2,
     "Url": "https://www.keelis.com/blog/mobile-app-development-guide",
     "OpenCount": 1
@@ -308,8 +308,8 @@
   {
     "Id": "04046573-269e-4116-9dac-2826b1c05509",
     "CategoryId": "Mobile",
-    "Question": "What are some best practices for mobile app development?",
-    "Answer": "Best practices include conducting thorough market research, focusing on user-centric design, ensuring app security, performing rigorous testing, and planning for regular updates.",
+    "Question": "What are best practices for mobile app development?",
+    "Answer": "Best practices include thorough market research, user-centric design, app security, rigorous testing, and planning for updates to ensure usability and reliability.",
     "Difficulty": 2,
     "Url": "https://www.geeksforgeeks.org/best-practices-for-mobile-app-development/",
     "OpenCount": 0
@@ -318,7 +318,7 @@
     "Id": "8447ac23-bb94-4447-82cb-82702653bffd",
     "CategoryId": "Mobile",
     "Question": "How do low-code and no-code platforms impact mobile app development?",
-    "Answer": "Low-code and no-code platforms simplify app development by allowing users to create applications with minimal coding, thereby accelerating the development process and reducing costs.",
+    "Answer": "Low-code/no-code platforms simplify app creation with minimal coding, reducing development time and cost while enabling broader participation in app design and deployment.",
     "Difficulty": 2,
     "Url": "https://www.lambdatest.com/learning-hub/mobile-app-development",
     "OpenCount": 0
@@ -327,7 +327,7 @@
     "Id": "d85c27c7-251c-447f-8425-bae5125842b1",
     "CategoryId": "Mobile",
     "Question": "Why is user experience (UX) important in mobile app development?",
-    "Answer": "A positive user experience is crucial as it enhances user satisfaction, increases engagement, and can lead to higher retention rates for the app.",
+    "Answer": "Good UX boosts user satisfaction, retention, and engagement, ensuring app success through a focus on user needs and seamless interactions.",
     "Difficulty": 2,
     "Url": "https://www.upwork.com/resources/mobile-application-development",
     "OpenCount": 1
@@ -336,7 +336,7 @@
     "Id": "84c799f4-2e4c-4f87-9ac4-f3f63fe16372",
     "CategoryId": "Mobile",
     "Question": "What role does security play in mobile app development?",
-    "Answer": "Security is vital in mobile app development to protect user data, ensure privacy, and maintain trust. Implementing robust security measures helps prevent breaches and cyberattacks.",
+    "Answer": "Security protects user data, ensures privacy, and builds trust. Robust measures prevent breaches, cyberattacks, and unauthorized access.",
     "Difficulty": 2,
     "Url": "https://www.tmcnet.com/topics/articles/2024/11/27/461303-how-android-development-companies-tackle-app-security-data.htm",
     "OpenCount": 0
