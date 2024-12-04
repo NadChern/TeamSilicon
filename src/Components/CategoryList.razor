@@ -42,9 +42,9 @@
 @code {
     [Inject]
     public LocalStorageCategoryService LocalStorageService { get; set; }
-    private HashSet<string> activeHearts = new();
-    private HashSet<string> growingHearts = new();
-    private bool _hasLoadedFromStorage = false;
+    public HashSet<string> activeHearts = new();
+    public HashSet<string> growingHearts = new();
+    public bool _hasLoadedFromStorage = false;
     public bool isAllCategories = true; // Default filter: Show all categories
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -80,16 +80,16 @@
         InvokeAsync(StateHasChanged);
     }
 
-    string GetHeartClass(string categoryId) =>
+    public string GetHeartClass(string categoryId) =>
         activeHearts.Contains(categoryId) ? "active" : string.Empty;
 
-    string GetGrowClass(string categoryId) =>
+    public string GetGrowClass(string categoryId) =>
         growingHearts.Contains(categoryId) ? "grow" : string.Empty;
 
     public void NavigateToCategory(string categoryId) =>
         NavigationManager.NavigateTo($"/Flashcards/{categoryId}", forceLoad: true);
 
-    string ShowLabel(string categoryId)
+    public string ShowLabel(string categoryId)
     {
         int count = FlashcardService.GetCountByCategoryId(categoryId);
         return count switch
