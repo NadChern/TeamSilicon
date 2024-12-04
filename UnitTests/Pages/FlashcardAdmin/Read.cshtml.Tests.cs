@@ -10,7 +10,10 @@ namespace UnitTests.Pages.FlashcardAdmin
     /// </summary>
     public class ReadTests
     {
+        // Service to manage flashcard data stored in a JSON file
         private JsonFileFlashcardService flashcardService;
+        
+        // Model representing the data and logic for the current read page
         private ReadModel readModel;
 
         #region OnGet
