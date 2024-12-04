@@ -62,7 +62,7 @@ namespace UnitTests.Components
         /// Tests if toggling a card increments the OpenCount
         /// </summary>
         [Test]
-        public void FlashcardList_ToggleCard_Should_Increment_OpenCount()
+        public void FlashcardList_Valid_ToggleCard_Should_Increment_OpenCount()
         {
             // Arrange
             Services.AddSingleton<JsonFileFlashcardService>(TestHelper.FlashcardService);
@@ -82,7 +82,7 @@ namespace UnitTests.Components
         /// Tests that toggling a non-existent card ID does not change the OpenCount of other flashcards
         /// </summary>
         [Test]
-        public void FlashcardList_ToggleCard_Invalid_Id_Should_Not_Change_Other_Flashcard_OpenCount()
+        public void FlashcardList_Valid_ToggleCard_Invalid_Id_Should_Not_Change_Other_Flashcard_OpenCount()
         {
             // Arrange
             Services.AddSingleton<JsonFileFlashcardService>(TestHelper.FlashcardService);
@@ -109,7 +109,7 @@ namespace UnitTests.Components
         /// Tests that toggling card 3 times should increment the OpenCount 3 times
         /// </summary>
         [Test]
-        public void FlashcardList_ToggleCard_Three_Times_Should_Increment_OpenCount_Three_Times()
+        public void FlashcardList_Valid_ToggleCard_Three_Times_Should_Increment_OpenCount_Three_Times()
         {
             // Arrange
             Services.AddSingleton<JsonFileFlashcardService>(TestHelper.FlashcardService);
@@ -189,7 +189,7 @@ namespace UnitTests.Components
         /// Tests that CanShowMoreInfoLink returns true when the card is flipped
         /// </summary>
         [Test]
-        public void CanShowMoreInfoLink_When_IsFlipped_Is_True_Should_Return_True()
+        public void CanShowMoreInfoLink_Valid_IsFlipped_True_Should_Return_True()
         {
             // Arrange
             var page = RenderComponent<FlashcardList>();
@@ -205,7 +205,7 @@ namespace UnitTests.Components
         /// Tests that the categoryId is updated correctly when navigating to a specific category URL
         /// </summary>
         [Test]
-        public void OnParametersSet_Should_Update_CategoryId()
+        public void OnParametersSet_Valid_Category_Should_Update_CategoryId()
         {
             // Arrange
             Services.AddSingleton<JsonFileCategoryService>(TestHelper.CategoryService);
