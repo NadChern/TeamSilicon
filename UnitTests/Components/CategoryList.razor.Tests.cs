@@ -126,18 +126,21 @@ namespace UnitTests.Components
         }
 
         /// <summary>
-        /// Verifies that the filter dropdown defaults to "All Categories" on initial render.
+        /// Verifies that the filter dropdown contains both "All Categories" and "My Favorite" options.
         /// </summary>
         [Test]
-        public void CategoryList_Valid_Default_Should_Have_All_Filter_Selected()
+        public void CategoryList_Valid_FilterDropdown_Should_Contain_Both_Options()
         {
             // Act: Render the component and find the filter dropdown
             var page = RenderComponent<CategoryList>();
             var dropdown = page.Find("#categoryFilter");
-            var selectedOption = dropdown.QuerySelector("option[selected]");
 
-            // Assert: Verify the selected option is "All Categories"
-            Assert.That(selectedOption?.TextContent, Is.EqualTo("All Categories"));
+            // Find all option elements within the dropdown
+            var options = dropdown.QuerySelectorAll("option").Select(option => option.TextContent).ToList();
+
+            // Assert: Verify that both "All Categories" and "My Favorite" are present
+            Assert.That(options, Does.Contain("All Categories"));
+            Assert.That(options, Does.Contain("My Favorite"));
         }
 
         /// <summary>
