@@ -10,6 +10,7 @@ using Bunit.TestDoubles;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Components.Web;
+using ContosoCrafts.WebSite.Models;
 
 namespace UnitTests.Components
 {
@@ -235,5 +236,50 @@ namespace UnitTests.Components
             Assert.That(hasActiveClassAfterSecondClick, Is.False, "The heart icon should not have the 'active' class after being clicked twice.");
         }
 
+        /// <summary>
+        /// Tests the ShowLabel function to ensure it correctly updates the label.
+        /// </summary>
+        [Test]
+        public void ShowLabel_Should_Update_When_Flashcards_Are_Deleted()
+        {
+            // Arrange
+            // Render the CategoryList component to initialize the test context
+            var page = RenderComponent<CategoryList>();
+
+            // Define a test category ID and create two mock flashcards belonging to this category
+            var testCategoryId = "test-category";
+            var flashcard1 = new FlashcardModel { Id = "flashcard-1", CategoryId = testCategoryId, Question = "Question 1", Answer = "Answer 1" };
+            var flashcard2 = new FlashcardModel { Id = "flashcard-2", CategoryId = testCategoryId, Question = "Question 2", Answer = "Answer 2" };
+
+            // Add the mock flashcards to the FlashcardService
+            TestHelper.FlashcardService.CreateData(flashcard1);
+            TestHelper.FlashcardService.CreateData(flashcard2);
+
+            // Act
+            // Retrieve the label for the test category when both flashcards are present
+            var labelWithTwoCards = page.Instance.ShowLabel(testCategoryId);
+
+            // Remove the first flashcard from the service
+            TestHelper.FlashcardService.RemoveFlashcard(flashcard1.Id);
+
+            // Retrieve the label for the test category after one flashcard is removed
+            var labelWithOneCard = page.Instance.ShowLabel(testCategoryId);
+
+            // Remove the second flashcard from the service
+            TestHelper.FlashcardService.RemoveFlashcard(flashcard2.Id);
+
+            // Retrieve the label for the test category after all flashcards are removed
+            var labelWithNoCards = page.Instance.ShowLabel(testCategoryId);
+
+            // Assert
+            // Verify that the label correctly indicates 2 cards when both flashcards are present
+            Assert.That(labelWithTwoCards, Is.EqualTo("Contains 2 cards"), "Label should indicate 2 cards initially.");
+
+            // Verify that the label updates to indicate 1 card after one flashcard is removed
+            Assert.That(labelWithOneCard, Is.EqualTo("Contains 1 card"), "Label should update to 1 card after one is removed.");
+
+            // Verify that the label updates to indicate no cards after all flashcards are removed
+            Assert.That(labelWithNoCards, Is.EqualTo("Currently no card"), "Label should update to no cards after all are removed.");
+        }
     }
 }
