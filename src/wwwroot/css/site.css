@@ -885,6 +885,40 @@ tr:hover {
 .AU-carousel-button-left:hover,
 .AU-carousel-button-right:hover {
     color: #555;
+/* Forgetting Curve Styling (AUFC)*/
+.AUFC-carousel-item {
+    position: relative;
+}
+
+.AUFC-link {
+    color: #007BFF;
+    text-decoration: underline;
+}
+
+.AUFC-image-container {
+    position: absolute;
+    bottom: 20px;
+    right: 100px;
+    text-align: center;
+}
+
+.AUFC-image {
+    width: 270px;
+    height: 140px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.AUFC-source {
+    font-size: 0.8rem;
+    color: #555;
+    margin-top: 0px;
+    text-align: center;
+}
+
+.AUFC-source-link {
+    color: #007BFF;
+    text-decoration: underline;
 }
 
 /* Author Cards Container */
