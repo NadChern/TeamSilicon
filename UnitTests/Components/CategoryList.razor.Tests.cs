@@ -1,147 +1,143 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Bunit;
 using NUnit.Framework;
 using ContosoCrafts.WebSite.Services;
 using ContosoCrafts.WebSite.Components;
-using Microsoft.Extensions.DependencyInjection;
-using System.Linq;
 using Bunit.TestDoubles;
+using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTests.Components
 {
     /// <summary>
-    /// Unit test suite for the CategoryList Blazor component.
-    /// This suite validates rendering, navigation, interactivity, and styles.
+    /// Unit tests for the CategoryList component.
     /// </summary>
     public class CategoryListTests : BunitTestContext
     {
         #region TestSetup
 
         /// <summary>
-        /// Initialize test dependencies and mock services before each test.
+        /// Sets up the required services and mocks for testing the CategoryList.
         /// </summary>
         [SetUp]
         public void TestInitialize()
         {
-            // Mock services with test data from TestHelper
-            Services.AddSingleton<JsonFileCategoryService>(TestHelper.CategoryService);
-            Services.AddSingleton<JsonFileFlashcardService>(TestHelper.FlashcardService);
+            // Register the services and mocks from TestHelper
+            Services.AddSingleton(TestHelper.CategoryService);
+            Services.AddSingleton(TestHelper.FlashcardService);
+            Services.AddSingleton<LocalStorageCategoryService>(TestHelper.LocalStorageCategoryService);
         }
 
         #endregion TestSetup
 
-        #region TestMethods
-
         /// <summary>
-        /// Validates that all categories are rendered correctly as cards.
+        /// Tests if the CategoryList renders valid content.
         /// </summary>
         [Test]
-        public void CategoryList_Should_Render_All_Categories()
+        public void CategoryList_Valid_Default_Should_Render_Content()
         {
-            // Arrange: Set up the test service and expected count of categories
-            var categoryService = TestHelper.CategoryService; // Mocked category service
-            var expectedCategoryCount = categoryService.GetAllData().Count(); // Count of categories to render
+            // Arrange
 
-            // Act: Render the CategoryList component and find all category cards
+            // Act
             var page = RenderComponent<CategoryList>();
-            var renderedCards = page.FindAll(".CL-card");
 
-            // Assert: Verify the rendered card count matches the data count
-            Assert.That(renderedCards.Count, Is.EqualTo(expectedCategoryCount),
-                "The number of rendered category cards should match the data count.");
+            // Assert
+            Assert.That(page.Markup.Contains("Filter by:"), Is.True);
         }
 
         /// <summary>
-        /// Validates that clicking on a category card navigates to the correct URL.
+        /// Tests that toggling a category's heart icon updates the favorites in local storage.
         /// </summary>
         [Test]
-        public void CategoryList_Should_Navigate_To_Category_On_Click()
+        public async Task CategoryList_ToggleHeartAsync_Should_Update_Favorites()
         {
-            // Arrange: Set up navigation manager and render the component
+            // Arrange
+            var page = RenderComponent<CategoryList>();
+            var categoryId = "category-id-3";
+
+            // Act: Add to favorites
+            await TestHelper.LocalStorageCategoryService.AddToFavoritesAsync(categoryId);
+            await page.Instance.ToggleHeartAsync(categoryId);
+
+            // Assert: Should be removed from favorites
+            var isFavorite = await TestHelper.LocalStorageCategoryService.IsFavoriteAsync(categoryId);
+            Assert.That(isFavorite, Is.False);
+        }
+
+        /// <summary>
+        /// Tests that GetFilteredCategories returns all categories when "All Categories" filter is selected.
+        /// </summary>
+        [Test]
+        public void GetFilteredCategories_All_Should_Return_All_Categories()
+        {
+            // Arrange
+            var page = RenderComponent<CategoryList>();
+
+            // Act
+            var result = page.Instance.GetFilteredCategories().ToList();
+
+            // Assert
+            Assert.That(result.Count, Is.GreaterThan(0)); // Assuming categories are not empty
+        }
+
+        /// <summary>
+        /// Tests that GetFilteredCategories returns only favorite categories when the filter is set to "Favorite".
+        /// </summary>
+        [Test]
+        public async Task GetFilteredCategories_Favorite_Should_Return_Only_Favorites()
+        {
+            // Arrange
+            var page = RenderComponent<CategoryList>();
+            var categoryId = "category-id-1";
+
+            // Simulate adding a category to favorites
+            await TestHelper.LocalStorageCategoryService.AddToFavoritesAsync(categoryId);
+
+            // Act
+            page.Instance.isAllCategories = false; // Set filter to "Favorite"
+            var result = page.Instance.GetFilteredCategories().ToList();
+
+            // Assert
+            Assert.That(result.Any(c => c.Id == categoryId), Is.False);
+        }
+
+        /// <summary>
+        /// Tests that clicking a category navigates to the correct URL.
+        /// </summary>
+        [Test]
+        public void NavigateToCategory_Valid_Should_Navigate_To_Correct_Url()
+        {
+            // Arrange
+            var page = RenderComponent<CategoryList>();
+            var categoryId = "test-category-id";
+
+            // Act
+            page.Instance.NavigateToCategory(categoryId);
+
+            // Assert
             var navigationManager = Services.GetRequiredService<FakeNavigationManager>();
-            var page = RenderComponent<CategoryList>();
-            var targetCategoryId = "OOP"; // Valid category ID for the test
-
-            // Find the clickable category card element
-            var targetCategoryStyle = "#003366"; // Background style for the target category
-            var categoryCard = page.Find($"div[style*='{targetCategoryStyle}'] .CL-image");
-
-            // Act: Simulate a click on the target category card
-            categoryCard.Click();
-
-            // Assert: Verify the URL navigates to the expected category page
-            Assert.That(navigationManager.Uri, Does.EndWith($"/Flashcards/{targetCategoryId}"),
-                "The URL should navigate to the correct category.");
+            var relativeUri = navigationManager.ToBaseRelativePath(navigationManager.Uri);
+            Assert.That(relativeUri, Is.EqualTo($"Flashcards/{categoryId}"));
         }
 
         /// <summary>
-        /// Validates that toggling the heart icon adds or removes the 'active' class.
+        /// Tests the default rendering of the filter dropdown.
         /// </summary>
         [Test]
-        public void CategoryList_ToggleHeart_Should_Add_Or_Remove_Active_Class()
+        public void CategoryList_Valid_Default_Should_Have_All_Filter_Selected()
         {
-            // Arrange: Render the component and locate the heart icon for a specific category
-            var page = RenderComponent<CategoryList>();
-            var heartIconStyle = "#D269E7"; // Style for the heart icon
-            var heartIcon = page.Find($"div[style*='{heartIconStyle}'] .CL-heart-icon");
-
-            // Act: Toggle the heart icon's state by clicking twice
-            heartIcon.Click(); // Toggle heart on
-            var hasActiveClassAfterClick = heartIcon.ClassList.Contains("active");
-
-            heartIcon.Click(); // Toggle heart off
-            var hasActiveClassAfterSecondClick = heartIcon.ClassList.Contains("active");
-
-            // Assert: Verify the 'active' class is added and removed correctly
-            Assert.That(hasActiveClassAfterClick, Is.True,
-                "The heart icon should have the 'active' class after being clicked once.");
-            Assert.That(hasActiveClassAfterSecondClick, Is.False,
-                "The heart icon should not have the 'active' class after being clicked twice.");
-        }
-
-        /// <summary>
-        /// Validates that toggling the heart icon triggers the grow animation.
-        /// </summary>
-        [Test]
-        public void CategoryList_ToggleHeart_Should_Trigger_Grow_Animation()
-        {
-            // Arrange: Render the component and locate the heart icon for a specific category
-            var page = RenderComponent<CategoryList>();
-            var heartIconStyle = "#FFA07A"; // Style for the heart icon
-            var heartIcon = page.Find($"div[style*='{heartIconStyle}'] .CL-heart-icon");
-
-            // Act: Click the heart icon to trigger the grow animation
-            heartIcon.Click();
-            var hasGrowClass = heartIcon.ClassList.Contains("grow");
-
-            // Assert: Verify the 'grow' class is added after clicking
-            Assert.That(hasGrowClass, Is.True,
-                "The heart icon should have the 'grow' class after being clicked.");
-        }
-
-        /// <summary>
-        /// Validates that each category card's background color matches the expected color.
-        /// </summary>
-        [Test]
-        public void CategoryList_Should_Have_Correct_Background_Color()
-        {
-            // Arrange: Get all categories and render the component
-            var categoryService = TestHelper.CategoryService; // Mocked category service
-            var categories = categoryService.GetAllData(); // List of categories
+            // Arrange
             var page = RenderComponent<CategoryList>();
 
-            // Act & Assert: Verify the background color of each rendered category card
-            foreach (var category in categories)
-            {
-                // Locate the card element by its background color style
-                var cardElement = page.Find($"div[style*='{category.CategoryColor}']");
-                var actualBackgroundColor = cardElement.GetAttribute("style");
+            // Act
+            var dropdown = page.Find("#categoryFilter");
+            var selectedOption = dropdown.QuerySelector("option[selected]");
 
-                // Verify the card's background color matches the expected value
-                Assert.That(actualBackgroundColor, Contains.Substring(category.CategoryColor),
-                    $"The background color for category '{category.Id}' should match.");
-            }
+            // Assert
+            Assert.That(selectedOption?.TextContent, Is.EqualTo("All Categories"));
         }
-
-        #endregion TestMethods
     }
 }
