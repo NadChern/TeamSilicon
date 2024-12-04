@@ -53,7 +53,7 @@
                 <p class="AU-con-font AUFC-source">
                     Source: <a href="https://www.growthengineering.co.uk/forgetting-curve/" target="_blank" class="AUFC-source-link">Growth Engineering</a>
                 </p>
-    </div>
+            </div>
         </div>
 
         <!-- Study Tips Section -->
@@ -76,6 +76,14 @@
     <!-- Carousel Controls -->
     <button class="AU-carousel-button-left" onclick="moveCarousel(-1)">&lt;</button>
     <button class="AU-carousel-button-right" onclick="moveCarousel(1)">&gt;</button>
+
+    <!-- Page Indicators -->
+    <div class="AU-carousel-indicators">
+        <span class="AU-indicator" onclick="moveToSlide(0)"></span>
+        <span class="AU-indicator" onclick="moveToSlide(1)"></span>
+        <span class="AU-indicator" onclick="moveToSlide(2)"></span>
+        <span class="AU-indicator" onclick="moveToSlide(3)"></span>
+    </div>
 </div>
 
 <!-- Carousel Script -->
@@ -87,33 +95,46 @@
         const totalItems = carouselContent.children.length;
         const itemWidth = carouselContent.children[0].offsetWidth;
 
-        // Update the current index based on the direction
+        // Update the current index, looping back if needed
         currentIndex = (currentIndex + direction + totalItems) % totalItems;
 
         // Calculate the offset for the transform
         const offset = -currentIndex * itemWidth;
         carouselContent.style.transform = `translateX(${offset}px)`;
 
-        // Update visibility of the buttons based on current index
-        updateButtonVisibility();
+        // Update the indicators
+        updateIndicators();
     }
 
-    function updateButtonVisibility() {
-        const leftButton = document.querySelector('.AU-carousel-button-left');
-        const rightButton = document.querySelector('.AU-carousel-button-right');
+    function moveToSlide(index) {
+        const carouselContent = document.querySelector('.AU-carousel-content');
+        const itemWidth = carouselContent.children[0].offsetWidth;
 
-        // Show or hide buttons based on current index
-        if (currentIndex === 0) {
-            leftButton.style.display = 'none'; // Hide the left button on "About Us"
-            rightButton.style.display = 'inline-block'; // Show the right button
-        } else if (currentIndex === 1) {
-            leftButton.style.display = 'inline-block'; // Show the left button
-            rightButton.style.display = 'none'; // Hide the right button on "Why Us"
-        }
+        // Set the current index to the clicked indicator
+        currentIndex = index;
+
+        // Calculate the offset for the transform
+        const offset = -currentIndex * itemWidth;
+        carouselContent.style.transform = `translateX(${offset}px)`;
+
+        // Update the indicators
+        updateIndicators();
     }
 
-    // Call this once initially to set button visibility on page load
-    document.addEventListener('DOMContentLoaded', updateButtonVisibility);
+    function updateIndicators() {
+        const indicators = document.querySelectorAll('.AU-indicator');
+
+        // Remove the 'active' class from all indicators
+        indicators.forEach(indicator => indicator.classList.remove('active'));
+
+        // Add the 'active' class to the current indicator
+        indicators[currentIndex].classList.add('active');
+    }
+
+    // Initialize indicators on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        updateIndicators();
+    });
 </script>
 
 <!-- Authors Section -->
@@ -138,7 +159,6 @@
             - like this flashcards website! I truly hope you find this website helpful in your journey. 
             And as always, don’t hesitate to share your thoughts and let us know what you think! 😊
         </p>
-
     </div>
 
     <div class="AU-author-card">
