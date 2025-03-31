@@ -2,11 +2,7 @@
 
 A modern web application built by Team Silicon for the Fundamentals of Software Engineering course at Seattle University. This project transforms the basic Contoso Crafts template into an interactive flashcards learning platform, demonstrating practical application of software engineering principles.
 
-<video width="640" height="360" controls>
-  <source src="./Presentation-Team01.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
+[Watch Demo Video](./Presentation-Team01.mp4)
 
 ## Technologies Used
 
